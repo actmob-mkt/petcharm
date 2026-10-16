@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Carrinho | PetCharm</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/simbolo-petcharm.png">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+<style>
+body{margin:0;font-family:Poppins,system-ui,sans-serif;color:#1E1730;background:#FFFFFF;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:#6834CC}
+a:hover{color:#4B21A0}
+button,input{font-family:inherit}
+nav::-webkit-scrollbar{display:none}
+</style>
+</helmet>
+<dc-import name="PC Header" ativo="" hint-size="100%,170px"></dc-import>
+<main id="conteudo" style="max-width:1280px;margin:0 auto;padding:40px 24px 96px">
+  <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:12px;margin-bottom:32px">
+    <h1 style="margin:0;font-size:36px;line-height:40px;font-weight:600;letter-spacing:-0.01em">Seu carrinho</h1>
+    <span style="font-size:16px;line-height:24px;color:#5E5873">{{ countTxt }}</span>
+  </div>
+
+  <sc-if value="{{ vazio }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:16px;padding:80px 24px;border-radius:32px;background:#F8F6FC;text-align:center">
+      <span aria-hidden="true" style="width:80px;height:80px;display:grid;place-items:center;border-radius:9999px;background:#6834CC"><i class="ph-fill ph-paw-print" style="font-size:40px;color:#FFFFFF"></i></span>
+      <h2 style="margin:0;font-size:24px;line-height:32px;font-weight:600">Seu carrinho está vazio</h2>
+      <p style="margin:0;max-width:440px;font-size:16px;line-height:24px;color:#5E5873;text-wrap:pretty">Comece pelo tapete higiênico PetCharm, o item que mais volta para o carrinho dos tutores.</p>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px">
+        <a href="PetCharm%20Produto.dc.html?p=tapete-30" style="padding:12px 24px;border-radius:9999px;background:#6834CC;color:#FFFFFF;font-size:16px;line-height:24px;font-weight:600;text-decoration:none" style-hover="background:#4B21A0;color:#FFFFFF">Ver tapete PetCharm</a>
+        <a href="PetCharm%20Home.dc.html#mais-vendidos" style="padding:12px 24px;border-radius:9999px;background:#FFFFFF;color:#4B21A0;font-size:16px;line-height:24px;font-weight:600;text-decoration:none;border:1px solid #E3D9F8">Mais vendidos</a>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ cheio }}" hint-placeholder-val="{{ true }}">
+    <div style="display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start">
+      <section aria-label="Itens" style="flex:999 1 560px;min-width:0;display:flex;flex-direction:column;gap:16px">
+        <div style="display:flex;flex-direction:column;gap:8px;padding:16px 24px;border-radius:16px;background:#F8F6FC">
+          <span style="display:flex;align-items:center;gap:8px;font-size:14px;line-height:20px;font-weight:500"><i class="ph-fill ph-truck" style="font-size:20px;color:#6834CC"></i>{{ freteMsg }}</span>
+          <div style="height:8px;border-radius:9999px;background:#E3D9F8;overflow:hidden"><div style="height:100%;width:{{ fretePct }};border-radius:9999px;background:#6834CC;transition:width 700ms cubic-bezier(0.32,0.72,0,1)"></div></div>
+        </div>
+        <sc-for list="{{ lines }}" as="l" hint-placeholder-count="2">
+          <article style="display:flex;flex-wrap:wrap;gap:16px;padding:16px;border:1px solid #EEEAF4;border-radius:24px">
+            <a href="{{ l.href }}" aria-label="{{ l.nome }}" style="width:96px;height:96px;flex-shrink:0;display:grid;place-items:center;border-radius:8px;background:{{ l.tint }};overflow:hidden"><sc-if value="{{ l.img }}" hint-placeholder-val="{{ false }}"><img src="{{ l.img }}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;display:block"></sc-if></a>
+            <div style="flex:1 1 240px;min-width:0;display:flex;flex-direction:column;gap:8px">
+              <a href="{{ l.href }}" style="font-size:16px;line-height:24px;font-weight:500;color:#1E1730;text-decoration:none" style-hover="color:#6834CC">{{ l.nome }}</a>
+              <div style="display:flex;flex-wrap:wrap;gap:8px">
+                <sc-if value="{{ l.ass }}" hint-placeholder-val="{{ false }}"><span style="display:flex;align-items:center;gap:4px;padding:2px 8px;border-radius:4px;background:#EFE9FB;color:#4B21A0;font-size:12px;line-height:16px;font-weight:600"><i class="ph-bold ph-arrows-clockwise"></i>Assinatura a cada {{ l.ass }} · 7% off</span></sc-if>
+                <sc-if value="{{ l.hoje }}" hint-placeholder-val="{{ false }}"><span style="display:flex;align-items:center;gap:4px;padding:2px 8px;border-radius:4px;background:#E6EEFF;color:#2F5FD0;font-size:12px;line-height:16px;font-weight:600"><i class="ph-fill ph-lightning"></i>Receba hoje SP</span></sc-if>
+              </div>
+              <span style="font-size:14px;line-height:20px;color:#5E5873">{{ l.unitTxt }} cada</span>
+              <div style="margin-top:auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px">
+                <div style="display:flex;align-items:center;gap:8px">
+                  <div style="display:flex;align-items:center;border:1px solid #E7E3EF;border-radius:9999px">
+                    <button onClick="{{ l.dec }}" aria-label="Diminuir quantidade" style="width:40px;height:40px;display:grid;place-items:center;border:0;background:transparent;border-radius:9999px;cursor:pointer;color:#1E1730" style-hover="background:#F3EFFB" style-focus="outline:3px solid #6699FF"><i class="ph-bold ph-minus"></i></button>
+                    <span style="min-width:24px;text-align:center;font-size:14px;line-height:20px;font-weight:600">{{ l.qty }}</span>
+                    <button onClick="{{ l.inc }}" aria-label="Aumentar quantidade" style="width:40px;height:40px;display:grid;place-items:center;border:0;background:transparent;border-radius:9999px;cursor:pointer;color:#1E1730" style-hover="background:#F3EFFB" style-focus="outline:3px solid #6699FF"><i class="ph-bold ph-plus"></i></button>
+                  </div>
+                  <button onClick="{{ l.rm }}" style="display:flex;align-items:center;gap:4px;padding:8px 12px;border:0;border-radius:9999px;background:transparent;color:#5E5873;font-size:14px;line-height:20px;font-weight:500;cursor:pointer" style-hover="background:#FDECEA;color:#B42318" style-focus="outline:3px solid #6699FF"><i class="ph ph-trash"></i>Remover</button>
+                </div>
+                <strong style="font-size:18px;line-height:28px;font-weight:700">{{ l.totalTxt }}</strong>
+              </div>
+            </div>
+          </article>
+        </sc-for>
+        <a href="PetCharm%20Home.dc.html#mais-vendidos" style="align-self:flex-start;display:flex;align-items:center;gap:8px;font-size:14px;line-height:20px;font-weight:600;text-decoration:none"><i class="ph-bold ph-arrow-left"></i>Continuar comprando</a>
+      </section>
+
+      <aside aria-label="Resumo do pedido" style="flex:1 1 320px;max-width:420px;display:flex;flex-direction:column;gap:16px;padding:24px;border-radius:24px;background:#F8F6FC">
+        <h2 style="margin:0;font-size:20px;line-height:28px;font-weight:600">Resumo</h2>
+        <form onSubmit="{{ calcCep }}" novalidate="" style="display:flex;flex-direction:column;gap:8px">
+          <label for="cep" style="font-size:14px;line-height:20px;font-weight:600">CEP de entrega</label>
+          <div style="display:flex;gap:8px">
+            <input id="cep" inputmode="numeric" autocomplete="postal-code" value="{{ cep }}" onChange="{{ onCep }}" placeholder="00000-000" aria-invalid="{{ cepInvalid }}" style="flex:1;min-width:0;height:40px;padding:0 16px;border-radius:9999px;border:2px solid {{ cepBd }};background:#FFFFFF;font-size:14px;line-height:20px;outline:none">
+            <button type="submit" style="height:40px;padding:8px 16px;border:0;border-radius:9999px;background:#1E1730;color:#FFFFFF;font-size:14px;line-height:20px;font-weight:600;cursor:pointer" style-focus="outline:3px solid #6699FF;outline-offset:2px">Calcular</button>
+          </div>
+          <span role="alert" style="font-size:14px;line-height:20px;color:#B42318">{{ cepErr }}</span>
+        </form>
+        <form onSubmit="{{ aplicarCupom }}" novalidate="" style="display:flex;flex-direction:column;gap:8px">
+          <label for="cupom" style="font-size:14px;line-height:20px;font-weight:600">Cupom de desconto</label>
+          <div style="display:flex;gap:8px">
+            <input id="cupom" value="{{ cupomIn }}" onChange="{{ onCupom }}" placeholder="Digite o código" style="flex:1;min-width:0;height:40px;padding:0 16px;border-radius:9999px;border:2px solid {{ cupomBd }};background:#FFFFFF;font-size:14px;line-height:20px;text-transform:uppercase;outline:none">
+            <button type="submit" style="height:40px;padding:8px 16px;border:2px solid #1E1730;border-radius:9999px;background:#FFFFFF;color:#1E1730;font-size:14px;line-height:20px;font-weight:600;cursor:pointer" style-hover="background:#1E1730;color:#FFFFFF" style-focus="outline:3px solid #6699FF;outline-offset:2px">Aplicar</button>
+          </div>
+          <span role="status" style="font-size:14px;line-height:20px;color:{{ cupomCor }}">{{ cupomMsg }}</span>
+        </form>
+        <dl style="margin:0;display:flex;flex-direction:column;gap:8px;padding-top:16px;border-top:1px solid #E3D9F8;font-size:14px;line-height:20px">
+          <div style="display:flex;justify-content:space-between"><dt style="color:#5E5873">Subtotal</dt><dd style="margin:0">{{ subtotalTxt }}</dd></div>
+          <sc-if value="{{ temCupom }}" hint-placeholder-val="{{ false }}"><div style="display:flex;justify-content:space-between"><dt style="color:#5E5873">Cupom {{ cupom }}</dt><dd style="margin:0;color:#2F5FD0">{{ cupomTxt }}</dd></div></sc-if>
+          <div style="display:flex;justify-content:space-between"><dt style="color:#5E5873">Frete</dt><dd style="margin:0;text-align:right">{{ freteTxt }}</dd></div>
+          <div style="display:flex;justify-content:space-between;padding-top:8px"><dt style="font-weight:600">Total no cartão</dt><dd style="margin:0;font-weight:600">{{ totalTxt }}</dd></div>
+          <span style="font-size:12px;line-height:16px;color:#5E5873;text-align:right">ou 3x de {{ parcelaTxt }} sem juros</span>
+        </dl>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px;border-radius:16px;background:#FFFFFF">
+          <span style="display:flex;align-items:center;gap:8px;font-size:14px;line-height:20px;font-weight:600;color:#6834CC"><i class="ph-fill ph-qr-code" style="font-size:20px"></i>No Pix, 10% off</span>
+          <strong style="font-size:24px;line-height:32px;font-weight:700">{{ pixTxt }}</strong>
+        </div>
+        <a href="PetCharm%20Checkout.dc.html" onClick="{{ salvar }}" style="display:flex;justify-content:center;align-items:center;gap:8px;padding:12px 24px;border-radius:9999px;background:#6834CC;color:#FFFFFF;font-size:16px;line-height:24px;font-weight:600;text-decoration:none;box-shadow:0 8px 24px rgba(104,52,204,.28);transition:transform 500ms cubic-bezier(0.32,0.72,0,1),background 500ms cubic-bezier(0.32,0.72,0,1)" style-hover="background:#4B21A0;color:#FFFFFF;transform:translateY(-2px)" style-active="transform:scale(0.98)" style-focus="outline:3px solid #6699FF;outline-offset:2px">Ir para o pagamento<i class="ph-bold ph-lock-key"></i></a>
+        <span style="display:flex;justify-content:center;align-items:center;gap:8px;font-size:12px;line-height:16px;color:#5E5873"><i class="ph ph-arrows-clockwise"></i>Troca grátis em até 7 dias</span>
+      </aside>
+    </div>
+
+    <section aria-labelledby="sug-titulo" style="margin-top:80px">
+      <h2 id="sug-titulo" style="margin:0 0 24px;font-size:24px;line-height:32px;font-weight:600">{{ sugTitulo }}</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,220px),1fr));gap:16px">
+        <sc-for list="{{ sugestoes }}" as="s" hint-placeholder-count="4"><dc-import name="PC Produto Card" pid="{{ s.id }}" hint-size="100%,440px"></dc-import></sc-for>
+      </div>
+    </section>
+  </sc-if>
+</main>
+<dc-import name="PC Footer" hint-size="100%,420px"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { m: null, cart: [], cep: '', cepErr: '', regiao: null, cupomIn: '', cupom: '', cupomMsg: '', cupomErr: false };
+  componentDidMount() {
+    let saved = {}; try { saved = JSON.parse(localStorage.getItem('pc_checkout') || '{}'); } catch (e) {}
+    import((window.__resources && window.__resources.catalogo) || new URL('./catalogo.js', document.baseURI).href).then(m => this.setState({ m, cart: m.getCart(), cep: saved.cep || '', regiao: saved.cep ? m.regiaoPorCep(saved.cep) : null, cupom: saved.cupom || '', cupomIn: saved.cupom || '' }));
+    this.onCart = () => this.state.m && this.setState({ cart: this.state.m.getCart() });
+    window.addEventListener('pc_cart', this.onCart);
+  }
+  componentWillUnmount() { window.removeEventListener('pc_cart', this.onCart); }
+  save(extra) { let s = {}; try { s = JSON.parse(localStorage.getItem('pc_checkout') || '{}'); } catch (e) {} localStorage.setItem('pc_checkout', JSON.stringify({ ...s, cep: this.state.cep, cupom: this.state.cupom, ...extra })); }
+  renderVals() {
+    const { m, cart, cep, cepErr, regiao, cupomIn, cupom, cupomMsg, cupomErr } = this.state;
+    if (!m) return { vazio: false, cheio: false, lines: [], sugestoes: [] };
+    const brl = m.brl;
+    const upd = (i, fn) => { const c = m.getCart(); fn(c, i); m.setCart(c.filter(x => x.qty > 0)); };
+    const lines = cart.map((l, i) => { const p = m.findItem(l.id); if (!p) return null; const unit = m.linePrice(l, p); return {
+      nome: p.nome, qty: l.qty, ass: l.ass || '', hoje: !!p.recebaHoje, href: p.cat ? m.U.prod(p.id) : 'PetCharm%20Home.dc.html#kits',
+      img: p.img, icon: p.cat ? m.ICON[p.cat] : 'ph-package', tint: p.cat ? m.TINT[p.cat] : '#E6EEFF', unitTxt: brl(unit), total: unit * l.qty, totalTxt: brl(unit * l.qty),
+      inc: () => upd(i, c => c[i].qty++), dec: () => upd(i, c => c[i].qty = Math.max(1, c[i].qty - 1)), rm: () => upd(i, c => c[i].qty = 0) }; }).filter(Boolean);
+    const subtotal = lines.reduce((s, l) => s + l.total, 0);
+    const count = lines.reduce((s, l) => s + l.qty, 0);
+    const desc = cupom ? subtotal * 0.05 : 0;
+    const base = subtotal - desc;
+    const gratis = regiao && regiao.uf === 'SP' && subtotal >= m.FRETE_GRATIS;
+    const frete = regiao ? (gratis ? 0 : regiao.valor) : 0;
+    const falta = Math.max(0, m.FRETE_GRATIS - subtotal);
+    const noCart = new Set(cart.map(l => l.id));
+    const sugestoes = m.produtos.filter(p => !noCart.has(p.id) && (falta === 0 || p.preco >= falta * 0.6)).sort((a, b) => a.preco - b.preco).slice(0, 4);
+    return {
+      vazio: lines.length === 0, cheio: lines.length > 0, lines,
+      countTxt: count === 1 ? '1 item' : count + ' itens',
+      freteMsg: falta > 0 ? `Faltam ${brl(falta)} para o frete grátis em SP` : 'Você ganhou frete grátis em SP',
+      fretePct: Math.min(100, subtotal / m.FRETE_GRATIS * 100).toFixed(1) + '%',
+      cep, cepErr, cepInvalid: !!cepErr, cepBd: cepErr ? '#B42318' : '#E7E3EF',
+      onCep: e => { const d = e.target.value.replace(/\D/g, '').slice(0, 8); this.setState({ cep: d.length > 5 ? d.slice(0, 5) + '-' + d.slice(5) : d, cepErr: '' }); },
+      calcCep: e => { e.preventDefault(); const r = m.regiaoPorCep(cep); if (!r) return this.setState({ cepErr: 'Digite os 8 números do CEP.', regiao: null }); this.setState({ regiao: r }, () => this.save()); },
+      cupomIn, cupom, cupomMsg, cupomCor: cupomErr ? '#B42318' : '#2F5FD0', cupomBd: cupomErr ? '#B42318' : '#E7E3EF', temCupom: !!cupom, cupomTxt: '−' + brl(desc),
+      onCupom: e => this.setState({ cupomIn: e.target.value, cupomMsg: '', cupomErr: false }),
+      aplicarCupom: e => { e.preventDefault(); const c = cupomIn.trim().toUpperCase(); if (!c) return this.setState({ cupomMsg: 'Digite um código.', cupomErr: true });
+        if (c === 'CHARMOZAO') return this.setState({ cupom: c, cupomMsg: 'Cupom aplicado: 5% de desconto.', cupomErr: false }, () => this.save());
+        this.setState({ cupomMsg: 'Cupom não encontrado ou expirado.', cupomErr: true }); },
+      subtotalTxt: brl(subtotal),
+      freteTxt: regiao ? (gratis ? 'Grátis' : brl(frete)) + ' · ' + regiao.prazo : 'Informe o CEP',
+      totalTxt: brl(base + frete), parcelaTxt: brl((base + frete) / 3), pixTxt: brl(base * 0.9 + frete),
+      salvar: () => this.save(),
+      sugTitulo: falta > 0 ? 'Complete e ganhe frete grátis' : 'Aproveite e leve também', sugestoes
+    };
+  }
+}
+</script>
+</body>
+</html>

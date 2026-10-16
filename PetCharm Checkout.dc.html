@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Pagamento | PetCharm</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/simbolo-petcharm.png">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+<style>
+body{margin:0;font-family:Poppins,system-ui,sans-serif;color:#1E1730;background:#F8F6FC;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:#6834CC}
+a:hover{color:#4B21A0}
+button,input,select{font-family:inherit}
+</style>
+</helmet>
+<header style="background:#FFFFFF;border-bottom:1px solid #EEEAF4">
+  <div style="max-width:1120px;margin:0 auto;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px">
+    <a href="PetCharm%20Home.dc.html" aria-label="PetCharm, página inicial"><img src="assets/logo-petcharm.png" alt="PetCharm" style="height:32px;display:block"></a>
+    <span style="display:flex;align-items:center;gap:8px;font-size:14px;line-height:20px;font-weight:500;color:#3D3550"><i class="ph-fill ph-lock-key" style="font-size:20px;color:#6834CC"></i>Pagamento seguro</span>
+  </div>
+</header>
+<main id="conteudo" style="max-width:1120px;margin:0 auto;padding:32px 24px 96px">
+
+<sc-if value="{{ sucesso }}" hint-placeholder-val="{{ false }}">
+  <section aria-labelledby="ok-titulo" style="max-width:640px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:24px;padding:48px 32px;border-radius:32px;background:#FFFFFF;text-align:center">
+    <span style="width:80px;height:80px;display:grid;place-items:center;border-radius:9999px;background:#EFE9FB"><i class="ph-fill ph-check-circle" style="font-size:48px;color:#6834CC"></i></span>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <h1 id="ok-titulo" style="margin:0;font-size:30px;line-height:36px;font-weight:600;text-wrap:balance">Pedido {{ pedido }} recebido</h1>
+      <p style="margin:0;font-size:16px;line-height:24px;color:#5E5873;text-wrap:pretty">{{ okMsg }}</p>
+    </div>
+    <sc-if value="{{ okPix }}" hint-placeholder-val="{{ false }}">
+      <div style="width:100%;display:flex;flex-direction:column;align-items:center;gap:16px;padding:24px;border-radius:24px;background:#F8F6FC">
+        <div style="width:200px;height:200px;display:grid;place-items:center;border-radius:16px;background:#FFFFFF;border:1px solid #EEEAF4"><i class="ph ph-qr-code" style="font-size:160px;color:#1E1730"></i></div>
+        <span style="font-size:14px;line-height:20px;color:#5E5873">Pague {{ okTotal }} em até 30 minutos</span>
+        <div style="width:100%;display:flex;gap:8px">
+          <input readonly="" aria-label="Código Pix copia e cola" value="{{ pixCode }}" style="flex:1;min-width:0;height:40px;padding:0 16px;border-radius:9999px;border:1px solid #E7E3EF;background:#FFFFFF;font-size:12px;line-height:16px;color:#5E5873">
+          <button onClick="{{ copiar }}" style="height:40px;padding:8px 16px;border:0;border-radius:9999px;background:#6834CC;color:#FFFFFF;font-size:14px;line-height:20px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px" style-hover="background:#4B21A0" style-focus="outline:3px solid #6699FF;outline-offset:2px"><i class="{{ copyIcon }}"></i>{{ copyTxt }}</button>
+        </div>
+      </div>
+    </sc-if>
+    <div style="width:100%;display:flex;justify-content:space-between;gap:12px;padding:16px;border-radius:16px;border:1px solid #EEEAF4;text-align:left">
+      <span style="display:flex;flex-direction:column"><span style="font-size:12px;line-height:16px;color:#5E5873">Entrega</span><strong style="font-size:14px;line-height:20px;font-weight:600">{{ okEntrega }}</strong></span>
+      <span style="display:flex;flex-direction:column;text-align:right"><span style="font-size:12px;line-height:16px;color:#5E5873">Enviamos os detalhes para</span><strong style="font-size:14px;line-height:20px;font-weight:600">{{ v.email }}</strong></span>
+    </div>
+    <a href="PetCharm%20Home.dc.html" style="padding:12px 24px;border-radius:9999px;background:#1E1730;color:#FFFFFF;font-size:16px;line-height:24px;font-weight:600;text-decoration:none" style-hover="color:#FFFFFF">Voltar para a loja</a>
+  </section>
+</sc-if>
+
+<sc-if value="{{ vazio }}" hint-placeholder-val="{{ false }}">
+  <section style="max-width:560px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:16px;padding:64px 32px;border-radius:32px;background:#FFFFFF;text-align:center">
+    <span aria-hidden="true" style="width:64px;height:64px;display:grid;place-items:center;border-radius:9999px;background:#6834CC"><i class="ph-fill ph-paw-print" style="font-size:32px;color:#FFFFFF"></i></span>
+    <h1 style="margin:0;font-size:24px;line-height:32px;font-weight:600">Não há itens para pagar</h1>
+    <p style="margin:0;font-size:16px;line-height:24px;color:#5E5873">Adicione produtos ao carrinho para continuar.</p>
+    <a href="PetCharm%20Home.dc.html#mais-vendidos" style="padding:12px 24px;border-radius:9999px;background:#6834CC;color:#FFFFFF;font-size:16px;line-height:24px;font-weight:600;text-decoration:none" style-hover="color:#FFFFFF;background:#4B21A0">Ver mais vendidos</a>
+  </section>
+</sc-if>
+
+<sc-if value="{{ form }}" hint-placeholder-val="{{ true }}">
+  <a href="PetCharm%20Carrinho.dc.html" style="display:inline-flex;align-items:center;gap:8px;margin-bottom:24px;font-size:14px;line-height:20px;font-weight:600;text-decoration:none"><i class="ph-bold ph-arrow-left"></i>Voltar ao carrinho</a>
+  <form onSubmit="{{ enviar }}" novalidate="" style="display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start">
+    <div style="flex:999 1 520px;min-width:0;display:flex;flex-direction:column;gap:16px">
+      <sc-if value="{{ temErro }}" hint-placeholder-val="{{ false }}">
+        <div role="alert" style="display:flex;align-items:center;gap:12px;padding:16px;border-radius:16px;background:#FDECEA;color:#7A1A12;font-size:14px;line-height:20px;font-weight:500"><i class="ph-fill ph-warning-circle" style="font-size:20px;color:#B42318"></i>Revise os campos destacados para concluir o pedido.</div>
+      </sc-if>
+
+      <fieldset style="margin:0;padding:24px;border:0;border-radius:24px;background:#FFFFFF;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:16px">
+        <legend style="float:left;width:100%;padding:0;margin-bottom:8px;display:flex;align-items:center;gap:12px;font-size:18px;line-height:28px;font-weight:600"><span style="width:32px;height:32px;display:grid;place-items:center;border-radius:9999px;background:#6834CC;color:#FFFFFF;font-size:14px;line-height:20px">1</span>Seus dados</legend>
+        <label style="grid-column:1/-1;display:flex;flex-direction:column;gap:4px;font-size:14px;line-height:20px;font-weight:500">Email
+          <input type="email" autocomplete="email" value="{{ v.email }}" onChange="{{ on.email }}" aria-invalid="{{ inv.email }}" placeholder="voce@email.com.br" style="height:48px;padding:0 16px;border-radius:12px;border:2px solid {{ bd.email }};font-size:16px;line-height:24px;outline:none;background:#FFFFFF" style-focus="border-color:#6834CC">
+          <span style="font-size:12px;line-height:16px;color:#B42318">{{ err.email }}</span></label>
+        <label style="grid-column:1/-1;display:flex;flex-direction:column;gap:4px;font-size:14px;line-height:20px;font-weight:500">Nome completo
+          <input autocomplete="name" value="{{ v.nome }}" onChange="{{ on.nome }}" aria-invalid="{{ inv.nome }}" style="height:48px;padding:0 16px;border-radius:12px;border:2px solid {{ bd.nome }};font-size:16px;line-height:24px;outline:none" style-focus="border-color:#6834CC">
+          <span style="font-size:12px;line-height:16px;color:#B42318">{{ err.nome }}</span></label>
+        <label style="display:flex;flex-direction:column;gap:4px;font-size:14px;line-height:20px;font-weight:500">CPF
+          <input inputmode="numeric" value="{{ v.cpf }}" onChange="{{ on.cpf }}" aria-invalid="{{ inv.cpf }}" placeholder="000.000.000-00" style="height:48px;padding:0 16px;border-radius:12px;border:2px solid {{ bd.cpf }};font-size:16px;line-height:24px;outline:none" style-focus="border-color:#6834CC">
+          <span style="font-size:12px;line-height:16px;color:#B42318">{{ err.cpf }}</span></label>
+        <label style="display:flex;flex-direction:column;gap:4px;font-size:14px;line-height:20px;font-weight:500">Celular com DDD
+          <input inputmode="tel" autocomplete="tel" value="{{ v.tel }}" onChange="{{ on.tel }}" aria-invalid="{{ inv.tel }}" placeholder="(11) 98765-4321" style="height:48px;padding:0 16px;border-radius:12px;border:2px solid {{ bd.tel }};font-size:16px;line-height:24px;outline:none" style-focus="border-color:#6834CC">
+          <span style="font-size:12px;line-height:16px;color:#B42318">{{ err.tel }}</span></label>
+      </fieldset>
+
+      <fieldset style="margin:0;padding:24px;border:0;border-radius:24px;background:#FFFFFF;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:16px">
+        <legend style="float:left;width:100%;padding:0;margin-bottom:8px;display:flex;align-items:center;gap:12px;font-size:18px;line-height:28px;font-weight:600"><span style="width:32px;height:32px;display:grid;place-items:center;border-radius:9999px;background:#6834CC;color:#FFFFFF;font-size:14px;line-height:20px">2</span>Entrega</legend>
+        <label style="display:flex;flex-direction:column;gap:4px;font-size:14px;line-height:20px;font-weight:500">CEP
+          <input inputmode="numeric" autocomplete="postal-code" value="{{ v.cep }}" onChange="{{ on.cep }}" aria-invalid="{{ inv.cep }}" placeholder="00000-000" style="height:48px;padding:0 16px;border-radius:12px;border:2px solid {{ bd.cep }};font-size:16px;line-height:24px;outline:none" style-focus="border-color:#6834CC">
+          <span style="font-size:12px;line-height:16px;color:{{ cepCor }}">{{ cepInfo }}</span></label>
+        <label style="grid-column:span 2;display:flex;flex-direction:column;gap:4px;font-size:14px;line-height:20px;font-weight:500">Rua
+          <input autocomplete="address-line1" value="{{ v.rua }}" onChange="{{ on.rua }}" aria-invalid="{{ inv.rua }}" style="height:48px;padding:0 16px;border-radius:12px;border:2px solid {{ bd.rua }};font-size:16px;line-height:24px;outline:none" style-focus="border-color:#6834CC">
+          <span style="font-size:12px;line-height:16px;color:#B42318">{{ err.rua }}</span></label>
+        <label style="display:flex;flex-direction:column;gap:4px;font-size:14px;line-height:20px;font-weight:500">Número
+          <input value="{{ v.num }}" onChange="{{ on.num }}" aria-invalid="{{ inv.num }}" style="height:48px;padding:0 16px;border-radius:12px;border:2px solid {{ bd.num }};font-size:16px;line-height:24px;outline:none" style-focus="border-color:#6834CC">
+          <span style="font-size:12px;line-height:16px;color:#B42318">{{ err.num }}</span></label>
+        <label style="display:flex;flex-direction:column;gap:4px;font-size:14px;line-height:20px;font-weight:500">Complemento <span style="font-weight:400;color:#5E5873;display:contents">(opcional)</span>
+          <input value="{{ v.comp }}" onChange="{{ on.comp }}" style="height:48px;padding:0 16px;border-radius:12px;border:2px solid #E7E3EF;font-size:16px;line-height:24px;outline:none" style-focus="border-color:#6834CC"></label>
+        <label style="display:flex;flex-direction:column;gap:4px;font-size:14px;line-height:20px;font-weight:500">Bairro
+          <input value="{{ v.bairro }}" onChange="{{ on.bairro }}" aria-invalid="{{ inv.bairro }}" style="height:48px;padding:0 16px;border-radius:12px;border:2px solid {{ bd.bairro }};font-size:16px;line-height:24px;outline:none" style-focus="border-color:#6834CC">
+          <span style="font-size:12px;line-height:16px;color:#B42318">{{ err.bairro }}</span></label>
+        <label style="display:flex;flex-direction:column;gap:4px;font-size:14px;line-height:20px;font-weight:500">Cidade e UF
+          <input value="{{ v.cidade }}" onChange="{{ on.cidade }}" aria-invalid="{{ inv.cidade }}" style="height:48px;padding:0 16px;border-radius:12px;border:2px solid {{ bd.cidade }};font-size:16px;line-height:24px;outline:none" style-focus="border-color:#6834CC">
+          <span style="font-size:12px;line-height:16px;color:#B42318">{{ err.cidade }}</span></label>
+        <div role="radiogroup" aria-label="Forma de entrega" style="grid-column:1/-1;display:flex;flex-direction:column;gap:8px">
+          <sc-if value="{{ semOpcoes }}" hint-placeholder-val="{{ true }}"><span style="padding:16px;border-radius:12px;background:#F8F6FC;font-size:14px;line-height:20px;color:#5E5873">Digite o CEP para ver prazos e valores.</span></sc-if>
+          <sc-for list="{{ opcoes }}" as="o" hint-placeholder-count="0">
+            <button type="button" role="radio" aria-checked="{{ o.on }}" onClick="{{ o.set }}" style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px;border-radius:12px;border:2px solid {{ o.bd }};background:{{ o.bg }};cursor:pointer;text-align:left;color:#1E1730;transition:all 400ms cubic-bezier(0.32,0.72,0,1)" style-focus="outline:3px solid #6699FF;outline-offset:2px">
+              <span style="display:flex;align-items:center;gap:12px"><i class="{{ o.icon }}" style="font-size:24px;color:#6834CC"></i><span style="display:flex;flex-direction:column"><strong style="font-size:14px;line-height:20px;font-weight:600">{{ o.nome }}</strong><span style="font-size:12px;line-height:16px;color:#5E5873">{{ o.prazo }}</span></span></span>
+              <strong style="font-size:14px;line-height:20px;font-weight:700;color:{{ o.cor }}">{{ o.valorTxt }}</strong>
+            </button>
+          </sc-for>
+        </div>
+      </fieldset>
+
+      <fieldset style="margin:0;padding:24px;border:0;border-radius:24px;background:#FFFFFF;display:flex;flex-direction:column;gap:16px">
+        <legend style="float:left;width:100%;padding:0;margin-bottom:8px;display:flex;align-items:center;gap:12px;font-size:18px;line-height:28px;font-weight:600"><span style="width:32px;height:32px;display:grid;place-items:center;border-radius:9999px;background:#6834CC;color:#FFFFFF;font-size:14px;line-height:20px">3</span>Pagamento</legend>
+        <div role="radiogroup" aria-label="Forma de pagamento" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px">
+          <sc-for list="{{ pagamentos }}" as="o" hint-placeholder-count="3">
+            <button type="button" role="radio" aria-checked="{{ o.on }}" onClick="{{ o.set }}" style="display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:16px;border-radius:12px;border:2px solid {{ o.bd }};background:{{ o.bg }};cursor:pointer;text-align:left;color:#1E1730;transition:all 400ms cubic-bezier(0.32,0.72,0,1)" style-focus="outline:3px solid #6699FF;outline-offset:2px">
+              <i class="{{ o.icon }}" style="font-size:24px;color:#6834CC"></i>
+              <strong style="font-size:14px;line-height:20px;font-weight:600">{{ o.nome }}</strong>
+              <span style="font-size:12px;line-height:16px;color:#5E5873">{{ o.sub }}</span>
+            </button>
+          </sc-for>
+        </div>
+        <sc-if value="{{ isCartao }}" hint-placeholder-val="{{ false }}">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:16px">
+            <label style="grid-column:1/-1;display:flex;flex-direction:column;gap:4px;font-size:14px;line-height:20px;font-weight:500">Número do cartão
+              <input inputmode="numeric" autocomplete="cc-number" value="{{ v.cartao }}" onChange="{{ on.cartao }}" aria-invalid="{{ inv.cartao }}" placeholder="0000 0000 0000 0000" style="height:48px;padding:0 16px;border-radius:12px;border:2px solid {{ bd.cartao }};font-size:16px;line-height:24px;outline:none" style-focus="border-color:#6834CC">
+              <span style="font-size:12px;line-height:16px;color:#B42318">{{ err.cartao }}</span></label>
+            <label style="grid-column:1/-1;display:flex;flex-direction:column;gap:4px;font-size:14px;line-height:20px;font-weight:500">Nome impresso no cartão
+              <input autocomplete="cc-name" value="{{ v.cnome }}" onChange="{{ on.cnome }}" aria-invalid="{{ inv.cnome }}" style="height:48px;padding:0 16px;border-radius:12px;border:2px solid {{ bd.cnome }};font-size:16px;line-height:24px;outline:none;text-transform:uppercase" style-focus="border-color:#6834CC">
+              <span style="font-size:12px;line-height:16px;color:#B42318">{{ err.cnome }}</span></label>
+            <label style="display:flex;flex-direction:column;gap:4px;font-size:14px;line-height:20px;font-weight:500">Validade
+              <input inputmode="numeric" autocomplete="cc-exp" value="{{ v.validade }}" onChange="{{ on.validade }}" aria-invalid="{{ inv.validade }}" placeholder="MM/AA" style="height:48px;padding:0 16px;border-radius:12px;border:2px solid {{ bd.validade }};font-size:16px;line-height:24px;outline:none" style-focus="border-color:#6834CC">
+              <span style="font-size:12px;line-height:16px;color:#B42318">{{ err.validade }}</span></label>
+            <label style="display:flex;flex-direction:column;gap:4px;font-size:14px;line-height:20px;font-weight:500">CVV
+              <input inputmode="numeric" autocomplete="cc-csc" value="{{ v.cvv }}" onChange="{{ on.cvv }}" aria-invalid="{{ inv.cvv }}" placeholder="123" style="height:48px;padding:0 16px;border-radius:12px;border:2px solid {{ bd.cvv }};font-size:16px;line-height:24px;outline:none" style-focus="border-color:#6834CC">
+              <span style="font-size:12px;line-height:16px;color:#B42318">{{ err.cvv }}</span></label>
+            <label style="display:flex;flex-direction:column;gap:4px;font-size:14px;line-height:20px;font-weight:500">Parcelas
+              <select value="{{ v.parcelas }}" onChange="{{ on.parcelas }}" style="height:48px;padding:0 12px;border-radius:12px;border:2px solid #E7E3EF;font-size:16px;line-height:24px;background:#FFFFFF">
+                <sc-for list="{{ parcelas }}" as="pa" hint-placeholder-count="3"><option value="{{ pa.n }}">{{ pa.txt }}</option></sc-for>
+              </select></label>
+          </div>
+        </sc-if>
+        <sc-if value="{{ isPix }}" hint-placeholder-val="{{ true }}">
+          <p style="margin:0;display:flex;gap:12px;padding:16px;border-radius:12px;background:#EFE9FB;font-size:14px;line-height:20px;color:#1E1730"><i class="ph-fill ph-info" style="font-size:20px;color:#6834CC;flex-shrink:0"></i>O QR Code aparece na próxima tela e vale por 30 minutos. A confirmação é imediata e o pedido já entra na separação.</p>
+        </sc-if>
+        <sc-if value="{{ isBoleto }}" hint-placeholder-val="{{ false }}">
+          <p style="margin:0;display:flex;gap:12px;padding:16px;border-radius:12px;background:#F8F6FC;font-size:14px;line-height:20px;color:#1E1730"><i class="ph-fill ph-info" style="font-size:20px;color:#6834CC;flex-shrink:0"></i>O boleto vence em 2 dias úteis e a compensação leva até 1 dia útil. O Receba hoje só vale para Pix e cartão.</p>
+        </sc-if>
+      </fieldset>
+    </div>
+
+    <aside aria-label="Resumo do pedido" style="flex:1 1 300px;max-width:400px;display:flex;flex-direction:column;gap:16px;padding:24px;border-radius:24px;background:#FFFFFF">
+      <h2 style="margin:0;font-size:18px;line-height:28px;font-weight:600">Resumo do pedido</h2>
+      <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px">
+        <sc-for list="{{ lines }}" as="l" hint-placeholder-count="2">
+          <li style="display:flex;gap:12px;align-items:center">
+            <span style="position:relative;width:48px;height:48px;flex-shrink:0;display:grid;place-items:center;border-radius:8px;background:{{ l.tint }}"><sc-if value="{{ l.img }}" hint-placeholder-val="{{ false }}"><img src="{{ l.img }}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:8px;display:block"></sc-if><span style="position:absolute;top:-8px;right:-8px;min-width:20px;height:20px;padding:0 4px;display:grid;place-items:center;border-radius:9999px;background:#1E1730;color:#FFFFFF;font-size:12px;line-height:16px;font-weight:600">{{ l.qty }}</span></span>
+            <span style="flex:1;min-width:0;font-size:12px;line-height:16px;color:#3D3550;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">{{ l.nome }}</span>
+            <strong style="font-size:14px;line-height:20px;font-weight:600">{{ l.totalTxt }}</strong>
+          </li>
+        </sc-for>
+      </ul>
+      <dl style="margin:0;display:flex;flex-direction:column;gap:8px;padding-top:16px;border-top:1px solid #EEEAF4;font-size:14px;line-height:20px">
+        <div style="display:flex;justify-content:space-between"><dt style="color:#5E5873">Subtotal</dt><dd style="margin:0">{{ subtotalTxt }}</dd></div>
+        <sc-if value="{{ temCupom }}" hint-placeholder-val="{{ false }}"><div style="display:flex;justify-content:space-between"><dt style="color:#5E5873">Cupom</dt><dd style="margin:0;color:#2F5FD0">{{ cupomTxt }}</dd></div></sc-if>
+        <sc-if value="{{ isPix }}" hint-placeholder-val="{{ true }}"><div style="display:flex;justify-content:space-between"><dt style="color:#5E5873">Desconto Pix 10%</dt><dd style="margin:0;color:#2F5FD0">{{ pixDescTxt }}</dd></div></sc-if>
+        <div style="display:flex;justify-content:space-between"><dt style="color:#5E5873">Frete</dt><dd style="margin:0">{{ freteTxt }}</dd></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;padding-top:12px;border-top:1px solid #EEEAF4"><dt style="font-size:16px;line-height:24px;font-weight:600">Total</dt><dd style="margin:0;font-size:24px;line-height:32px;font-weight:700">{{ totalTxt }}</dd></div>
+        <span style="font-size:12px;line-height:16px;color:#5E5873;text-align:right">{{ totalSub }}</span>
+      </dl>
+      <button type="submit" disabled="{{ enviando }}" style="display:flex;justify-content:center;align-items:center;gap:8px;padding:12px 24px;border:0;border-radius:9999px;background:{{ btnBg }};color:#FFFFFF;font-size:16px;line-height:24px;font-weight:600;cursor:pointer;box-shadow:0 8px 24px rgba(104,52,204,.28);transition:transform 500ms cubic-bezier(0.32,0.72,0,1),background 500ms cubic-bezier(0.32,0.72,0,1)" style-hover="background:#4B21A0" style-active="transform:scale(0.98)" style-focus="outline:3px solid #6699FF;outline-offset:2px"><i class="{{ btnIcon }}"></i>{{ btnTxt }}</button>
+      <span style="font-size:12px;line-height:16px;color:#5E5873;text-align:center;text-wrap:pretty">Ao finalizar, você concorda com os <a href="#termos">Termos de uso</a> e a <a href="#privacidade">Política de privacidade</a>.</span>
+    </aside>
+  </form>
+</sc-if>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { m: null, cart: [], saved: {}, v: { email: '', nome: '', cpf: '', tel: '', cep: '', rua: '', num: '', comp: '', bairro: '', cidade: '', cartao: '', cnome: '', validade: '', cvv: '', parcelas: '3' }, err: {}, envio: '', pag: 'pix', cepBusca: '', enviando: false, sucesso: null, copiado: false };
+  componentDidMount() {
+    let saved = {}; try { saved = JSON.parse(localStorage.getItem('pc_checkout') || '{}'); } catch (e) {}
+    import((window.__resources && window.__resources.catalogo) || new URL('./catalogo.js', document.baseURI).href).then(m => {
+      this.setState({ m, cart: m.getCart(), saved });
+      if (saved.cep) this.setField('cep', saved.cep);
+    });
+  }
+  mask(k, raw) {
+    const d = raw.replace(/\D/g, '');
+    if (k === 'cpf') { const x = d.slice(0, 11); return x.replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})\.(\d{3})(\d)/, '$1.$2.$3').replace(/\.(\d{3})(\d{1,2})$/, '.$1-$2'); }
+    if (k === 'tel') { const x = d.slice(0, 11); if (x.length <= 2) return x ? '(' + x : ''; if (x.length <= 6) return `(${x.slice(0, 2)}) ${x.slice(2)}`; const cut = x.length === 11 ? 7 : 6; return `(${x.slice(0, 2)}) ${x.slice(2, cut)}-${x.slice(cut)}`; }
+    if (k === 'cep') { const x = d.slice(0, 8); return x.length > 5 ? x.slice(0, 5) + '-' + x.slice(5) : x; }
+    if (k === 'cartao') return d.slice(0, 16).replace(/(\d{4})(?=\d)/g, '$1 ');
+    if (k === 'validade') { const x = d.slice(0, 4); return x.length > 2 ? x.slice(0, 2) + '/' + x.slice(2) : x; }
+    if (k === 'cvv') return d.slice(0, 4);
+    return raw;
+  }
+  setField(k, raw) {
+    const val = this.mask(k, raw);
+    this.setState(s => ({ v: { ...s.v, [k]: val }, err: { ...s.err, [k]: '' } }));
+    if (k === 'cep') {
+      const d = val.replace(/\D/g, '');
+      if (d.length === 8) {
+        const r = this.state.m && this.state.m.regiaoPorCep(d);
+        this.setState({ envio: r && r.flex ? 'hoje' : 'padrao', cepBusca: 'Buscando endereço…' });
+        fetch(`https://viacep.com.br/ws/${d}/json/`).then(x => x.json()).then(j => {
+          if (j.erro) return this.setState({ cepBusca: '' , err: { ...this.state.err, cep: 'CEP não encontrado. Confira os números.' } });
+          this.setState(s => ({ cepBusca: 'Endereço preenchido pelo CEP', v: { ...s.v, rua: j.logradouro || s.v.rua, bairro: j.bairro || s.v.bairro, cidade: j.localidade ? j.localidade + ', ' + j.uf : s.v.cidade } }));
+        }).catch(() => this.setState({ cepBusca: 'Preencha o endereço manualmente.' }));
+      } else this.setState({ cepBusca: '' });
+    }
+  }
+  cpfOk(c) { const d = c.replace(/\D/g, ''); if (d.length !== 11 || /^(\d)\1+$/.test(d)) return false; const calc = n => { let s = 0; for (let i = 0; i < n; i++) s += +d[i] * (n + 1 - i); const r = (s * 10) % 11; return r === 10 ? 0 : r; }; return calc(9) === +d[9] && calc(10) === +d[10]; }
+  validar() {
+    const { v, pag } = this.state, e = {};
+    if (!v.email.trim()) e.email = 'Informe seu email.'; else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.email.trim())) e.email = 'Este email parece incompleto.';
+    if (v.nome.trim().split(/\s+/).length < 2) e.nome = 'Informe nome e sobrenome.';
+    if (!this.cpfOk(v.cpf)) e.cpf = 'CPF inválido. Confira os 11 números.';
+    if (v.tel.replace(/\D/g, '').length < 10) e.tel = 'Informe o celular com DDD.';
+    if (v.cep.replace(/\D/g, '').length !== 8) e.cep = 'Digite os 8 números do CEP.';
+    if (!v.rua.trim()) e.rua = 'Informe a rua.';
+    if (!v.num.trim()) e.num = 'Informe o número ou S/N.';
+    if (!v.bairro.trim()) e.bairro = 'Informe o bairro.';
+    if (!v.cidade.trim()) e.cidade = 'Informe cidade e UF.';
+    if (pag === 'cartao') {
+      if (v.cartao.replace(/\D/g, '').length < 15) e.cartao = 'Número do cartão incompleto.';
+      if (!v.cnome.trim()) e.cnome = 'Informe o nome como está no cartão.';
+      const [mm, aa] = v.validade.split('/').map(Number); const now = new Date(); const yy = now.getFullYear() % 100;
+      if (!mm || mm > 12 || !aa || aa < yy || (aa === yy && mm < now.getMonth() + 1)) e.validade = 'Validade inválida ou vencida.';
+      if (v.cvv.length < 3) e.cvv = 'CVV tem 3 ou 4 números.';
+    }
+    return e;
+  }
+  renderVals() {
+    const { m, cart, saved, v, err, envio, pag, cepBusca, enviando, sucesso, copiado } = this.state;
+    if (!m) return { form: false, vazio: false, sucesso: false, v, err, on: {}, bd: {}, inv: {}, lines: [], opcoes: [], pagamentos: [], parcelas: [] };
+    const brl = m.brl;
+    const lines = cart.map(l => { const p = m.findItem(l.id); if (!p) return null; const t = m.linePrice(l, p) * l.qty; return { nome: p.nome + (l.ass ? ' (assinatura)' : ''), qty: l.qty, total: t, totalTxt: brl(t), img: p.img, icon: p.cat ? m.ICON[p.cat] : 'ph-package', tint: p.cat ? m.TINT[p.cat] : '#E6EEFF' }; }).filter(Boolean);
+    const subtotal = lines.reduce((s, l) => s + l.total, 0);
+    const desc = saved.cupom ? subtotal * 0.05 : 0;
+    const base = subtotal - desc;
+    const r = v.cep.replace(/\D/g, '').length === 8 ? m.regiaoPorCep(v.cep) : null;
+    const gratis = r && r.uf === 'SP' && subtotal >= m.FRETE_GRATIS;
+    const antes16 = new Date().getHours() < 16;
+    let ops = [];
+    if (r && r.flex) ops = [{ k: 'hoje', nome: antes16 ? 'Receba hoje' : 'Receba amanhã', prazo: antes16 ? 'Entrega até as 22h de hoje' : 'Pedido após as 16h, entrega amanhã', valor: r.valor, icon: 'ph-fill ph-lightning' }, { k: 'padrao', nome: 'Entrega econômica', prazo: '1 a 2 dias úteis', valor: 6.90, icon: 'ph-duotone ph-truck' }];
+    else if (r) ops = [{ k: 'padrao', nome: r.obs, prazo: r.prazo, valor: r.valor, icon: 'ph-duotone ph-truck' }];
+    if (pag === 'boleto') ops = ops.filter(o => o.k !== 'hoje');
+    const sel = ops.find(o => o.k === envio) || ops[0];
+    const frete = sel ? (gratis ? 0 : sel.valor) : 0;
+    const pixDesc = pag === 'pix' ? base * 0.1 : 0;
+    const total = base - pixDesc + frete;
+    const nParc = +v.parcelas || 1;
+    const fields = Object.keys(v);
+    const on = {}, bd = {}, inv = {};
+    fields.forEach(k => { on[k] = e => this.setField(k, e.target.value); bd[k] = err[k] ? '#B42318' : '#E7E3EF'; inv[k] = !!err[k]; });
+    const pagamentos = [['pix', 'Pix', '10% off · aprovação na hora', 'ph-fill ph-qr-code'], ['cartao', 'Cartão de crédito', 'Até 3x sem juros', 'ph-duotone ph-credit-card'], ['boleto', 'Boleto', 'Compensa em 1 dia útil', 'ph-duotone ph-barcode']].map(([k, nome, sub, icon]) => { const o = pag === k; return { nome, sub, icon, on: o, bd: o ? '#6834CC' : '#E7E3EF', bg: o ? '#F8F6FC' : '#FFFFFF', set: () => this.setState({ pag: k }) }; });
+    const temErro = Object.values(err).some(Boolean);
+    return {
+      sucesso: !!sucesso, vazio: !sucesso && lines.length === 0, form: !sucesso && lines.length > 0,
+      v, err, on, bd, inv, temErro, lines,
+      cepInfo: err.cep || cepBusca, cepCor: err.cep ? '#B42318' : '#2F5FD0',
+      semOpcoes: ops.length === 0,
+      opcoes: ops.map(o => { const s = sel && sel.k === o.k; return { ...o, on: s, valorTxt: gratis ? 'Grátis' : brl(o.valor), cor: gratis ? '#2F5FD0' : '#1E1730', bd: s ? '#6834CC' : '#E7E3EF', bg: s ? '#F8F6FC' : '#FFFFFF', set: () => this.setState({ envio: o.k }) }; }),
+      pagamentos, isPix: pag === 'pix', isCartao: pag === 'cartao', isBoleto: pag === 'boleto',
+      parcelas: [1, 2, 3].map(n => ({ n: String(n), txt: `${n}x de ${brl((base + frete) / n)} sem juros` })),
+      subtotalTxt: brl(subtotal), temCupom: !!saved.cupom, cupomTxt: '−' + brl(desc), pixDescTxt: '−' + brl(pixDesc),
+      freteTxt: sel ? (gratis ? 'Grátis' : brl(frete)) : 'Informe o CEP', totalTxt: brl(total),
+      totalSub: pag === 'cartao' ? `${nParc}x de ${brl(total / nParc)} sem juros` : pag === 'pix' ? 'Você economiza ' + brl(pixDesc) + ' no Pix' : 'À vista no boleto',
+      enviando, btnBg: enviando ? '#8E6AD8' : '#6834CC', btnIcon: enviando ? 'ph-bold ph-circle-notch' : 'ph-bold ph-lock-key',
+      btnTxt: enviando ? 'Processando pagamento…' : pag === 'pix' ? 'Gerar Pix de ' + brl(total) : pag === 'boleto' ? 'Gerar boleto' : 'Pagar ' + brl(total),
+      enviar: e => {
+        e.preventDefault(); if (enviando) return;
+        const er = this.validar(); if (!sel && !er.cep) er.cep = 'Escolha uma forma de entrega.';
+        if (Object.keys(er).length) { this.setState({ err: er }); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+        this.setState({ enviando: true });
+        setTimeout(() => {
+          const n = 'PC' + String(Math.floor(100000 + Math.random() * 899999));
+          this.setState({ enviando: false, sucesso: { n, total, pag, entrega: sel.nome + ' · ' + sel.prazo } }); m.setCart([]); window.scrollTo({ top: 0 });
+        }, 1400);
+      },
+      pedido: sucesso ? sucesso.n : '', okPix: !!sucesso && sucesso.pag === 'pix', okTotal: sucesso ? brl(sucesso.total) : '', okEntrega: sucesso ? sucesso.entrega : '',
+      okMsg: !sucesso ? '' : sucesso.pag === 'pix' ? 'Pague com o QR Code abaixo. Assim que o Pix cair, o pedido entra na separação.' : sucesso.pag === 'boleto' ? 'O boleto foi enviado para o seu email. O pedido é separado após a compensação.' : 'Pagamento aprovado. Seu pedido já está em separação.',
+      pixCode: '00020126580014BR.GOV.BCB.PIX0136petcharm' + (sucesso ? sucesso.n : '') + '5204000053039865802BR5908PETCHARM6009SAO PAULO',
+      copyTxt: copiado ? 'Copiado' : 'Copiar', copyIcon: copiado ? 'ph-bold ph-check' : 'ph-bold ph-copy',
+      copiar: () => { try { navigator.clipboard.writeText('PIX' + (sucesso ? sucesso.n : '')); } catch (x) {} this.setState({ copiado: true }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

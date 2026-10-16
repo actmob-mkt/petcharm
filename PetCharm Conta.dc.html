@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Minha conta | PetCharm</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/simbolo-petcharm.png">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+<style>
+body{margin:0;font-family:Poppins,system-ui,sans-serif;color:#1E1730;background:#FFFFFF;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:#6834CC}
+a:hover{color:#4B21A0}
+button,input,select,textarea{font-family:inherit}
+nav::-webkit-scrollbar{display:none}
+</style>
+</helmet>
+<dc-import name="PC Header" ativo="" hint-size="100%,170px"></dc-import>
+<main id="conteudo" style="max-width:1280px;margin:0 auto;padding:40px 24px 96px">
+
+<sc-if value="{{ deslogado }}" hint-placeholder-val="{{ false }}">
+  <section style="max-width:520px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:16px;padding:48px 32px;border-radius:32px;background:#F8F6FC;text-align:center">
+    <span aria-hidden="true" style="width:64px;height:64px;display:grid;place-items:center;border-radius:9999px;background:#6834CC"><i class="ph-fill ph-paw-print" style="font-size:32px;color:#FFFFFF"></i></span>
+    <h1 style="margin:0;font-size:24px;line-height:32px;font-weight:600">Entre para ver sua conta</h1>
+    <p style="margin:0;font-size:16px;line-height:24px;color:#5E5873">Seus pedidos, endereços e formas de pagamento ficam aqui.</p>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px">
+      <a href="PetCharm%20Login.dc.html" style="padding:12px 24px;border-radius:9999px;background:#6834CC;color:#FFFFFF;font-size:16px;line-height:24px;font-weight:600;text-decoration:none" style-hover="background:#4B21A0;color:#FFFFFF">Entrar</a>
+      <button onClick="{{ demo }}" style="padding:12px 24px;border:1px solid #E3D9F8;border-radius:9999px;background:#FFFFFF;color:#4B21A0;font-size:16px;line-height:24px;font-weight:600;cursor:pointer" style-hover="background:#EFE9FB">Ver conta de demonstração</button>
+    </div>
+  </section>
+</sc-if>
+
+<sc-if value="{{ logado }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start">
+  <aside style="flex:0 1 260px;min-width:220px;display:flex;flex-direction:column;gap:16px">
+    <div style="display:flex;align-items:center;gap:12px;padding:16px;border-radius:24px;background:#F8F6FC">
+      <span style="width:48px;height:48px;flex-shrink:0;display:grid;place-items:center;border-radius:9999px;background:#FFD43B;font-size:16px;line-height:24px;font-weight:600">{{ ini }}</span>
+      <span style="display:flex;flex-direction:column;min-width:0"><strong style="font-size:16px;line-height:24px;font-weight:600">Olá, {{ primeiro }}</strong><span style="font-size:12px;line-height:16px;color:#5E5873;overflow:hidden;text-overflow:ellipsis">{{ user.email }}</span></span>
+    </div>
+    <nav aria-label="Minha conta" style="display:flex;flex-direction:column;gap:4px">
+      <sc-for list="{{ abas }}" as="a" hint-placeholder-count="4">
+        <button onClick="{{ a.set }}" aria-current="{{ a.cur }}" style="display:flex;align-items:center;gap:12px;padding:12px 16px;border:0;border-radius:12px;background:{{ a.bg }};color:{{ a.fg }};font-size:14px;line-height:20px;font-weight:{{ a.fw }};text-align:left;cursor:pointer;transition:background 400ms cubic-bezier(0.32,0.72,0,1)" style-hover="background:{{ a.hbg }}" style-focus="outline:3px solid #6699FF;outline-offset:2px"><i class="{{ a.icon }}" style="font-size:20px"></i><span style="flex:1">{{ a.nome }}</span><sc-if value="{{ a.badge }}" hint-placeholder-val="{{ false }}"><span style="min-width:20px;height:20px;padding:0 8px;display:grid;place-items:center;border-radius:9999px;background:#FFD43B;color:#1E1730;font-size:12px;line-height:16px;font-weight:600">{{ a.badge }}</span></sc-if></button>
+      </sc-for>
+      <button onClick="{{ sair }}" style="display:flex;align-items:center;gap:12px;padding:12px 16px;border:0;border-radius:12px;background:transparent;color:#5E5873;font-size:14px;line-height:20px;font-weight:500;text-align:left;cursor:pointer" style-hover="background:#FDECEA;color:#B42318" style-focus="outline:3px solid #6699FF;outline-offset:2px"><i class="ph ph-sign-out" style="font-size:20px"></i>Sair da conta</button>
+    </nav>
+  </aside>
+
+  <section style="flex:1 1 360px;min-width:0;display:flex;flex-direction:column;gap:24px">
+
+    <sc-if value="{{ abaPedidos }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px">
+        <div style="display:flex;flex-direction:column;gap:4px"><h1 style="margin:0;font-size:30px;line-height:36px;font-weight:600">Pedidos recentes</h1><p style="margin:0;font-size:14px;line-height:20px;color:#5E5873">Acompanhe entregas e compre de novo em um clique.</p></div>
+        <div role="tablist" aria-label="Filtrar pedidos" style="display:flex;flex-wrap:wrap;gap:8px">
+          <sc-for list="{{ filtros }}" as="f" hint-placeholder-count="4"><button role="tab" aria-selected="{{ f.on }}" onClick="{{ f.set }}" style="padding:8px 12px;border-radius:9999px;border:1px solid {{ f.bd }};background:{{ f.bg }};color:{{ f.fg }};font-size:14px;line-height:20px;font-weight:500;cursor:pointer" style-focus="outline:3px solid #6699FF;outline-offset:2px">{{ f.nome }}</button></sc-for>
+        </div>
+      </div>
+      <sc-if value="{{ semPedidos }}" hint-placeholder-val="{{ false }}"><p style="margin:0;padding:40px;border-radius:24px;background:#F8F6FC;text-align:center;font-size:14px;line-height:20px;color:#5E5873">Nenhum pedido neste filtro.</p></sc-if>
+      <sc-for list="{{ pedidos }}" as="o" hint-placeholder-count="3">
+        <article style="border:1px solid #EEEAF4;border-radius:24px;overflow:hidden">
+          <button onClick="{{ o.toggle }}" aria-expanded="{{ o.open }}" style="width:100%;display:flex;flex-wrap:wrap;align-items:center;gap:16px;padding:16px 24px;border:0;background:#FFFFFF;text-align:left;cursor:pointer;color:#1E1730" style-hover="background:#FBFAFD" style-focus="outline:3px solid #6699FF;outline-offset:-3px">
+            <span style="display:flex;gap:4px">
+              <sc-for list="{{ o.thumbs }}" as="t" hint-placeholder-count="2"><span style="width:48px;height:48px;display:grid;place-items:center;border-radius:12px;background:{{ t.tint }};overflow:hidden"><sc-if value="{{ t.img }}" hint-placeholder-val="{{ false }}"><img src="{{ t.img }}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;display:block"></sc-if></span></sc-for>
+            </span>
+            <span style="flex:1 1 200px;display:flex;flex-direction:column;gap:2px">
+              <strong style="font-size:16px;line-height:24px;font-weight:600">Pedido {{ o.n }}</strong>
+              <span style="font-size:12px;line-height:16px;color:#5E5873">{{ o.data }} · {{ o.qtdTxt }} · {{ o.totalTxt }}</span>
+            </span>
+            <span style="display:flex;align-items:center;gap:8px;padding:4px 12px;border-radius:9999px;background:{{ o.stBg }};color:{{ o.stFg }};font-size:12px;line-height:16px;font-weight:600"><i class="{{ o.stIcon }}" style="font-size:16px"></i>{{ o.status }}</span>
+            <i class="ph-bold ph-caret-down" style="font-size:16px;color:#5E5873;transition:transform 500ms cubic-bezier(0.32,0.72,0,1);transform:{{ o.rot }}"></i>
+          </button>
+          <sc-if value="{{ o.open }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:24px;padding:24px;border-top:1px solid #EEEAF4;background:#FBFAFD">
+              <sc-if value="{{ o.temEtapas }}" hint-placeholder-val="{{ false }}">
+                <ol aria-label="Andamento do pedido" style="margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px">
+                  <sc-for list="{{ o.etapas }}" as="e" hint-placeholder-count="4">
+                    <li style="display:flex;flex-direction:column;gap:8px">
+                      <span style="height:4px;border-radius:9999px;background:{{ e.bar }}"></span>
+                      <span style="display:flex;align-items:center;gap:4px;font-size:12px;line-height:16px;font-weight:600;color:{{ e.fg }}"><i class="{{ e.icon }}" style="font-size:16px"></i>{{ e.nome }}</span>
+                      <span style="font-size:12px;line-height:16px;color:#5E5873">{{ e.quando }}</span>
+                    </li>
+                  </sc-for>
+                </ol>
+              </sc-if>
+              <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px">
+                <sc-for list="{{ o.itens }}" as="i" hint-placeholder-count="2">
+                  <li style="display:flex;align-items:center;gap:12px">
+                    <span style="width:40px;height:40px;flex-shrink:0;display:grid;place-items:center;border-radius:8px;background:{{ i.tint }};overflow:hidden"><sc-if value="{{ i.img }}" hint-placeholder-val="{{ false }}"><img src="{{ i.img }}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;display:block"></sc-if></span>
+                    <a href="{{ i.href }}" style="flex:1;min-width:0;font-size:14px;line-height:20px;color:#1E1730;text-decoration:none" style-hover="color:#6834CC">{{ i.qty }}x {{ i.nome }}</a>
+                    <strong style="font-size:14px;line-height:20px;font-weight:600">{{ i.totalTxt }}</strong>
+                  </li>
+                </sc-for>
+              </ul>
+              <dl style="margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;padding:16px;border-radius:16px;background:#FFFFFF;font-size:14px;line-height:20px">
+                <div><dt style="font-size:12px;line-height:16px;color:#5E5873">Entrega</dt><dd style="margin:0;font-weight:500">{{ o.entrega }}</dd></div>
+                <div><dt style="font-size:12px;line-height:16px;color:#5E5873">Endereço</dt><dd style="margin:0;font-weight:500">{{ o.endereco }}</dd></div>
+                <div><dt style="font-size:12px;line-height:16px;color:#5E5873">Pagamento</dt><dd style="margin:0;font-weight:500">{{ o.pag }}</dd></div>
+              </dl>
+              <div style="display:flex;flex-wrap:wrap;gap:8px">
+                <button onClick="{{ o.repetir }}" style="display:flex;align-items:center;gap:8px;padding:8px 16px;border:0;border-radius:9999px;background:{{ o.repBg }};color:#FFFFFF;font-size:14px;line-height:20px;font-weight:600;cursor:pointer;transition:background 400ms cubic-bezier(0.32,0.72,0,1)" style-hover="background:#4B21A0" style-active="transform:scale(0.98)" style-focus="outline:3px solid #6699FF;outline-offset:2px"><i class="{{ o.repIcon }}"></i>{{ o.repTxt }}</button>
+                <sc-if value="{{ o.rastreio }}" hint-placeholder-val="{{ false }}"><a href="#rastreio" style="display:flex;align-items:center;gap:8px;padding:8px 16px;border-radius:9999px;background:#E6EEFF;color:#2F5FD0;font-size:14px;line-height:20px;font-weight:600;text-decoration:none"><i class="ph-bold ph-map-pin"></i>Rastrear entrega</a></sc-if>
+                <button onClick="{{ o.ajuda }}" style="display:flex;align-items:center;gap:8px;padding:8px 16px;border:1px solid #E7E3EF;border-radius:9999px;background:#FFFFFF;color:#1E1730;font-size:14px;line-height:20px;font-weight:600;cursor:pointer" style-hover="background:#F3EFFB" style-focus="outline:3px solid #6699FF;outline-offset:2px"><i class="ph-bold ph-lifebuoy"></i>Preciso de ajuda</button>
+              </div>
+            </div>
+          </sc-if>
+        </article>
+      </sc-for>
+    </sc-if>
+
+    <sc-if value="{{ abaPagamento }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px">
+        <div style="display:flex;flex-direction:column;gap:4px"><h1 style="margin:0;font-size:30px;line-height:36px;font-weight:600">Formas de pagamento</h1><p style="margin:0;font-size:14px;line-height:20px;color:#5E5873">Cartões salvos com segurança pelo gateway. Nunca guardamos o número completo.</p></div>
+        <sc-if value="{{ podeAddCard }}" hint-placeholder-val="{{ true }}"><button onClick="{{ abrirCard }}" style="display:flex;align-items:center;gap:8px;padding:8px 16px;border:0;border-radius:9999px;background:#6834CC;color:#FFFFFF;font-size:14px;line-height:20px;font-weight:600;cursor:pointer" style-hover="background:#4B21A0" style-focus="outline:3px solid #6699FF;outline-offset:2px"><i class="ph-bold ph-plus"></i>Adicionar cartão</button></sc-if>
+      </div>
+      <sc-if value="{{ formCard }}" hint-placeholder-val="{{ false }}">
+        <form onSubmit="{{ salvarCard }}" novalidate="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:16px;padding:24px;border-radius:24px;background:#F8F6FC">
+          <strong style="grid-column:1/-1;font-size:16px;line-height:24px;font-weight:600">Novo cartão</strong>
+          <label style="grid-column:1/-1;display:flex;flex-direction:column;gap:4px;font-size:14px;line-height:20px;font-weight:500">Número do cartão
+            <input inputmode="numeric" autocomplete="cc-number" value="{{ c.num }}" onChange="{{ onC.num }}" placeholder="0000 0000 0000 0000" style="height:48px;padding:0 16px;border-radius:12px;border:2px solid {{ cBd.num }};font-size:16px;line-height:24px;outline:none;background:#FFFFFF" style-focus="border-color:#6834CC">
+            <span style="font-size:12px;line-height:16px;color:#B42318">{{ cErr.num }}</span></label>
+          <label style="grid-column:1/-1;display:flex;flex-direction:column;gap:4px;font-size:14px;line-height:20px;font-weight:500">Nome impresso
+            <input autocomplete="cc-name" value="{{ c.nome }}" onChange="{{ onC.nome }}" style="height:48px;padding:0 16px;border-radius:12px;border:2px solid {{ cBd.nome }};font-size:16px;line-height:24px;outline:none;text-transform:uppercase;background:#FFFFFF" style-focus="border-color:#6834CC">
+            <span style="font-size:12px;line-height:16px;color:#B42318">{{ cErr.nome }}</span></label>
+          <label style="display:flex;flex-direction:column;gap:4px;font-size:14px;line-height:20px;font-weight:500">Validade
+            <input inputmode="numeric" autocomplete="cc-exp" value="{{ c.val }}" onChange="{{ onC.val }}" placeholder="MM/AA" style="height:48px;padding:0 16px;border-radius:12px;border:2px solid {{ cBd.val }};font-size:16px;line-height:24px;outline:none;background:#FFFFFF" style-focus="border-color:#6834CC">
+            <span style="font-size:12px;line-height:16px;color:#B42318">{{ cErr.val }}</span></label>
+          <div style="grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px">
+            <button type="submit" style="padding:8px 16px;border:0;border-radius:9999px;background:#6834CC;color:#FFFFFF;font-size:14px;line-height:20px;font-weight:600;cursor:pointer" style-hover="background:#4B21A0" style-focus="outline:3px solid #6699FF;outline-offset:2px">Salvar cartão</button>
+            <button type="button" onClick="{{ fecharCard }}" style="padding:8px 16px;border:0;border-radius:9999px;background:transparent;color:#5E5873;font-size:14px;line-height:20px;font-weight:600;cursor:pointer" style-hover="background:#EFE9FB">Cancelar</button>
+          </div>
+        </form>
+      </sc-if>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:16px">
+        <sc-for list="{{ cards }}" as="k" hint-placeholder-count="2">
+          <article style="display:flex;flex-direction:column;gap:16px;padding:8px;border:1px solid #EEEAF4;border-radius:24px">
+            <div style="aspect-ratio:1.9/1;display:flex;flex-direction:column;justify-content:space-between;padding:24px;border-radius:16px;background:{{ k.bg }};color:#FFFFFF">
+              <div style="display:flex;justify-content:space-between;align-items:center"><i class="ph-fill ph-contactless-payment" style="font-size:24px"></i><strong style="font-size:16px;line-height:24px;font-weight:600">{{ k.bandeira }}</strong></div>
+              <span style="font-size:18px;line-height:28px;font-weight:500;letter-spacing:0.1em">•••• •••• •••• {{ k.final }}</span>
+              <div style="display:flex;justify-content:space-between;font-size:12px;line-height:16px;text-transform:uppercase"><span>{{ k.nome }}</span><span>{{ k.validade }}</span></div>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;padding:0 8px 8px">
+              <sc-if value="{{ k.padrao }}" hint-placeholder-val="{{ false }}"><span style="display:flex;align-items:center;gap:4px;font-size:12px;line-height:16px;font-weight:600;color:#2F5FD0"><i class="ph-fill ph-check-circle" style="font-size:16px"></i>Padrão</span></sc-if>
+              <sc-if value="{{ k.naoPadrao }}" hint-placeholder-val="{{ true }}"><button onClick="{{ k.tornar }}" style="padding:4px 8px;border:0;border-radius:8px;background:transparent;color:#6834CC;font-size:14px;line-height:20px;font-weight:600;cursor:pointer" style-hover="background:#EFE9FB">Tornar padrão</button></sc-if>
+              <sc-if value="{{ k.confirmando }}" hint-placeholder-val="{{ false }}">
+                <span style="display:flex;align-items:center;gap:8px;font-size:12px;line-height:16px;color:#3D3550">Remover?<button onClick="{{ k.remover }}" style="padding:4px 8px;border:0;border-radius:8px;background:#B42318;color:#FFFFFF;font-size:12px;line-height:16px;font-weight:600;cursor:pointer">Sim, remover</button><button onClick="{{ k.cancelar }}" style="padding:4px 8px;border:0;border-radius:8px;background:#F3EFFB;color:#1E1730;font-size:12px;line-height:16px;font-weight:600;cursor:pointer">Manter</button></span>
+              </sc-if>
+              <sc-if value="{{ k.naoConfirmando }}" hint-placeholder-val="{{ true }}"><button onClick="{{ k.pedir }}" style="display:flex;align-items:center;gap:4px;padding:4px 8px;border:0;border-radius:8px;background:transparent;color:#5E5873;font-size:14px;line-height:20px;font-weight:500;cursor:pointer" style-hover="background:#FDECEA;color:#B42318"><i class="ph ph-trash"></i>Remover</button></sc-if>
+            </div>
+          </article>
+        </sc-for>
+      </div>
+      <sc-if value="{{ semCards }}" hint-placeholder-val="{{ false }}"><p style="margin:0;padding:40px;border-radius:24px;background:#F8F6FC;text-align:center;font-size:14px;line-height:20px;color:#5E5873">Nenhum cartão salvo. Adicione um para pagar mais rápido e parcelar em até 3x sem juros.</p></sc-if>
+      <div style="display:flex;gap:16px;align-items:center;padding:24px;border-radius:24px;background:#EFE9FB">
+        <span style="width:48px;height:48px;flex-shrink:0;display:grid;place-items:center;border-radius:12px;background:#FFFFFF"><i class="ph-fill ph-qr-code" style="font-size:24px;color:#6834CC"></i></span>
+        <span style="display:flex;flex-direction:column"><strong style="font-size:16px;line-height:24px;font-weight:600">Pix com 10% off</strong><span style="font-size:14px;line-height:20px;color:#3D3550">Não precisa cadastrar. O QR Code é gerado na hora de cada compra.</span></span>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ abaEnderecos }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px">
+        <div style="display:flex;flex-direction:column;gap:4px"><h1 style="margin:0;font-size:30px;line-height:36px;font-weight:600">Endereços</h1><p style="margin:0;font-size:14px;line-height:20px;color:#5E5873">O endereço padrão é usado automaticamente no checkout.</p></div>
+        <sc-if value="{{ podeAddEnd }}" hint-placeholder-val="{{ true }}"><button onClick="{{ novoEnd }}" style="display:flex;align-items:center;gap:8px;padding:8px 16px;border:0;border-radius:9999px;background:#6834CC;color:#FFFFFF;font-size:14px;line-height:20px;font-weight:600;cursor:pointer" style-hover="background:#4B21A0" style-focus="outline:3px solid #6699FF;outline-offset:2px"><i class="ph-bold ph-plus"></i>Novo endereço</button></sc-if>
+      </div>
+      <sc-if value="{{ formEnd }}" hint-placeholder-val="{{ false }}">
+        <form onSubmit="{{ salvarEnd }}" novalidate="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:16px;padding:24px;border-radius:24px;background:#F8F6FC">
+          <strong style="grid-column:1/-1;font-size:16px;line-height:24px;font-weight:600">{{ formEndTitulo }}</strong>
+          <label style="display:flex;flex-direction:column;gap:4px;font-size:14px;line-height:20px;font-weight:500">Apelido
+            <input value="{{ e.apelido }}" onChange="{{ onE.apelido }}" placeholder="Casa, trabalho…" style="height:48px;padding:0 16px;border-radius:12px;border:2px solid {{ eBd.apelido }};font-size:16px;line-height:24px;outline:none;background:#FFFFFF" style-focus="border-color:#6834CC">
+            <span style="font-size:12px;line-height:16px;color:#B42318">{{ eErr.apelido }}</span></label>
+          <label style="display:flex;flex-direction:column;gap:4px;font-size:14px;line-height:20px;font-weight:500">CEP
+            <input inputmode="numeric" value="{{ e.cep }}" onChange="{{ onE.cep }}" placeholder="00000-000" style="height:48px;padding:0 16px;border-radius:12px;border:2px solid {{ eBd.cep }};font-size:16px;line-height:24px;outline:none;background:#FFFFFF" style-focus="border-color:#6834CC">
+            <span style="font-size:12px;line-height:16px;color:{{ cepCor }}">{{ cepInfo }}</span></label>
+          <label style="grid-column:1/-1;display:flex;flex-direction:column;gap:4px;font-size:14px;line-height:20px;font-weight:500">Rua e número
+            <input value="{{ e.rua }}" onChange="{{ onE.rua }}" style="height:48px;padding:0 16px;border-radius:12px;border:2px solid {{ eBd.rua }};font-size:16px;line-height:24px;outline:none;background:#FFFFFF" style-focus="border-color:#6834CC">
+            <span style="font-size:12px;line-height:16px;color:#B42318">{{ eErr.rua }}</span></label>
+          <label style="display:flex;flex-direction:column;gap:4px;font-size:14px;line-height:20px;font-weight:500">Complemento
+            <input value="{{ e.comp }}" onChange="{{ onE.comp }}" style="height:48px;padding:0 16px;border-radius:12px;border:2px solid #E7E3EF;font-size:16px;line-height:24px;outline:none;background:#FFFFFF" style-focus="border-color:#6834CC"></label>
+          <label style="display:flex;flex-direction:column;gap:4px;font-size:14px;line-height:20px;font-weight:500">Bairro
+            <input value="{{ e.bairro }}" onChange="{{ onE.bairro }}" style="height:48px;padding:0 16px;border-radius:12px;border:2px solid {{ eBd.bairro }};font-size:16px;line-height:24px;outline:none;background:#FFFFFF" style-focus="border-color:#6834CC">
+            <span style="font-size:12px;line-height:16px;color:#B42318">{{ eErr.bairro }}</span></label>
+          <label style="display:flex;flex-direction:column;gap:4px;font-size:14px;line-height:20px;font-weight:500">Cidade e UF
+            <input value="{{ e.cidade }}" onChange="{{ onE.cidade }}" style="height:48px;padding:0 16px;border-radius:12px;border:2px solid {{ eBd.cidade }};font-size:16px;line-height:24px;outline:none;background:#FFFFFF" style-focus="border-color:#6834CC">
+            <span style="font-size:12px;line-height:16px;color:#B42318">{{ eErr.cidade }}</span></label>
+          <div style="grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px">
+            <button type="submit" style="padding:8px 16px;border:0;border-radius:9999px;background:#6834CC;color:#FFFFFF;font-size:14px;line-height:20px;font-weight:600;cursor:pointer" style-hover="background:#4B21A0" style-focus="outline:3px solid #6699FF;outline-offset:2px">Salvar endereço</button>
+            <button type="button" onClick="{{ fecharEnd }}" style="padding:8px 16px;border:0;border-radius:9999px;background:transparent;color:#5E5873;font-size:14px;line-height:20px;font-weight:600;cursor:pointer" style-hover="background:#EFE9FB">Cancelar</button>
+          </div>
+        </form>
+      </sc-if>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:16px">
+        <sc-for list="{{ ends }}" as="d" hint-placeholder-count="2">
+          <article style="display:flex;flex-direction:column;gap:12px;padding:24px;border-radius:24px;border:2px solid {{ d.bd }}">
+            <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px">
+              <strong style="display:flex;align-items:center;gap:8px;font-size:16px;line-height:24px;font-weight:600"><i class="{{ d.icon }}" style="font-size:20px;color:#6834CC"></i>{{ d.apelido }}</strong>
+              <span style="display:flex;gap:4px">
+                <sc-if value="{{ d.padrao }}" hint-placeholder-val="{{ false }}"><span style="padding:2px 8px;border-radius:4px;background:#EFE9FB;color:#4B21A0;font-size:12px;line-height:16px;font-weight:600">Padrão</span></sc-if>
+                <sc-if value="{{ d.hoje }}" hint-placeholder-val="{{ false }}"><span style="display:flex;align-items:center;gap:4px;padding:2px 8px;border-radius:4px;background:#FFF8C7;color:#1E1730;font-size:12px;line-height:16px;font-weight:600"><i class="ph-fill ph-lightning"></i>Receba hoje</span></sc-if>
+              </span>
+            </div>
+            <address style="font-style:normal;font-size:14px;line-height:20px;color:#3D3550">{{ d.rua }}<br>{{ d.linha2 }}<br>{{ d.cidade }} · CEP {{ d.cep }}</address>
+            <div style="margin-top:auto;display:flex;flex-wrap:wrap;gap:4px;padding-top:12px;border-top:1px solid #EEEAF4">
+              <button onClick="{{ d.editar }}" style="display:flex;align-items:center;gap:4px;padding:4px 8px;border:0;border-radius:8px;background:transparent;color:#6834CC;font-size:14px;line-height:20px;font-weight:600;cursor:pointer" style-hover="background:#EFE9FB"><i class="ph ph-pencil-simple"></i>Editar</button>
+              <sc-if value="{{ d.naoPadrao }}" hint-placeholder-val="{{ true }}"><button onClick="{{ d.tornar }}" style="padding:4px 8px;border:0;border-radius:8px;background:transparent;color:#6834CC;font-size:14px;line-height:20px;font-weight:600;cursor:pointer" style-hover="background:#EFE9FB">Tornar padrão</button>
+              <button onClick="{{ d.remover }}" style="display:flex;align-items:center;gap:4px;padding:4px 8px;border:0;border-radius:8px;background:transparent;color:#5E5873;font-size:14px;line-height:20px;font-weight:500;cursor:pointer" style-hover="background:#FDECEA;color:#B42318"><i class="ph ph-trash"></i>Remover</button></sc-if>
+            </div>
+          </article>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ abaSuporte }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:4px"><h1 style="margin:0;font-size:30px;line-height:36px;font-weight:600">Suporte</h1><p style="margin:0;font-size:14px;line-height:20px;color:#5E5873">Respondemos em até 2 horas úteis, de segunda a sábado, das 8h às 20h.</p></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px">
+        <a href="https://wa.me/55" style="display:flex;flex-direction:column;gap:12px;padding:24px;border-radius:24px;background:#EFE9FB;color:#1E1730;text-decoration:none;transition:transform 600ms cubic-bezier(0.32,0.72,0,1)" style-hover="transform:translateY(-4px);color:#1E1730"><i class="ph-fill ph-whatsapp-logo" style="font-size:32px;color:#6834CC"></i><strong style="font-size:16px;line-height:24px;font-weight:600">WhatsApp</strong><span style="font-size:14px;line-height:20px;color:#3D3550">Resposta mais rápida, em média 12 minutos</span></a>
+        <a href="mailto:atendimento@petcharm.com.br" style="display:flex;flex-direction:column;gap:12px;padding:24px;border-radius:24px;background:#E6EEFF;color:#1E1730;text-decoration:none;transition:transform 600ms cubic-bezier(0.32,0.72,0,1)" style-hover="transform:translateY(-4px);color:#1E1730"><i class="ph-fill ph-envelope-simple" style="font-size:32px;color:#2F5FD0"></i><strong style="font-size:16px;line-height:24px;font-weight:600">Email</strong><span style="font-size:14px;line-height:20px;color:#3D3550">atendimento@petcharm.com.br</span></a>
+        <a href="PetCharm%20Home.dc.html#duvidas" style="display:flex;flex-direction:column;gap:12px;padding:24px;border-radius:24px;background:#FFF8C7;color:#1E1730;text-decoration:none;transition:transform 600ms cubic-bezier(0.32,0.72,0,1)" style-hover="transform:translateY(-4px);color:#1E1730"><i class="ph-fill ph-question" style="font-size:32px;color:#6834CC"></i><strong style="font-size:16px;line-height:24px;font-weight:600">Dúvidas frequentes</strong><span style="font-size:14px;line-height:20px;color:#3D3550">Prazos, trocas, Pix e assinatura</span></a>
+      </div>
+      <form onSubmit="{{ abrirChamado }}" novalidate="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:16px;padding:24px;border-radius:24px;border:1px solid #EEEAF4">
+        <strong style="grid-column:1/-1;font-size:18px;line-height:28px;font-weight:600">Abrir um chamado</strong>
+        <sc-if value="{{ chamadoOk }}" hint-placeholder-val="{{ false }}"><p role="status" style="grid-column:1/-1;margin:0;display:flex;gap:12px;padding:12px 16px;border-radius:12px;background:#E6EEFF;font-size:14px;line-height:20px"><i class="ph-fill ph-check-circle" style="font-size:20px;color:#2F5FD0;flex-shrink:0"></i>{{ chamadoOk }}</p></sc-if>
+        <label style="display:flex;flex-direction:column;gap:4px;font-size:14px;line-height:20px;font-weight:500">Pedido
+          <select value="{{ t.pedido }}" onChange="{{ onT.pedido }}" style="height:48px;padding:0 12px;border-radius:12px;border:2px solid #E7E3EF;font-size:16px;line-height:24px;background:#FFFFFF">
+            <option value="">Não é sobre um pedido</option>
+            <sc-for list="{{ pedidoOpts }}" as="po" hint-placeholder-count="4"><option value="{{ po.n }}">{{ po.label }}</option></sc-for>
+          </select></label>
+        <label style="display:flex;flex-direction:column;gap:4px;font-size:14px;line-height:20px;font-weight:500">Assunto
+          <select value="{{ t.assunto }}" onChange="{{ onT.assunto }}" style="height:48px;padding:0 12px;border-radius:12px;border:2px solid {{ tBd.assunto }};font-size:16px;line-height:24px;background:#FFFFFF">
+            <option value="">Escolha um assunto</option>
+            <sc-for list="{{ assuntos }}" as="as" hint-placeholder-count="6"><option value="{{ as }}">{{ as }}</option></sc-for>
+          </select>
+          <span style="font-size:12px;line-height:16px;color:#B42318">{{ tErr.assunto }}</span></label>
+        <label style="grid-column:1/-1;display:flex;flex-direction:column;gap:4px;font-size:14px;line-height:20px;font-weight:500">Conte o que aconteceu
+          <textarea rows="4" value="{{ t.msg }}" onChange="{{ onT.msg }}" placeholder="Quanto mais detalhes, mais rápido resolvemos." style="padding:12px 16px;border-radius:12px;border:2px solid {{ tBd.msg }};font-size:16px;line-height:24px;outline:none;resize:vertical" style-focus="border-color:#6834CC"></textarea>
+          <span style="display:flex;justify-content:space-between;font-size:12px;line-height:16px"><span style="color:#B42318">{{ tErr.msg }}</span><span style="color:#5E5873">{{ msgCount }}</span></span></label>
+        <button type="submit" style="grid-column:1/-1;justify-self:start;padding:12px 24px;border:0;border-radius:9999px;background:#6834CC;color:#FFFFFF;font-size:16px;line-height:24px;font-weight:600;cursor:pointer" style-hover="background:#4B21A0" style-active="transform:scale(0.98)" style-focus="outline:3px solid #6699FF;outline-offset:2px">Enviar chamado</button>
+      </form>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <strong style="font-size:18px;line-height:28px;font-weight:600">Seus chamados</strong>
+        <sc-for list="{{ tickets }}" as="k" hint-placeholder-count="1">
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:16px 24px;border-radius:16px;background:#F8F6FC">
+            <span style="flex:1 1 240px;display:flex;flex-direction:column"><strong style="font-size:14px;line-height:20px;font-weight:600">{{ k.n }} · {{ k.assunto }}</strong><span style="font-size:12px;line-height:16px;color:#5E5873">{{ k.ref }} · aberto em {{ k.data }}</span></span>
+            <span style="padding:4px 12px;border-radius:9999px;background:{{ k.bg }};color:{{ k.fg }};font-size:12px;line-height:16px;font-weight:600">{{ k.status }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+  </section>
+</div>
+</sc-if>
+</main>
+<dc-import name="PC Footer" hint-size="100%,420px"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = this.initState();
+  initState() {
+    let user = null, conta = null; try { user = JSON.parse(localStorage.getItem('pc_user') || 'null'); conta = JSON.parse(localStorage.getItem('pc_conta') || 'null'); } catch (e) {}
+    const s = new URLSearchParams(location.search).get('s');
+    return {
+      m: null, user, aba: ['pedidos', 'pagamento', 'enderecos', 'suporte'].includes(s) ? s : 'pedidos', filtro: 'todos', aberto: 'PC482917', repetido: null,
+      cards: conta?.cards || [{ id: 'c1', bandeira: 'Visa', final: '4821', nome: 'Renata Albuquerque', validade: '08/29', padrao: true }, { id: 'c2', bandeira: 'Mastercard', final: '1177', nome: 'Renata Albuquerque', validade: '03/28', padrao: false }],
+      ends: conta?.ends || [{ id: 'e1', apelido: 'Casa', cep: '05407-002', rua: 'Rua Cardeal Arcoverde, 1745', comp: 'Apto 82', bairro: 'Pinheiros', cidade: 'São Paulo, SP', padrao: true }, { id: 'e2', apelido: 'Trabalho', cep: '01310-200', rua: 'Avenida Paulista, 1578', comp: '9º andar', bairro: 'Bela Vista', cidade: 'São Paulo, SP', padrao: false }],
+      tickets: conta?.tickets || [{ n: '#20931', assunto: 'Troca ou devolução', pedido: 'PC471305', data: '20 set 2026', status: 'Resolvido' }],
+      formCard: false, c: { num: '', nome: '', val: '' }, cErr: {}, confirmar: null,
+      formEnd: false, editId: null, e: {}, eErr: {}, cepBusca: '',
+      t: { pedido: '', assunto: '', msg: '' }, tErr: {}, chamadoOk: ''
+    };
+  }
+  componentDidMount() { import((window.__resources && window.__resources.catalogo) || new URL('./catalogo.js', document.baseURI).href).then(m => this.setState({ m })); }
+  persist() { const { cards, ends, tickets } = this.state; localStorage.setItem('pc_conta', JSON.stringify({ cards, ends, tickets })); }
+  up(o) { this.setState(o, () => this.persist()); }
+  goAba(a) { this.setState({ aba: a }); history.replaceState(null, '', '?s=' + a); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+  setE(k, raw) {
+    let v = raw;
+    if (k === 'cep') { const d = raw.replace(/\D/g, '').slice(0, 8); v = d.length > 5 ? d.slice(0, 5) + '-' + d.slice(5) : d;
+      if (d.length === 8) { this.setState({ cepBusca: 'Buscando endereço…' }); fetch(`https://viacep.com.br/ws/${d}/json/`).then(x => x.json()).then(j => { if (j.erro) return this.setState({ cepBusca: '', eErr: { ...this.state.eErr, cep: 'CEP não encontrado.' } }); this.setState(s => ({ cepBusca: 'Endereço preenchido pelo CEP', e: { ...s.e, rua: j.logradouro ? j.logradouro + ', ' : s.e.rua, bairro: j.bairro || s.e.bairro, cidade: j.localidade ? j.localidade + ', ' + j.uf : s.e.cidade } })); }).catch(() => this.setState({ cepBusca: 'Preencha manualmente.' })); } }
+    this.setState(s => ({ e: { ...s.e, [k]: v }, eErr: { ...s.eErr, [k]: '' } }));
+  }
+  setC(k, raw) {
+    const d = raw.replace(/\D/g, '');
+    const v = k === 'num' ? d.slice(0, 16).replace(/(\d{4})(?=\d)/g, '$1 ') : k === 'val' ? (d.length > 2 ? d.slice(0, 2) + '/' + d.slice(2, 4) : d) : raw;
+    this.setState(s => ({ c: { ...s.c, [k]: v }, cErr: { ...s.cErr, [k]: '' } }));
+  }
+  renderVals() {
+    const S = this.state, { m, user, aba } = S;
+    if (!user) return { deslogado: true, logado: false, demo: () => { const u = { nome: 'Renata Albuquerque', email: 'renata.albuquerque@gmail.com' }; localStorage.setItem('pc_user', JSON.stringify(u)); this.setState({ user: u }); window.dispatchEvent(new Event('pc_user')); } };
+    const brl = m ? m.brl : v => 'R$ ' + v.toFixed(2).replace('.', ',');
+    const end0 = S.ends.find(x => x.padrao) || S.ends[0];
+    const pedidosRaw = [
+      { n: 'PC482917', data: '3 out 2026', st: 'transito', etapa: 2, itens: [['tapete-30', 2], ['bifinho', 1]], pag: 'Pix · 10% off', entrega: 'Receba hoje', quando: ['3 out, 10h12', '3 out, 11h40', '3 out, 14h05', 'Previsto hoje até 22h'] },
+      { n: 'PC471305', data: '18 set 2026', st: 'entregue', etapa: 3, itens: [['areia-2', 3], ['coletor-eva', 1]], pag: 'Visa final 4821 · 3x', entrega: 'Receba hoje', quando: ['18 set, 9h31', '18 set, 10h50', '18 set, 13h22', '18 set, 18h47'] },
+      { n: 'PC466022', data: '2 set 2026', st: 'entregue', etapa: 3, itens: [['tapete-30', 1]], pag: 'Assinatura · Visa final 4821', entrega: 'Entrega econômica', quando: ['2 set, 8h00', '2 set, 9h15', '3 set, 7h40', '3 set, 15h12'] },
+      { n: 'PC459871', data: '14 ago 2026', st: 'cancelado', etapa: -1, itens: [['cama-gg', 1]], pag: 'Pix não pago', entrega: 'Entrega econômica', quando: [] }
+    ];
+    const ST = { transito: ['Em trânsito', '#E6EEFF', '#2F5FD0', 'ph-fill ph-truck'], entregue: ['Entregue', '#EFE9FB', '#4B21A0', 'ph-fill ph-check-circle'], cancelado: ['Cancelado', '#F3F1F5', '#5E5873', 'ph-fill ph-x-circle'] };
+    const etapasN = ['Confirmado', 'Em separação', 'Em trânsito', 'Entregue'];
+    const fil = { todos: () => true, andamento: o => o.st === 'transito', entregues: o => o.st === 'entregue', cancelados: o => o.st === 'cancelado' }[S.filtro];
+    const pedidos = !m ? [] : pedidosRaw.filter(fil).map(o => {
+      const itens = o.itens.map(([id, qty]) => { const p = m.produtos.find(x => x.id === id); return { qty, nome: p.nome, img: p.img, icon: m.ICON[p.cat], tint: m.TINT[p.cat], href: m.U.prod(id), total: p.preco * qty, totalTxt: brl(p.preco * qty) }; });
+      const total = itens.reduce((s, i) => s + i.total, 0) * (o.pag.startsWith('Pix') ? 0.9 : 1);
+      const qtd = itens.reduce((s, i) => s + i.qty, 0); const open = S.aberto === o.n; const rep = S.repetido === o.n; const st = ST[o.st];
+      return { ...o, itens, open, rot: open ? 'rotate(180deg)' : 'none', status: st[0], stBg: st[1], stFg: st[2], stIcon: st[3], thumbs: itens.slice(0, 3),
+        qtdTxt: qtd === 1 ? '1 item' : qtd + ' itens', totalTxt: brl(total), endereco: end0 ? end0.apelido + ', ' + end0.bairro : '', temEtapas: o.etapa >= 0, rastreio: o.st === 'transito',
+        etapas: etapasN.map((nome, i) => ({ nome, quando: o.quando[i] || '', bar: i <= o.etapa ? '#6834CC' : '#E3D9F8', fg: i <= o.etapa ? '#1E1730' : '#8C85A0', icon: i < o.etapa || o.etapa === 3 ? 'ph-fill ph-check-circle' : i === o.etapa ? 'ph-fill ph-circle' : 'ph ph-circle' })),
+        toggle: () => this.setState({ aberto: open ? null : o.n }),
+        repTxt: rep ? 'Itens no carrinho' : 'Comprar de novo', repIcon: rep ? 'ph-bold ph-check' : 'ph-bold ph-arrows-clockwise', repBg: rep ? '#2F5FD0' : '#6834CC',
+        repetir: () => { o.itens.forEach(([id, q]) => m.addToCart(id, q)); this.setState({ repetido: o.n }); },
+        ajuda: () => { this.setState(s => ({ t: { ...s.t, pedido: o.n }, chamadoOk: '' })); this.goAba('suporte'); } };
+    });
+    const chip = (on) => ({ bd: on ? '#1E1730' : '#E7E3EF', bg: on ? '#1E1730' : '#FFFFFF', fg: on ? '#FFFFFF' : '#1E1730' });
+    const bandeiraBg = { Visa: '#2F5FD0', Mastercard: '#1E1730', Elo: '#6834CC', Amex: '#24154A' };
+    const tipo = n => /^4/.test(n) ? 'Visa' : /^(5[1-5]|2[2-7])/.test(n) ? 'Mastercard' : /^3[47]/.test(n) ? 'Amex' : 'Elo';
+    const on = (fn, keys) => Object.fromEntries(keys.map(k => [k, ev => fn(k, ev.target.value)]));
+    const bdOf = err => new Proxy({}, { get: (_, k) => err[k] ? '#B42318' : '#E7E3EF' });
+    const stT = { Aberto: ['#FFF8C7', '#1E1730'], 'Em análise': ['#E6EEFF', '#2F5FD0'], Resolvido: ['#EFE9FB', '#4B21A0'] };
+    const primeiro = user.nome.split(' ')[0];
+    return {
+      deslogado: false, logado: true, user, primeiro, ini: user.nome.split(' ').map(s => s[0]).slice(0, 2).join('').toUpperCase(),
+      abas: [['pedidos', 'Pedidos recentes', 'ph-duotone ph-package', '1'], ['pagamento', 'Formas de pagamento', 'ph-duotone ph-credit-card'], ['enderecos', 'Endereços', 'ph-duotone ph-map-pin'], ['suporte', 'Suporte', 'ph-duotone ph-lifebuoy']].map(([k, nome, icon, badge]) => { const o = aba === k; return { nome, icon, badge: badge || '', cur: o ? 'page' : undefined, bg: o ? '#1E1730' : 'transparent', hbg: o ? '#1E1730' : '#F3EFFB', fg: o ? '#FFFFFF' : '#1E1730', fw: o ? 600 : 500, set: () => this.goAba(k) }; }),
+      sair: () => { localStorage.removeItem('pc_user'); location.href = 'PetCharm%20Login.dc.html'; },
+      abaPedidos: aba === 'pedidos', abaPagamento: aba === 'pagamento', abaEnderecos: aba === 'enderecos', abaSuporte: aba === 'suporte',
+      filtros: [['todos', 'Todos'], ['andamento', 'Em andamento'], ['entregues', 'Entregues'], ['cancelados', 'Cancelados']].map(([k, nome]) => ({ nome, on: S.filtro === k, ...chip(S.filtro === k), set: () => this.setState({ filtro: k }) })),
+      pedidos, semPedidos: !!m && pedidos.length === 0,
+      cards: S.cards.map(k => ({ ...k, bg: bandeiraBg[k.bandeira] || '#6834CC', naoPadrao: !k.padrao, confirmando: S.confirmar === k.id, naoConfirmando: S.confirmar !== k.id,
+        tornar: () => this.up({ cards: S.cards.map(x => ({ ...x, padrao: x.id === k.id })) }), pedir: () => this.setState({ confirmar: k.id }), cancelar: () => this.setState({ confirmar: null }),
+        remover: () => { let r = S.cards.filter(x => x.id !== k.id); if (k.padrao && r[0]) r = r.map((x, i) => ({ ...x, padrao: i === 0 })); this.up({ cards: r, confirmar: null }); } })),
+      semCards: S.cards.length === 0, formCard: S.formCard, podeAddCard: !S.formCard,
+      abrirCard: () => this.setState({ formCard: true, c: { num: '', nome: '', val: '' }, cErr: {} }), fecharCard: () => this.setState({ formCard: false }),
+      c: S.c, cErr: S.cErr, cBd: bdOf(S.cErr), onC: on((k, v) => this.setC(k, v), ['num', 'nome', 'val']),
+      salvarCard: ev => { ev.preventDefault(); const { c } = S, er = {}; const d = c.num.replace(/\D/g, '');
+        if (d.length < 15) er.num = 'Número incompleto.'; if (!c.nome.trim()) er.nome = 'Informe o nome impresso.';
+        const [mm, aa] = c.val.split('/').map(Number); const now = new Date(), yy = now.getFullYear() % 100; if (!mm || mm > 12 || !aa || aa < yy || (aa === yy && mm < now.getMonth() + 1)) er.val = 'Validade inválida ou vencida.';
+        if (Object.keys(er).length) return this.setState({ cErr: er });
+        this.up({ cards: [...S.cards, { id: 'c' + Date.now(), bandeira: tipo(d), final: d.slice(-4), nome: c.nome.trim(), validade: c.val, padrao: S.cards.length === 0 }], formCard: false }); },
+      ends: S.ends.map(d => ({ ...d, bd: d.padrao ? '#6834CC' : '#EEEAF4', naoPadrao: !d.padrao, icon: /trabalho/i.test(d.apelido) ? 'ph-fill ph-briefcase' : 'ph-fill ph-house', linha2: [d.comp, d.bairro].filter(Boolean).join(' · '),
+        hoje: !!(m && (m.regiaoPorCep(d.cep) || {}).flex),
+        editar: () => this.setState({ formEnd: true, editId: d.id, e: { ...d }, eErr: {}, cepBusca: '' }),
+        tornar: () => this.up({ ends: S.ends.map(x => ({ ...x, padrao: x.id === d.id })) }), remover: () => this.up({ ends: S.ends.filter(x => x.id !== d.id) }) })),
+      formEnd: S.formEnd, podeAddEnd: !S.formEnd, formEndTitulo: S.editId ? 'Editar endereço' : 'Novo endereço',
+      novoEnd: () => this.setState({ formEnd: true, editId: null, e: { apelido: '', cep: '', rua: '', comp: '', bairro: '', cidade: '' }, eErr: {}, cepBusca: '' }), fecharEnd: () => this.setState({ formEnd: false }),
+      e: S.e, eErr: S.eErr, eBd: bdOf(S.eErr), onE: on((k, v) => this.setE(k, v), ['apelido', 'cep', 'rua', 'comp', 'bairro', 'cidade']),
+      cepInfo: S.eErr.cep || S.cepBusca, cepCor: S.eErr.cep ? '#B42318' : '#2F5FD0',
+      salvarEnd: ev => { ev.preventDefault(); const e = S.e, er = {};
+        if (!(e.apelido || '').trim()) er.apelido = 'Dê um nome, como Casa.'; if ((e.cep || '').replace(/\D/g, '').length !== 8) er.cep = 'Digite os 8 números do CEP.';
+        if (!/\d/.test(e.rua || '')) er.rua = 'Informe rua e número.'; if (!(e.bairro || '').trim()) er.bairro = 'Informe o bairro.'; if (!(e.cidade || '').trim()) er.cidade = 'Informe cidade e UF.';
+        if (Object.keys(er).length) return this.setState({ eErr: er });
+        const ends = S.editId ? S.ends.map(x => x.id === S.editId ? { ...x, ...e } : x) : [...S.ends, { ...e, id: 'e' + Date.now(), padrao: S.ends.length === 0 }];
+        this.up({ ends, formEnd: false }); },
+      t: S.t, tErr: S.tErr, tBd: bdOf(S.tErr), onT: on((k, v) => this.setState(s => ({ t: { ...s.t, [k]: v }, tErr: { ...s.tErr, [k]: '' }, chamadoOk: '' })), ['pedido', 'assunto', 'msg']),
+      msgCount: S.t.msg.trim().length + ' de 20 caracteres mínimos',
+      pedidoOpts: pedidosRaw.map(o => ({ n: o.n, label: o.n + ' · ' + o.data })),
+      assuntos: ['Atraso na entrega', 'Produto com defeito', 'Troca ou devolução', 'Pagamento', 'Assinatura', 'Outro assunto'],
+      chamadoOk: S.chamadoOk,
+      abrirChamado: ev => { ev.preventDefault(); const t = S.t, er = {}; if (!t.assunto) er.assunto = 'Escolha um assunto.'; if (t.msg.trim().length < 20) er.msg = 'Escreva pelo menos 20 caracteres.';
+        if (Object.keys(er).length) return this.setState({ tErr: er });
+        const n = '#' + (20931 + S.tickets.length * 37);
+        const d = new Date(); const meses = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+        this.up({ tickets: [{ n, assunto: t.assunto, pedido: t.pedido, data: `${d.getDate()} ${meses[d.getMonth()]} ${d.getFullYear()}`, status: 'Aberto' }, ...S.tickets], t: { pedido: '', assunto: '', msg: '' }, chamadoOk: `Chamado ${n} aberto. Respondemos por email e WhatsApp em até 2 horas úteis.` }); },
+      tickets: S.tickets.map(k => ({ ...k, ref: k.pedido ? 'Pedido ' + k.pedido : 'Sem pedido', bg: (stT[k.status] || stT.Aberto)[0], fg: (stT[k.status] || stT.Aberto)[1] }))
+    };
+  }
+}
+</script>
+</body>
+</html>

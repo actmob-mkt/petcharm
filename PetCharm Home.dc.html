@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>PetCharm | Tapete higiênico, areia e tudo para seu pet com entrega hoje em SP</title>
+<meta name="description" content="Tapete higiênico e areia PetCharm, petiscos, brinquedos e caminhas. Receba hoje em SP para pedidos até 16h, frete grátis acima de R$ 149,00 e 10% off no Pix.">
+<meta property="og:title" content="PetCharm | Mais amor para o seu pet">
+<meta property="og:description" content="Receba hoje em SP, frete grátis acima de R$ 149,00 e 10% off no Pix.">
+<meta property="og:image" content="assets/charmozao.jpg">
+<link rel="icon" href="assets/simbolo-petcharm.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Poppins,system-ui,sans-serif;color:#1E1730;background:#FFFFFF;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:#6834CC}
+a:hover{color:#4B21A0}
+button,input{font-family:inherit}
+nav::-webkit-scrollbar{display:none}
+@keyframes pcFill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes pcPulse{0%,100%{opacity:1}50%{opacity:.45}}
+@keyframes pcRoll{from{left:0}to{left:calc(100% - 16px)}}
+@keyframes pcBounce{0%{transform:translateY(0) scale(1.2,.8);animation-timing-function:cubic-bezier(.2,.7,.4,1)}12%{transform:translateY(-4px) scale(1)}50%{transform:translateY(-20px) scale(1);animation-timing-function:cubic-bezier(.6,0,.8,.3)}100%{transform:translateY(0) scale(1.2,.8)}}
+@keyframes pcSpin{to{rotate:360deg}}
+@keyframes pcRun{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-4px) rotate(-8deg)}}
+@keyframes pcThrow{0%{transform:rotate(-14deg)}35%{transform:rotate(12deg)}100%{transform:rotate(0)}}
+@keyframes pcCatch{0%{transform:scale(1)}40%{transform:scale(1.3) translateY(-6px)}100%{transform:scale(1)}}
+</style>
+</helmet>
+
+<a href="#conteudo" style="position:absolute;left:16px;top:-64px;z-index:100;padding:8px 12px;background:#1E1730;color:#FFFFFF;border-radius:8px;font-size:14px;line-height:20px;font-weight:600;text-decoration:none" style-focus="top:16px">Pular para o conteúdo</a>
+
+<div style="background:#6834CC;color:#FFFFFF">
+  <div style="max-width:1280px;margin:0 auto;padding:8px 24px;display:flex;flex-wrap:wrap;justify-content:center;gap:8px 32px;font-size:12px;line-height:16px;font-weight:500">
+    <span style="display:flex;align-items:center;gap:8px"><i class="ph-fill ph-lightning" style="color:#FFD43B;font-size:16px"></i>Receba hoje em SP para pedidos até 16h</span>
+    <span style="display:flex;align-items:center;gap:8px"><i class="ph-fill ph-truck" style="color:#FFD43B;font-size:16px"></i>Frete grátis em SP acima de R$ 149,00</span>
+    <span style="display:flex;align-items:center;gap:8px"><i class="ph-fill ph-qr-code" style="color:#FFD43B;font-size:16px"></i>10% off no Pix ou 3x sem juros</span>
+  </div>
+</div>
+
+<header style="position:sticky;top:0;z-index:40;background:rgba(255,255,255,.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid #EEEAF4">
+  <div style="max-width:1280px;margin:0 auto;padding:12px 24px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px">
+    <a href="#conteudo" aria-label="PetCharm, página inicial" style="display:flex;flex-shrink:0"><img src="assets/logo-petcharm.png" alt="PetCharm" style="height:32px;width:auto;display:block"></a>
+    <form role="search" onSubmit="{{ onSearch }}" style="order:3;flex:1 1 320px;display:flex;align-items:center;gap:8px;height:48px;padding:0 8px 0 16px;border:1px solid #E7E3EF;border-radius:9999px;background:#F8F6FC">
+      <i class="ph ph-magnifying-glass" style="font-size:20px;color:#5E5873"></i>
+      <input type="search" aria-label="Buscar produtos" placeholder="Buscar tapete, areia, petisco..." style="flex:1;min-width:0;border:0;background:transparent;font-size:14px;line-height:20px;color:#1E1730;outline:none">
+      <button type="submit" style="padding:8px 12px;border:0;border-radius:9999px;background:#6834CC;color:#FFFFFF;font-size:14px;line-height:20px;font-weight:600;cursor:pointer;transition:background 400ms cubic-bezier(0.32,0.72,0,1)" style-hover="background:#4B21A0" style-focus="outline:3px solid #6699FF;outline-offset:2px">Buscar</button>
+    </form>
+    <div style="order:2;margin-left:auto;display:flex;align-items:center;gap:8px">
+      <a href="PetCharm%20Login.dc.html" style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:9999px;color:#1E1730;text-decoration:none;font-size:14px;line-height:20px;font-weight:500;transition:background 400ms cubic-bezier(0.32,0.72,0,1)" style-hover="background:#F3EFFB;color:#1E1730"><i class="ph ph-user-circle" style="font-size:24px"></i><span>Entrar</span></a>
+      <button onClick="{{ openCart }}" aria-label="Abrir carrinho" style="position:relative;display:flex;align-items:center;gap:8px;padding:8px 12px;border:0;border-radius:9999px;background:#EFE9FB;color:#4B21A0;font-size:14px;line-height:20px;font-weight:600;cursor:pointer;transition:transform 400ms cubic-bezier(0.32,0.72,0,1),background 400ms cubic-bezier(0.32,0.72,0,1)" style-hover="background:#E3D9F8" style-active="transform:scale(0.98)" style-focus="outline:3px solid #6699FF;outline-offset:2px">
+        <i class="ph-bold ph-shopping-bag" style="font-size:20px"></i>
+        <span>Carrinho</span>
+        <span style="min-width:24px;height:24px;padding:0 8px;display:grid;place-items:center;border-radius:9999px;background:#FFD43B;color:#1E1730;font-size:12px;line-height:16px;font-weight:700">{{ cartCount }}</span>
+      </button>
+    </div>
+  </div>
+  <nav aria-label="Principal" style="max-width:1280px;margin:0 auto;padding:0 24px 8px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none">
+    <a href="#conteudo" aria-current="page" style="flex-shrink:0;padding:8px 12px;border-radius:9999px;background:#1E1730;color:#FFFFFF;font-size:14px;line-height:20px;font-weight:600;text-decoration:none">Início</a>
+    <sc-for list="{{ categorias }}" as="c" hint-placeholder-count="7">
+      <a href="{{ c.href }}" style="flex-shrink:0;padding:8px 12px;border-radius:9999px;color:#3D3550;font-size:14px;line-height:20px;font-weight:500;text-decoration:none;transition:background 400ms cubic-bezier(0.32,0.72,0,1)" style-hover="background:#F3EFFB;color:#1E1730">{{ c.nome }}</a>
+    </sc-for>
+    <a href="#kits" style="flex-shrink:0;padding:8px 12px;border-radius:9999px;color:#3D3550;font-size:14px;line-height:20px;font-weight:500;text-decoration:none" style-hover="background:#F3EFFB;color:#1E1730">Kits</a>
+    <a href="#assinatura" style="flex-shrink:0;padding:8px 12px;border-radius:9999px;color:#3D3550;font-size:14px;line-height:20px;font-weight:500;text-decoration:none" style-hover="background:#F3EFFB;color:#1E1730">Assinatura</a>
+    <a href="PetCharm%20Blog.dc.html" style="flex-shrink:0;padding:8px 12px;border-radius:9999px;color:#3D3550;font-size:14px;line-height:20px;font-weight:500;text-decoration:none" style-hover="background:#F3EFFB;color:#1E1730">Blog</a>
+  </nav>
+</header>
+
+<main id="conteudo" style="position: relative">
+
+<section aria-roledescription="carrossel" aria-label="Ofertas da semana" onMouseEnter="{{ heroPause }}" onMouseLeave="{{ heroPlay }}" onFocus="{{ heroPause }}" onBlur="{{ heroPlay }}" onKeyDown="{{ heroKey }}" onTouchStart="{{ heroTouchStart }}" onTouchEnd="{{ heroTouchEnd }}" style="max-width:1280px;margin:0 auto;padding:24px 24px 48px">
+  <h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">PetCharm: tapete higiênico, areia e tudo para o seu pet com entrega hoje em SP</h1>
+  <div style="display:grid;border-radius:32px;overflow:hidden">
+    <sc-for list="{{ slides }}" as="sl" hint-placeholder-count="1">
+      <article aria-roledescription="slide" aria-label="{{ sl.label }}" aria-hidden="{{ sl.hidden }}" style="grid-area:1/1;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:32px;align-items:center;padding:48px;background:{{ sl.tint }};opacity:{{ sl.op }};transform:{{ sl.tf }};visibility:{{ sl.vis }};pointer-events:{{ sl.pe }};transition:opacity 900ms cubic-bezier(0.32,0.72,0,1),transform 900ms cubic-bezier(0.32,0.72,0,1),visibility 0ms linear {{ sl.visDelay }}">
+        <div style="display:flex;flex-direction:column;gap:24px;max-width:560px">
+          <span style="align-self:flex-start;display:flex;align-items:center;gap:8px;padding:4px 12px;border-radius:9999px;background:#FFFFFF;color:#1E1730;font-size:12px;line-height:16px;font-weight:600"><i class="ph-fill ph-tag" style="font-size:16px;color:#6834CC"></i>{{ sl.eyebrow }}</span>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <h2 style="margin:0;max-width:680px;font-size:48px;line-height:1;font-weight:700;letter-spacing:-0.02em;background:linear-gradient(90deg,#000000,#666666);-webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:4px;text-wrap:balance">{{ sl.titulo }}</h2>
+            <p style="margin:0;max-width:680px;font-size:18px;line-height:28px;color:#3D3550;text-wrap:pretty">{{ sl.sub }}</p>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;align-items:flex-end;gap:8px 24px">
+            <div style="display:flex;flex-direction:column">
+              <span style="font-size:14px;line-height:20px;color:#5E5873">de <span style="text-decoration:line-through">{{ sl.deTxt }}</span> por</span>
+              <span style="font-size:36px;line-height:40px;font-weight:700;color:#1E1730">{{ sl.precoTxt }}</span>
+            </div>
+            <span style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:12px;background:#FFFFFF;font-size:14px;line-height:20px;font-weight:600;color:#6834CC"><i class="ph-fill ph-qr-code" style="font-size:20px"></i>{{ sl.pixTxt }} no Pix</span>
+          </div>
+          <a href="{{ sl.href }}" tabindex="{{ sl.tab }}" style="align-self:flex-start;display:flex;align-items:center;gap:8px;padding:12px 24px;border-radius:9999px;background:#6834CC;color:#FFFFFF;font-size:16px;line-height:24px;font-weight:600;text-decoration:none;transition:transform 500ms cubic-bezier(0.32,0.72,0,1),background 500ms cubic-bezier(0.32,0.72,0,1)" style-hover="background:#4B21A0;color:#FFFFFF;transform:translateY(-2px)" style-active="transform:scale(0.98)" style-focus="outline:3px solid #6699FF;outline-offset:2px">Aproveitar oferta<i class="ph-bold ph-arrow-right" style="font-size:16px"></i></a>
+        </div>
+        <a href="{{ sl.href }}" tabindex="-1" aria-hidden="true" style="position:relative;justify-self:center;width:100%;max-width:400px;aspect-ratio:1/1;display:grid;place-items:center;text-decoration:none">
+          <span style="width:88%;aspect-ratio:1/1;display:grid;place-items:center;border-radius:9999px;background:#FFFFFF;overflow:hidden;transform:{{ sl.imgTf }};transition:transform 1200ms cubic-bezier(0.32,0.72,0,1)"><sc-if value="{{ sl.img }}" hint-placeholder-val="{{ false }}"><img src="{{ sl.img }}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;display:block"></sc-if></span>
+          <span style="position:absolute;top:4%;right:4%;width:96px;height:96px;display:grid;place-items:center;border-radius:9999px;background:#FFD43B;color:#1E1730;font-size:24px;line-height:32px;font-weight:700;transform:{{ sl.tagTf }};transition:transform 1000ms cubic-bezier(0.32,0.72,0,1)">{{ sl.offTxt }}</span>
+          <sc-if value="{{ sl.hoje }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;left:4%;bottom:8%;display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:9999px;background:#1E1730;color:#FFFFFF;font-size:12px;line-height:16px;font-weight:600"><i class="ph-fill ph-lightning" style="font-size:16px;color:#FFD43B"></i>Receba hoje em SP</span></sc-if>
+        </a>
+      </article>
+    </sc-for>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:16px">
+    <div role="tablist" aria-label="Escolher oferta" style="display:flex;align-items:center;gap:8px">
+      <sc-for list="{{ dots }}" as="d" hint-placeholder-count="4">
+        <button role="tab" aria-selected="{{ d.on }}" aria-label="{{ d.label }}" onClick="{{ d.go }}" style="position:relative;width:{{ d.w }};height:8px;padding:0;border:0;border-radius:9999px;background:{{ d.bg }};cursor:pointer;transition:width 700ms cubic-bezier(0.32,0.72,0,1),background 400ms cubic-bezier(0.32,0.72,0,1)" style-focus="outline:3px solid #6699FF;outline-offset:2px"></button>
+      </sc-for>
+    </div>
+    <div aria-hidden="true" title="Tempo até a próxima oferta" style="flex:1 1 260px;max-width:440px;display:flex;align-items:flex-end;gap:8px">
+      <span style="width:50px;height:64px;flex-shrink:0;display:block">{{ fetchTutor }}</span>
+      <span style="position:relative;flex:1;min-width:0;height:8px;margin-bottom:36px">
+        <span style="position:absolute;inset:0;border-radius:9999px;background:#E3D9F8;overflow:hidden">{{ fetchFill }}</span>
+        {{ fetchBall }}
+      </span>
+      <span style="width:84px;height:42px;flex-shrink:0;display:block;overflow:hidden">{{ fetchDog }}</span>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button onClick="{{ heroPrev }}" aria-label="Oferta anterior" style="width:48px;height:48px;display:grid;place-items:center;border:1px solid #E7E3EF;border-radius:9999px;background:#FFFFFF;color:#1E1730;cursor:pointer;transition:transform 400ms cubic-bezier(0.32,0.72,0,1),background 400ms cubic-bezier(0.32,0.72,0,1)" style-hover="background:#F3EFFB" style-active="transform:scale(0.94)" style-focus="outline:3px solid #6699FF;outline-offset:2px"><i class="ph-bold ph-arrow-left" style="font-size:20px"></i></button>
+      <button onClick="{{ heroNext }}" aria-label="Próxima oferta" style="width:48px;height:48px;display:grid;place-items:center;border:1px solid #E7E3EF;border-radius:9999px;background:#FFFFFF;color:#1E1730;cursor:pointer;transition:transform 400ms cubic-bezier(0.32,0.72,0,1),background 400ms cubic-bezier(0.32,0.72,0,1)" style-hover="background:#F3EFFB" style-active="transform:scale(0.94)" style-focus="outline:3px solid #6699FF;outline-offset:2px"><i class="ph-bold ph-arrow-right" style="font-size:20px"></i></button>
+    </div>
+  </div>
+</section>
+
+<section aria-label="Vantagens" style="max-width:1280px;margin:0 auto;padding:0 24px 64px">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px">
+    <div style="display:flex;align-items:center;gap:16px;padding:16px;border-radius:16px;background:#F8F6FC"><span style="width:48px;height:48px;flex-shrink:0;display:grid;place-items:center;border-radius:12px;background:#FFFFFF"><i class="ph-duotone ph-lightning" style="font-size:24px;color:#6834CC"></i></span><span><strong style="display:block;font-size:14px;line-height:20px;font-weight:600">Receba hoje</strong><span style="font-size:14px;line-height:20px;color:#5E5873">Capital paulista, pedidos até 16h</span></span></div>
+    <div style="display:flex;align-items:center;gap:16px;padding:16px;border-radius:16px;background:#F8F6FC"><span style="width:48px;height:48px;flex-shrink:0;display:grid;place-items:center;border-radius:12px;background:#FFFFFF"><i class="ph-duotone ph-truck" style="font-size:24px;color:#6834CC"></i></span><span><strong style="display:block;font-size:14px;line-height:20px;font-weight:600">Frete grátis em SP</strong><span style="font-size:14px;line-height:20px;color:#5E5873">Em compras acima de R$ 149,00</span></span></div>
+    <div style="display:flex;align-items:center;gap:16px;padding:16px;border-radius:16px;background:#F8F6FC"><span style="width:48px;height:48px;flex-shrink:0;display:grid;place-items:center;border-radius:12px;background:#FFFFFF"><i class="ph-duotone ph-qr-code" style="font-size:24px;color:#6834CC"></i></span><span><strong style="display:block;font-size:14px;line-height:20px;font-weight:600">10% off no Pix</strong><span style="font-size:14px;line-height:20px;color:#5E5873">Desconto aplicado no checkout</span></span></div>
+    <div style="display:flex;align-items:center;gap:16px;padding:16px;border-radius:16px;background:#F8F6FC"><span style="width:48px;height:48px;flex-shrink:0;display:grid;place-items:center;border-radius:12px;background:#FFFFFF"><i class="ph-duotone ph-credit-card" style="font-size:24px;color:#6834CC"></i></span><span><strong style="display:block;font-size:14px;line-height:20px;font-weight:600">3x sem juros</strong><span style="font-size:14px;line-height:20px;color:#5E5873">Em todos os cartões</span></span></div>
+  </div>
+</section>
+
+<section id="categorias" aria-labelledby="cat-titulo" data-reveal="1" style="max-width:1280px;margin:0 auto;padding:0 24px 80px">
+  <h2 id="cat-titulo" style="margin:0 0 24px;font-size:30px;line-height:36px;font-weight:600;letter-spacing:-0.01em">Compre por categoria</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,160px),1fr));gap:12px">
+    <sc-for list="{{ categorias }}" as="c" hint-placeholder-count="7">
+      <a href="{{ c.href }}" style="display:flex;flex-direction:column;gap:12px;padding:16px;border-radius:16px;background:{{ c.tint }};color:#1E1730;text-decoration:none;transition:transform 600ms cubic-bezier(0.32,0.72,0,1)" style-hover="transform:translateY(-4px);color:#1E1730" style-active="transform:scale(0.98)" style-focus="outline:3px solid #6699FF;outline-offset:2px">
+        <span style="width:48px;height:48px;display:grid;place-items:center;border-radius:9999px;background:#FFFFFF"><i class="ph-duotone {{ c.icon }}" style="font-size:24px;color:#6834CC"></i></span>
+        <span style="display:flex;flex-direction:column"><strong style="font-size:14px;line-height:20px;font-weight:600;text-wrap:balance">{{ c.nome }}</strong><span style="font-size:12px;line-height:16px;color:#5E5873">{{ c.itensTxt }}</span></span>
+      </a>
+    </sc-for>
+  </div>
+</section>
+
+<section id="mais-vendidos" aria-labelledby="mv-titulo" data-reveal="1" style="max-width:1280px;margin:0 auto;padding:0 24px 96px">
+  <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:24px">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <h2 id="mv-titulo" style="margin:0;font-size:30px;line-height:36px;font-weight:600;letter-spacing:-0.01em">Mais vendidos da semana</h2>
+      <p style="margin:0;font-size:16px;line-height:24px;color:#5E5873">Os itens que os tutores mais repõem, com preço no Pix já calculado.</p>
+    </div>
+    <div role="tablist" aria-label="Filtrar por pet" style="display:flex;gap:4px;padding:4px;border-radius:9999px;background:#F3EFFB">
+      <sc-for list="{{ filtros }}" as="f" hint-placeholder-count="3">
+        <button role="tab" aria-selected="{{ f.ativo }}" onClick="{{ f.set }}" style="padding:8px 16px;border:0;border-radius:9999px;background:{{ f.bg }};color:{{ f.fg }};font-size:14px;line-height:20px;font-weight:600;cursor:pointer;box-shadow:{{ f.sh }};transition:all 500ms cubic-bezier(0.32,0.72,0,1)" style-focus="outline:3px solid #6699FF;outline-offset:2px">{{ f.nome }}</button>
+      </sc-for>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,232px),1fr));gap:16px">
+    <sc-if value="{{ loading }}" hint-placeholder-val="{{ true }}">
+      <sc-for list="{{ skeletons }}" as="s" hint-placeholder-count="8">
+        <div aria-hidden="true" style="display:flex;flex-direction:column;gap:12px;padding:8px;border:1px solid #EEEAF4;border-radius:16px">
+          <div style="aspect-ratio:1/1;border-radius:8px;background:#F3EFFB;animation:pcPulse 1.6s ease-in-out infinite"></div>
+          <div style="height:16px;width:80%;margin:0 8px;border-radius:4px;background:#F3EFFB;animation:pcPulse 1.6s ease-in-out infinite"></div>
+          <div style="height:24px;width:50%;margin:0 8px;border-radius:4px;background:#F3EFFB;animation:pcPulse 1.6s ease-in-out infinite"></div>
+          <div style="height:40px;margin:0 8px 8px;border-radius:9999px;background:#F3EFFB;animation:pcPulse 1.6s ease-in-out infinite"></div>
+        </div>
+      </sc-for>
+    </sc-if>
+    <sc-for list="{{ produtos }}" as="p" hint-placeholder-count="0">
+      <article style="display:flex;flex-direction:column;gap:12px;padding:8px;border:1px solid #EEEAF4;border-radius:16px;background:#FFFFFF;transition:transform 600ms cubic-bezier(0.32,0.72,0,1),box-shadow 600ms cubic-bezier(0.32,0.72,0,1)" style-hover="transform:translateY(-4px);box-shadow:0 16px 40px rgba(48,22,110,.10)">
+        <a href="{{ p.href }}" aria-label="{{ p.nome }}" style="position:relative;display:grid;place-items:center;aspect-ratio:1/1;border-radius:8px;background:{{ p.tint }};text-decoration:none;overflow:hidden">
+          <sc-if value="{{ p.img }}" hint-placeholder-val="{{ false }}"><img src="{{ p.img }}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;display:block"></sc-if>
+          <span style="position:absolute;left:8px;top:8px;display:flex;flex-wrap:wrap;gap:4px">
+            <sc-if value="{{ p.selo }}" hint-placeholder-val="{{ false }}"><span style="padding:2px 8px;border-radius:4px;background:#FFD43B;color:#1E1730;font-size:12px;line-height:16px;font-weight:600">{{ p.selo }}</span></sc-if>
+            <sc-if value="{{ p.offTxt }}" hint-placeholder-val="{{ false }}"><span style="padding:2px 8px;border-radius:4px;background:#1E1730;color:#FFFFFF;font-size:12px;line-height:16px;font-weight:600">{{ p.offTxt }}</span></sc-if>
+          </span>
+          <sc-if value="{{ p.recebaHoje }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;left:8px;bottom:8px;display:flex;align-items:center;gap:4px;padding:2px 8px;border-radius:4px;background:#FFFFFF;color:#2F5FD0;font-size:12px;line-height:16px;font-weight:600"><i class="ph-fill ph-lightning" style="font-size:12px"></i>Receba hoje SP</span></sc-if>
+        </a>
+        <div style="flex:1;display:flex;flex-direction:column;gap:8px;padding:0 8px 8px">
+          <span style="display:flex;align-items:center;gap:4px;font-size:12px;line-height:16px;color:#5E5873"><i class="ph-fill ph-star" style="color:#F2B705;font-size:14px"></i><strong style="color:#1E1730;font-weight:600">{{ p.notaTxt }}</strong>({{ p.avalTxt }})</span>
+          <a href="{{ p.href }}" style="font-size:14px;line-height:20px;font-weight:500;color:#1E1730;text-decoration:none;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:40px" style-hover="color:#6834CC">{{ p.nome }}</a>
+          <div style="margin-top:auto;display:flex;flex-direction:column;gap:2px">
+            <sc-if value="{{ p.deTxt }}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;line-height:16px;color:#5E5873;text-decoration:line-through">{{ p.deTxt }}</span></sc-if>
+            <span style="font-size:20px;line-height:28px;font-weight:700;color:#1E1730">{{ p.precoTxt }}</span>
+            <span style="font-size:14px;line-height:20px;font-weight:600;color:#6834CC">{{ p.pixTxt }} no Pix</span>
+            <span style="font-size:12px;line-height:16px;color:#5E5873">ou 3x de {{ p.parcelaTxt }} sem juros</span>
+          </div>
+          <button onClick="{{ p.add }}" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:8px 12px;border:0;border-radius:9999px;background:{{ p.btnBg }};color:#FFFFFF;font-size:14px;line-height:20px;font-weight:600;cursor:pointer;transition:transform 400ms cubic-bezier(0.32,0.72,0,1),background 400ms cubic-bezier(0.32,0.72,0,1)" style-hover="background:#4B21A0" style-active="transform:scale(0.98)" style-focus="outline:3px solid #6699FF;outline-offset:2px"><i class="{{ p.btnIcon }}" style="font-size:16px"></i>{{ p.btnTxt }}</button>
+        </div>
+      </article>
+    </sc-for>
+  </div>
+</section>
+
+<section aria-label="Conheça o Charmozão" style="padding: 120px 24px 0; padding-top: 0px">
+  <div style="position:relative;max-width:1280px;margin:0 auto;border-radius:32px;background:#4B21A0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));align-items:end;gap:0 48px">
+    
+    <div style="position:relative;display:flex;justify-content:center;align-items:flex-end;min-height:420px">
+      <span aria-hidden="true" style="position:absolute;left:50%;bottom:32px;width:72%;aspect-ratio:1;transform:translateX(-50%);border-radius:9999px;background:#6834CC"></span>
+      
+    <span aria-hidden="true" style="position: absolute; left: -22px; width: 320px; height: 320px; border-radius: 9999px; background: #5A2BB8; pointer-events: none; top: 380px"></span><img src="assets/charmozao.png" alt="Charmozão, o mascote da PetCharm, metade cachorro e metade gato, acenando com a patinha" style="position: relative; display: block; width: 507px; height: 760px; margin-top: -123px; filter: drop-shadow(0 24px 32px rgba(20,8,48,.35))"></div><div style="position: relative; display: flex; flex-direction: column; gap: 24px; padding: 64px 48px 64px 0; padding-inline: clamp(24px,4vw,48px)">
+      <span style="display: flex; align-items: center; gap: 8px; font-size: 31px; line-height: 20px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #C9B8F2"><i class="ph-fill ph-paw-print" aria-hidden="true" style="font-size: 40px"></i>Prazer, Charmozão</span>
+      <p ref="{{ tagRef }}" style="margin:0;font-size:clamp(32px,4vw,48px);line-height:1.15;font-weight:600;letter-spacing:-0.02em;display:flex;flex-wrap:wrap;gap:0 12px">
+        <sc-for list="{{ tagWords }}" as="w" hint-placeholder-count="0"><span data-w="1" style="color: #FFFFFFDD; transition: color 700ms cubic-bezier(0.32,0.72,0,1)">{{ w }}</span></sc-for>
+      </p>
+      <p style="margin:0;max-width:480px;font-size:16px;line-height:24px;color:#E3D9F8;text-wrap:pretty">O Charmozão nasceu de uma casa com cachorro e gato dividindo o mesmo sofá. Por isso a PetCharm cuida dos dois com o mesmo capricho, do tapete que vai para o quarto do filhote até a areia da caixinha.</p>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:480px">
+        <a href="PetCharm Categoria.dc.html?pet=cachorro" style="display:flex;align-items:center;gap:12px;padding:16px;border-radius:16px;background:rgba(255,255,255,.1);color:#FFFFFF;text-decoration:none;font-weight:600;transition:background 200ms cubic-bezier(0.32,0.72,0,1)" style-hover="background:rgba(255,255,255,.18)"><i class="ph-duotone ph-dog" aria-hidden="true" style="font-size:28px;color:#FFFFFF"></i>Para cães</a>
+        <a href="PetCharm Categoria.dc.html?pet=gato" style="display:flex;align-items:center;gap:12px;padding:16px;border-radius:16px;background:rgba(255,255,255,.1);color:#FFFFFF;text-decoration:none;font-weight:600;transition:background 200ms cubic-bezier(0.32,0.72,0,1)" style-hover="background:rgba(255,255,255,.18)"><i class="ph-duotone ph-cat" aria-hidden="true" style="font-size:28px;color:#FFFFFF"></i>Para gatos</a>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+<section id="kits" aria-labelledby="kits-titulo" data-reveal="1" style="max-width:1280px;margin:0 auto;padding:96px 24px 48px">
+  <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px">
+    <h2 id="kits-titulo" style="margin:0;font-size:30px;line-height:36px;font-weight:600;letter-spacing:-0.01em">Kits prontos, preço de combo</h2>
+    <p style="margin:0;font-size:16px;line-height:24px;color:#5E5873">Montamos os itens que andam juntos para você comprar em um clique.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px">
+    <sc-for list="{{ kits }}" as="k" hint-placeholder-count="3">
+      <article style="display:flex;flex-direction:column;gap:16px;padding:24px;border:1px solid #EEEAF4;border-radius:24px;background:#FFFFFF">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+          <span style="width:48px;height:48px;display:grid;place-items:center;border-radius:12px;background:#E6EEFF"><i class="ph-duotone ph-package" style="font-size:24px;color:#2F5FD0"></i></span>
+          <span style="padding:4px 12px;border-radius:9999px;background:#FFD43B;color:#1E1730;font-size:12px;line-height:16px;font-weight:600">{{ k.economiaTxt }}</span>
+        </div>
+        <h3 style="margin:0;font-size:20px;line-height:28px;font-weight:600">{{ k.nome }}</h3>
+        <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px">
+          <sc-for list="{{ k.itens }}" as="i" hint-placeholder-count="3"><li style="display:flex;align-items:center;gap:8px;font-size:14px;line-height:20px;color:#3D3550"><i class="ph-bold ph-check" style="color:#6834CC;font-size:16px"></i>{{ i }}</li></sc-for>
+        </ul>
+        <div style="margin-top:auto;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;padding-top:16px;border-top:1px solid #EEEAF4">
+          <div style="display:flex;flex-direction:column">
+            <span style="font-size:12px;line-height:16px;color:#5E5873;text-decoration:line-through">{{ k.deTxt }}</span>
+            <span style="font-size:24px;line-height:32px;font-weight:700">{{ k.precoTxt }}</span>
+            <span style="font-size:14px;line-height:20px;font-weight:600;color:#6834CC">{{ k.pixTxt }} no Pix</span>
+          </div>
+          <button onClick="{{ k.add }}" style="display:flex;align-items:center;gap:8px;padding:8px 12px;border:0;border-radius:9999px;background:#6834CC;color:#FFFFFF;font-size:16px;line-height:24px;font-weight:600;cursor:pointer;transition:transform 400ms cubic-bezier(0.32,0.72,0,1),background 400ms cubic-bezier(0.32,0.72,0,1)" style-hover="background:#4B21A0" style-active="transform:scale(0.98)" style-focus="outline:3px solid #6699FF;outline-offset:2px"><i class="ph-bold ph-shopping-bag" style="font-size:16px"></i>Levar kit</button>
+        </div>
+      </article>
+    </sc-for>
+  </div>
+</section>
+
+<section id="assinatura" aria-labelledby="ass-titulo" data-reveal="1" style="max-width:1280px;margin:0 auto;padding:0 24px 96px">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:32px;align-items:center;padding:48px;border-radius:32px;background:#6834CC;color:#FFFFFF">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <span style="align-self:flex-start;padding:4px 12px;border-radius:9999px;background:#FFD43B;color:#1E1730;font-size:12px;line-height:16px;font-weight:600">Assinatura PetCharm</span>
+      <h2 id="ass-titulo" style="margin:0;font-size:36px;line-height:40px;font-weight:600;letter-spacing:-0.01em;text-wrap:balance">Nunca mais fique sem tapete ou areia em casa</h2>
+      <p style="margin:0;font-size:16px;line-height:24px;color:#EFE9FB;text-wrap:pretty">Escolha a frequência e receba automaticamente com 7% de desconto extra. Pule uma entrega ou cancele quando quiser, sem multa.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px;padding:24px;border-radius:16px;background:#FFFFFF;color:#1E1730">
+      <span style="font-size:14px;line-height:20px;font-weight:600">Receber a cada</span>
+      <div role="radiogroup" aria-label="Frequência da assinatura" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+        <sc-for list="{{ freqs }}" as="f" hint-placeholder-count="3">
+          <button role="radio" aria-checked="{{ f.ativo }}" onClick="{{ f.set }}" style="padding:12px 8px;border-radius:8px;border:2px solid {{ f.bd }};background:{{ f.bg }};color:#1E1730;font-size:14px;line-height:20px;font-weight:600;cursor:pointer;transition:all 400ms cubic-bezier(0.32,0.72,0,1)" style-focus="outline:3px solid #6699FF;outline-offset:2px">{{ f.nome }}</button>
+        </sc-for>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding-top:8px">
+        <span style="font-size:14px;line-height:20px;color:#5E5873">Tapete PetCharm 30 un</span>
+        <span style="display:flex;align-items:baseline;gap:8px"><span style="font-size:12px;line-height:16px;color:#5E5873;text-decoration:line-through">R$ 69,90</span><strong style="font-size:20px;line-height:28px;font-weight:700">R$ 65,01</strong></span>
+      </div>
+      <a href="PetCharm%20Produto.dc.html?p=tapete-30" style="display:flex;justify-content:center;align-items:center;gap:8px;padding:12px 24px;border-radius:9999px;background:#1E1730;color:#FFFFFF;font-size:16px;line-height:24px;font-weight:600;text-decoration:none;transition:transform 400ms cubic-bezier(0.32,0.72,0,1)" style-hover="color:#FFFFFF;transform:translateY(-2px)" style-active="transform:scale(0.98)" style-focus="outline:3px solid #6699FF;outline-offset:2px">Assinar a cada {{ freqAtual }}</a>
+      <span style="font-size:12px;line-height:16px;color:#5E5873;text-align:center">Primeira entrega hoje em SP para pedidos até 16h</span>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="dep-titulo" data-reveal="1" style="max-width:1280px;margin:0 auto;padding:0 24px 96px">
+  <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:24px">
+    <h2 id="dep-titulo" style="margin:0;font-size:30px;line-height:36px;font-weight:600;letter-spacing:-0.01em">Quem compra, volta</h2>
+    <span style="display:flex;align-items:center;gap:8px;font-size:14px;line-height:20px;color:#3D3550"><i class="ph-fill ph-star" style="color:#F2B705;font-size:20px"></i><strong style="font-weight:600">4,8 de média</strong> em 7.412 avaliações</span>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px">
+    <sc-for list="{{ depoimentos }}" as="d" hint-placeholder-count="3">
+      <figure style="margin:0;display:flex;flex-direction:column;gap:16px;padding:24px;border-radius:24px;background:#F8F6FC">
+        <span style="display:flex;gap:2px;color:#F2B705"><sc-for list="{{ d.stars }}" as="s" hint-placeholder-count="5"><i class="{{ s }}"></i></sc-for></span>
+        <blockquote style="margin:0;font-size:16px;line-height:24px;color:#1E1730;text-wrap:pretty">“{{ d.texto }}”</blockquote>
+        <figcaption style="margin-top:auto;display:flex;align-items:center;gap:12px">
+          <span style="width:40px;height:40px;display:grid;place-items:center;border-radius:9999px;background:{{ d.cor }};color:#1E1730;font-size:14px;line-height:20px;font-weight:600">{{ d.ini }}</span>
+          <span style="display:flex;flex-direction:column"><strong style="font-size:14px;line-height:20px;font-weight:600">{{ d.nome }}</strong><span style="font-size:12px;line-height:16px;color:#5E5873">{{ d.pet }} · {{ d.cidade }}</span></span>
+        </figcaption>
+      </figure>
+    </sc-for>
+  </div>
+</section>
+
+<section id="blog" aria-labelledby="blog-titulo" data-reveal="1" style="max-width:1280px;margin:0 auto;padding:0 24px 96px">
+  <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:24px">
+    <h2 id="blog-titulo" style="margin:0;font-size:30px;line-height:36px;font-weight:600;letter-spacing:-0.01em">Dicas para a rotina do seu pet</h2>
+    <a href="PetCharm%20Blog.dc.html" style="display:flex;align-items:center;gap:8px;font-size:14px;line-height:20px;font-weight:600;text-decoration:none">Ver todos os artigos<i class="ph-bold ph-arrow-right"></i></a>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px">
+    <sc-for list="{{ artigos }}" as="a" hint-placeholder-count="3">
+      <a href="{{ a.href }}" style="display:flex;flex-direction:column;gap:16px;padding:8px 8px 24px;border:1px solid #EEEAF4;border-radius:24px;color:#1E1730;text-decoration:none;transition:transform 600ms cubic-bezier(0.32,0.72,0,1)" style-hover="transform:translateY(-4px);color:#1E1730" style-focus="outline:3px solid #6699FF;outline-offset:2px">
+        <div style="position:relative;aspect-ratio:16/10;overflow:hidden;border-radius:16px;background:{{ a.tint }}"><sc-if value="{{ a.img }}" hint-placeholder-val="{{ false }}"><img src="{{ a.img }}" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block"></sc-if></div>
+        <div style="display:flex;flex-direction:column;gap:8px;padding:0 16px">
+          <span style="font-size:12px;line-height:16px;font-weight:600;color:#2F5FD0">{{ a.cat }} · {{ a.leitura }} de leitura</span>
+          <h3 style="margin:0;font-size:18px;line-height:28px;font-weight:600;text-wrap:balance">{{ a.titulo }}</h3>
+          <p style="margin:0;font-size:14px;line-height:20px;color:#5E5873;text-wrap:pretty">{{ a.resumo }}</p>
+        </div>
+      </a>
+    </sc-for>
+  </div>
+</section>
+
+<section id="duvidas" aria-labelledby="faq-titulo" data-reveal="1" style="max-width:880px;margin:0 auto;padding:0 24px 96px">
+  <h2 id="faq-titulo" style="margin:0 0 24px;font-size:30px;line-height:36px;font-weight:600;letter-spacing:-0.01em;text-align:center">Dúvidas frequentes</h2>
+  <div style="display:flex;flex-direction:column;gap:8px">
+    <sc-for list="{{ faq }}" as="q" hint-placeholder-count="7">
+      <div style="border-radius:16px;background:#F8F6FC">
+        <button aria-expanded="{{ q.open }}" onClick="{{ q.toggle }}" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 24px;border:0;background:transparent;text-align:left;color:#1E1730;font-size:16px;line-height:24px;font-weight:600;cursor:pointer;border-radius:16px" style-focus="outline:3px solid #6699FF;outline-offset:2px">
+          <span>{{ q.p }}</span>
+          <i class="ph-bold ph-plus" style="font-size:16px;flex-shrink:0;transition:transform 500ms cubic-bezier(0.32,0.72,0,1);transform:{{ q.rot }}"></i>
+        </button>
+        <sc-if value="{{ q.open }}" hint-placeholder-val="{{ false }}">
+          <p style="margin:0;padding:0 24px 24px;font-size:14px;line-height:20px;color:#3D3550;text-wrap:pretty">{{ q.r }}</p>
+        </sc-if>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<section aria-labelledby="news-titulo" data-reveal="1" style="max-width:1280px;margin:0 auto;padding:0 24px 96px">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:32px;align-items:center;padding:48px;border-radius:32px;background:#FFF8C7">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <h2 id="news-titulo" style="margin:0;font-size:30px;line-height:36px;font-weight:600;letter-spacing:-0.01em;text-wrap:balance">Ofertas da semana e dicas no seu email</h2>
+      <p style="margin:0;font-size:16px;line-height:24px;color:#3D3550">Um email por semana. Sem spam, e você sai quando quiser.</p>
+    </div>
+    <form onSubmit="{{ onNews }}" novalidate="" style="display:flex;flex-direction:column;gap:8px">
+      <sc-if value="{{ newsOk }}" hint-placeholder-val="{{ false }}">
+        <p role="status" style="margin:0;display:flex;align-items:center;gap:8px;padding:16px;border-radius:16px;background:#FFFFFF;font-size:16px;line-height:24px;font-weight:500"><i class="ph-fill ph-check-circle" style="font-size:24px;color:#6834CC"></i>Pronto. Seu primeiro email chega na próxima segunda.</p>
+      </sc-if>
+      <sc-if value="{{ newsForm }}" hint-placeholder-val="{{ true }}">
+        <label for="news-email" style="font-size:14px;line-height:20px;font-weight:600">Seu email</label>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <input id="news-email" type="email" value="{{ email }}" onChange="{{ onEmail }}" aria-invalid="{{ emailInvalid }}" aria-describedby="news-erro" placeholder="voce@email.com.br" style="flex:1 1 220px;min-width:0;height:48px;padding:0 16px;border-radius:9999px;border:2px solid {{ emailBd }};background:#FFFFFF;font-size:16px;line-height:24px;color:#1E1730;outline:none">
+          <button type="submit" style="height:48px;padding:8px 24px;border:0;border-radius:9999px;background:#6834CC;color:#FFFFFF;font-size:16px;line-height:24px;font-weight:600;cursor:pointer;transition:background 400ms cubic-bezier(0.32,0.72,0,1)" style-hover="background:#4B21A0" style-active="transform:scale(0.98)" style-focus="outline:3px solid #6699FF;outline-offset:2px">Quero receber</button>
+        </div>
+        <span id="news-erro" role="alert" style="min-height:20px;font-size:14px;line-height:20px;font-weight:500;color:#B42318">{{ emailErr }}</span>
+      </sc-if>
+    </form>
+  </div>
+</section>
+
+<section aria-labelledby="final-titulo" style="max-width:1280px;margin:0 auto;padding:0 24px 96px;display:flex;flex-direction:column;align-items:center;gap:24px;text-align:center">
+  <span aria-hidden="true" style="width:56px;height:56px;display:grid;place-items:center;border-radius:9999px;background:#6834CC"><i class="ph-fill ph-paw-print" style="font-size:28px;color:#FFFFFF"></i></span>
+  <h2 id="final-titulo" style="margin:0;max-width:680px;font-size:36px;line-height:40px;font-weight:600;letter-spacing:-0.01em;text-wrap:balance">Peça até as 16h e o tapete chega hoje</h2>
+  <a href="PetCharm%20Categoria.dc.html?c=tapete-higienico" style="display:flex;align-items:center;gap:8px;padding:12px 24px;border-radius:9999px;background:#6834CC;color:#FFFFFF;font-size:16px;line-height:24px;font-weight:600;text-decoration:none;box-shadow:0 8px 24px rgba(104,52,204,.28);transition:transform 500ms cubic-bezier(0.32,0.72,0,1),background 500ms cubic-bezier(0.32,0.72,0,1)" style-hover="background:#4B21A0;color:#FFFFFF;transform:translateY(-2px)" style-active="transform:scale(0.98)" style-focus="outline:3px solid #6699FF;outline-offset:2px">Comprar tapete higiênico<i class="ph-bold ph-arrow-right" style="font-size:16px"></i></a>
+  <span style="font-size:14px;line-height:20px;color:#5E5873">Troca grátis em até 7 dias · 10% off no Pix · 3x sem juros</span>
+</section>
+
+<div onClick="{{ closeCart }}" aria-hidden="true" style="position: fixed; inset: 0; z-index: 60; background: rgba(30,23,48,.40); backdrop-filter: blur(4px); opacity: {{ ovOpacity }}; pointer-events: {{ ovPe }}; transition: opacity 600ms cubic-bezier(0.32,0.72,0,1); left: 37px; top: 2053px"></div></main>
+
+<footer style="background:#24154A;color:#E3DCF5">
+  <div style="max-width: 1280px; margin: 0 auto; padding: 64px 24px 32px; display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,200px),1fr)); gap: 40px; align-items: flex-start; justify-content: center">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <img src="assets/logo-petcharm-branco.png" alt="PetCharm" style="height: 68px; width: auto; align-self: flex-start">
+      <p style="margin:0;font-size:14px;line-height:20px;color:#C9BEEA">Mais amor para o seu pet. Loja oficial PetCharm, São Paulo, SP.</p>
+      <a href="https://wa.me/55" style="display:flex;align-items:center;gap:8px;color:#FFFFFF;font-size:14px;line-height:20px;font-weight:600;text-decoration:none"><i class="ph-fill ph-whatsapp-logo" style="font-size:20px;color:#FFD43B"></i>Atendimento no WhatsApp</a>
+    </div>
+    <nav aria-label="Loja" style="display:flex;flex-direction:column;gap:8px">
+      <strong style="font-size:14px;line-height:20px;font-weight:600;color:#FFFFFF;margin-bottom:4px">Loja</strong>
+      <sc-for list="{{ categorias }}" as="c" hint-placeholder-count="7"><a href="{{ c.href }}" style="font-size:14px;line-height:20px;color:#C9BEEA;text-decoration:none" style-hover="color:#FFFFFF">{{ c.nome }}</a></sc-for>
+    </nav>
+    <nav aria-label="Ajuda" style="display:flex;flex-direction:column;gap:8px">
+      <strong style="font-size:14px;line-height:20px;font-weight:600;color:#FFFFFF;margin-bottom:4px">Ajuda</strong>
+      <a href="#duvidas" style="font-size:14px;line-height:20px;color:#C9BEEA;text-decoration:none" style-hover="color:#FFFFFF">Dúvidas frequentes</a>
+      <a href="#duvidas" style="font-size:14px;line-height:20px;color:#C9BEEA;text-decoration:none" style-hover="color:#FFFFFF">Prazos e frete</a>
+      <a href="#duvidas" style="font-size:14px;line-height:20px;color:#C9BEEA;text-decoration:none" style-hover="color:#FFFFFF">Trocas e devoluções</a>
+      <a href="PetCharm%20Conta.dc.html?s=pedidos" style="font-size:14px;line-height:20px;color:#C9BEEA;text-decoration:none" style-hover="color:#FFFFFF">Meus pedidos</a>
+    </nav>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <strong style="font-size:14px;line-height:20px;font-weight:600;color:#FFFFFF">Pagamento</strong>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <span style="padding:4px 8px;border-radius:4px;background:#34205F;font-size:12px;line-height:16px;font-weight:600">Pix</span>
+        <span style="padding:4px 8px;border-radius:4px;background:#34205F;font-size:12px;line-height:16px;font-weight:600">Visa</span>
+        <span style="padding:4px 8px;border-radius:4px;background:#34205F;font-size:12px;line-height:16px;font-weight:600">Mastercard</span>
+        <span style="padding:4px 8px;border-radius:4px;background:#34205F;font-size:12px;line-height:16px;font-weight:600">Elo</span>
+        <span style="padding:4px 8px;border-radius:4px;background:#34205F;font-size:12px;line-height:16px;font-weight:600">Boleto</span>
+      </div>
+      <span style="display:flex;align-items:center;gap:8px;font-size:12px;line-height:16px;color:#C9BEEA"><i class="ph-fill ph-lock-key" style="font-size:16px"></i>Compra protegida com SSL</span>
+    </div>
+  </div>
+  <div style="max-width:1280px;margin:0 auto;padding:24px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;border-top:1px solid #34205F;font-size:12px;line-height:16px;color:#C9BEEA">
+    <span>© 2026 PetCharm. CNPJ a informar.</span>
+    <span style="display:flex;gap:16px"><a href="#privacidade" style="color:#C9BEEA" style-hover="color:#FFFFFF">Política de privacidade</a><a href="#termos" style="color:#C9BEEA" style-hover="color:#FFFFFF">Termos de uso</a><a href="#cookies" style="color:#C9BEEA" style-hover="color:#FFFFFF">Cookies</a></span>
+  </div>
+</footer>
+
+
+<aside role="dialog" aria-modal="true" aria-label="Carrinho" aria-hidden="{{ drawerHidden }}" style="position:fixed;top:0;right:0;bottom:0;z-index:70;width:min(100%,420px);display:flex;flex-direction:column;background:#FFFFFF;box-shadow:-24px 0 64px rgba(30,23,48,.18);transform:{{ drawerX }};visibility:{{ drawerVis }};transition:transform 700ms cubic-bezier(0.32,0.72,0,1),visibility 0ms linear {{ drawerVisDelay }}">
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 24px;border-bottom:1px solid #EEEAF4">
+    <strong style="font-size:18px;line-height:28px;font-weight:600">Seu carrinho ({{ cartCount }})</strong>
+    <button onClick="{{ closeCart }}" aria-label="Fechar carrinho" style="width:40px;height:40px;display:grid;place-items:center;border:0;border-radius:9999px;background:#F3EFFB;color:#1E1730;cursor:pointer" style-hover="background:#E3D9F8" style-focus="outline:3px solid #6699FF;outline-offset:2px"><i class="ph-bold ph-x" style="font-size:16px"></i></button>
+  </div>
+  <div style="padding:16px 24px;display:flex;flex-direction:column;gap:8px;background:#F8F6FC">
+    <span style="font-size:14px;line-height:20px;font-weight:500">{{ freteMsg }}</span>
+    <div style="height:8px;border-radius:9999px;background:#E3D9F8;overflow:hidden"><div style="height:100%;width:{{ fretePct }};border-radius:9999px;background:#6834CC;transition:width 700ms cubic-bezier(0.32,0.72,0,1)"></div></div>
+  </div>
+  <div style="flex:1;overflow-y:auto;padding:16px 24px;display:flex;flex-direction:column;gap:16px">
+    <sc-if value="{{ cartEmpty }}" hint-placeholder-val="{{ true }}">
+      <div style="margin:auto 0;display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;padding:32px 0">
+        <span style="width:80px;height:80px;display:grid;place-items:center;border-radius:9999px;background:#EFE9FB"><i class="ph-duotone ph-shopping-bag" style="font-size:40px;color:#6834CC"></i></span>
+        <strong style="font-size:18px;line-height:28px;font-weight:600">Seu carrinho está vazio</strong>
+        <p style="margin:0;max-width:280px;font-size:14px;line-height:20px;color:#5E5873">Comece pelo tapete PetCharm, o item mais repetido pelos tutores.</p>
+        <button onClick="{{ addTapete }}" style="padding:8px 16px;border:0;border-radius:9999px;background:#6834CC;color:#FFFFFF;font-size:14px;line-height:20px;font-weight:600;cursor:pointer" style-hover="background:#4B21A0" style-focus="outline:3px solid #6699FF;outline-offset:2px">Adicionar tapete 30 un</button>
+      </div>
+    </sc-if>
+    <sc-for list="{{ lines }}" as="l" hint-placeholder-count="0">
+      <div style="display:flex;gap:12px;align-items:flex-start">
+        <span style="width:64px;height:64px;flex-shrink:0;display:grid;place-items:center;border-radius:12px;background:#EFE9FB;overflow:hidden"><sc-if value="{{ l.img }}" hint-placeholder-val="{{ false }}"><img src="{{ l.img }}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;display:block"></sc-if></span>
+        <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:8px">
+          <span style="font-size:14px;line-height:20px;font-weight:500">{{ l.nome }}</span>
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+            <div style="display:flex;align-items:center;border:1px solid #E7E3EF;border-radius:9999px">
+              <button onClick="{{ l.dec }}" aria-label="Diminuir quantidade" style="width:32px;height:32px;display:grid;place-items:center;border:0;background:transparent;border-radius:9999px;cursor:pointer;color:#1E1730" style-hover="background:#F3EFFB"><i class="{{ l.decIcon }}"></i></button>
+              <span style="min-width:24px;text-align:center;font-size:14px;line-height:20px;font-weight:600">{{ l.qty }}</span>
+              <button onClick="{{ l.inc }}" aria-label="Aumentar quantidade" style="width:32px;height:32px;display:grid;place-items:center;border:0;background:transparent;border-radius:9999px;cursor:pointer;color:#1E1730" style-hover="background:#F3EFFB"><i class="ph-bold ph-plus"></i></button>
+            </div>
+            <strong style="font-size:14px;line-height:20px;font-weight:600">{{ l.totalTxt }}</strong>
+          </div>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+  <sc-if value="{{ cartFull }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:16px 24px 24px;border-top:1px solid #EEEAF4;display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;justify-content:space-between;font-size:14px;line-height:20px;color:#5E5873"><span>Subtotal</span><span>{{ subtotalTxt }}</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:14px;line-height:20px;font-weight:600;color:#6834CC">Total no Pix (10% off)</span><strong style="font-size:20px;line-height:28px;font-weight:700">{{ pixTotalTxt }}</strong></div>
+      <span style="font-size:12px;line-height:16px;color:#5E5873">ou 3x de {{ parcelaTotalTxt }} sem juros no cartão</span>
+      <a href="PetCharm%20Checkout.dc.html" style="display:flex;justify-content:center;align-items:center;gap:8px;padding:12px 24px;border-radius:9999px;background:#6834CC;color:#FFFFFF;font-size:16px;line-height:24px;font-weight:600;text-decoration:none" style-hover="background:#4B21A0;color:#FFFFFF" style-active="transform:scale(0.98)" style-focus="outline:3px solid #6699FF;outline-offset:2px">Finalizar compra<i class="ph-bold ph-lock-key" style="font-size:16px"></i></a>
+    </div>
+  </sc-if>
+</aside>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { slide: 0, heroPaused: false, m: null, cart: [], drawer: false, filtro: 'Todos', faq: 0, freq: '30 dias', email: '', emailErr: '', newsOk: false, added: null };
+  tagRef = React.createRef();
+  componentDidMount() {
+    import((window.__resources && window.__resources.catalogo) || new URL('./catalogo.js', document.baseURI).href).then(m => {
+      this.setState({ m, cart: m.getCart() }, () => setTimeout(() => this.setupReveal(), 60));
+    });
+    this.onCart = () => this.state.m && this.setState({ cart: this.state.m.getCart() });
+    this.onKey = e => { if (e.key === 'Escape') this.setState({ drawer: false }); };
+    window.addEventListener('pc_cart', this.onCart);
+    window.addEventListener('keydown', this.onKey);
+    setTimeout(() => this.setupWords(), 120);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('pc_cart', this.onCart);
+    window.removeEventListener('keydown', this.onKey);
+    this.io && this.io.disconnect(); this.io2 && this.io2.disconnect();
+  }
+  setupWords() {
+    const root = this.tagRef.current; if (!root) return;
+    const words = [...root.querySelectorAll('[data-w]')];
+    this.io = new IntersectionObserver(entries => {
+      let n = 0;
+      entries.sort((a, b) => words.indexOf(a.target) - words.indexOf(b.target)).forEach(e => {
+        const on = e.isIntersecting || e.boundingClientRect.top < 0;
+        const el = e.target;
+        el.style.transitionDelay = on ? (n++ * 70) + 'ms' : '0ms';
+        el.style.color = on ? '#FFFFFF' : 'rgba(255,255,255,.28)';
+      });
+    }, { rootMargin: '0px 0px -40% 0px', threshold: 0 });
+    words.forEach(w => this.io.observe(w));
+  }
+  setupReveal() {
+    const els = [...document.querySelectorAll('[data-reveal]')].filter(el => el.getBoundingClientRect().top > window.innerHeight);
+    const ease = 'cubic-bezier(0.32,0.72,0,1)';
+    els.forEach(el => { el.style.transition = `opacity 900ms ${ease}, transform 900ms ${ease}, filter 900ms ${ease}`; el.style.opacity = '0'; el.style.transform = 'translateY(64px)'; el.style.filter = 'blur(12px)'; });
+    this.io2 = new IntersectionObserver(entries => entries.forEach(e => {
+      if (e.isIntersecting) { const el = e.target; el.style.opacity = '1'; el.style.transform = 'none'; el.style.filter = 'none'; this.io2.unobserve(el); }
+    }), { rootMargin: '0px 0px -10% 0px' });
+    els.forEach(el => this.io2.observe(el));
+  }
+  heroGo(i) { const n = 4; this.setState({ slide: (i + n) % n }); }
+  add(id) {
+    const m = this.state.m; if (!m) return;
+    m.addToCart(id);
+    this.setState({ added: id, drawer: true });
+    clearTimeout(this.t); this.t = setTimeout(() => this.setState({ added: null }), 1800);
+  }
+  setQty(id, d) {
+    const m = this.state.m; const c = m.getCart(); const f = c.find(i => i.id === id); if (!f) return;
+    f.qty += d; m.setCart(c.filter(i => i.qty > 0));
+  }
+  renderVals() {
+    const { m, cart, drawer, filtro, faq, freq, email, emailErr, newsOk, added } = this.state;
+    const brl = v => 'R$ ' + v.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    const icons = { 'tapete-higienico': 'ph-squares-four', 'areia-e-sanitarios': 'ph-cat', petiscos: 'ph-bone', brinquedos: 'ph-tennis-ball', moveis: 'ph-armchair', higiene: 'ph-drop', acessorios: 'ph-bowl-food' };
+    const tints = { 'tapete-higienico': '#EFE9FB', 'areia-e-sanitarios': '#FFF8C7', petiscos: '#E6EEFF', brinquedos: '#EFE9FB', moveis: '#FFF8C7', higiene: '#E6EEFF', acessorios: '#EFE9FB' };
+    const categorias = (m ? m.categorias : []).map(c => ({ ...c, href: m.U.cat(c.slug), itensTxt: c.itens + ' produtos' }));
+    const all = m ? m.produtos : [];
+    const produtos = all.filter(p => filtro === 'Todos' || p.pet === filtro).slice(0, 8).map(p => ({
+      ...p, href: m.U.prod(p.id), icon: icons[p.cat], tint: tints[p.cat],
+      selo: p.selo || '', recebaHoje: !!p.recebaHoje,
+      offTxt: p.de ? '-' + Math.round((1 - p.preco / p.de) * 100) + '%' : '',
+      notaTxt: p.nota.toFixed(1).replace('.', ','), avalTxt: p.aval.toLocaleString('pt-BR'),
+      precoTxt: brl(p.preco), deTxt: p.de ? brl(p.de) : '', pixTxt: brl(p.pix), parcelaTxt: brl(p.parcela),
+      btnTxt: added === p.id ? 'Adicionado' : 'Adicionar', btnIcon: added === p.id ? 'ph-bold ph-check' : 'ph-bold ph-shopping-bag',
+      btnBg: added === p.id ? '#2F5FD0' : '#6834CC', add: () => this.add(p.id)
+    }));
+    const filtros = ['Todos', 'Cão', 'Gato'].map(n => ({ nome: n === 'Cão' ? 'Cachorro' : n, ativo: filtro === n, bg: filtro === n ? '#FFFFFF' : 'transparent', fg: filtro === n ? '#1E1730' : '#5E5873', sh: filtro === n ? '0 2px 8px rgba(30,23,48,.10)' : 'none', set: () => this.setState({ filtro: n }) }));
+    const kits = (m ? m.kits : []).map(k => ({ ...k, precoTxt: brl(k.preco), deTxt: brl(k.de), pixTxt: brl(m.pix(k.preco)), economiaTxt: 'Economize ' + brl(k.de - k.preco), add: () => this.add(k.id) }));
+    const cores = ['#FFD43B', '#C9DAFF', '#E3D9F8'];
+    const depoimentos = (m ? m.depoimentos : []).map((d, i) => ({ ...d, ini: d.nome.split(' ').map(s => s[0]).slice(0, 2).join(''), cor: cores[i % 3], stars: [1, 2, 3, 4, 5].map(n => n <= d.nota ? 'ph-fill ph-star' : 'ph ph-star') }));
+    const aIcons = ['ph-squares-four', 'ph-cat', 'ph-dog'], aTints = ['#EFE9FB', '#FFF8C7', '#E6EEFF'];
+    const artigos = (m ? m.artigos : []).map((a, i) => ({ ...a, href: m.U.artigo(a.slug), icon: aIcons[i % 3], tint: aTints[i % 3] }));
+    const faqData = [
+      ['Como funciona o Receba hoje?', 'Pedidos pagos até as 16h em dias úteis, com entrega na capital paulista, saem no mesmo dia por transportadora local. Depois desse horário, a entrega fica para o próximo dia útil.'],
+      ['Qual o valor mínimo para frete grátis?', 'Compras a partir de R$ 149,00 com entrega no estado de São Paulo têm frete grátis. Para outras regiões, o valor aparece no carrinho assim que você informa o CEP.'],
+      ['Como ganho os 10% de desconto no Pix?', 'Escolha Pix no checkout e o desconto é aplicado automaticamente no total, inclusive sobre produtos em promoção. O código vale por 30 minutos.'],
+      ['Posso parcelar?', 'Sim. Parcelamos em até 3x sem juros em Visa, Mastercard, Elo e American Express.'],
+      ['Como funciona a assinatura?', 'Você escolhe produtos e frequência de 15, 30 ou 45 dias e ganha 7% de desconto extra em cada entrega. Pode pular, trocar a data ou cancelar pela sua conta, sem multa.'],
+      ['E se meu pet não se adaptar ao produto?', 'Você tem 7 dias após o recebimento para solicitar troca ou devolução. A primeira troca é por nossa conta.'],
+      ['Vocês também vendem na Shopee?', 'Sim. No site oficial você tem 10% off no Pix, entrega no mesmo dia em SP e acesso aos kits e à assinatura, que não existem nos marketplaces.']
+    ];
+    const faqItems = faqData.map(([p, r], i) => ({ p, r, open: faq === i, rot: faq === i ? 'rotate(45deg)' : 'none', toggle: () => this.setState({ faq: faq === i ? -1 : i }) }));
+    const freqs = ['15 dias', '30 dias', '45 dias'].map(n => ({ nome: n, ativo: freq === n, bd: freq === n ? '#6834CC' : '#E7E3EF', bg: freq === n ? '#EFE9FB' : '#FFFFFF', set: () => this.setState({ freq: n }) }));
+    const pool = m ? [...m.produtos, ...m.kits] : [];
+    const lines = cart.map(l => { const p = pool.find(x => x.id === l.id); if (!p) return null; return { ...l, nome: p.nome, img: p.img, icon: p.cat ? icons[p.cat] : 'ph-package', totalTxt: brl(p.preco * l.qty), total: p.preco * l.qty, decIcon: l.qty > 1 ? 'ph-bold ph-minus' : 'ph-bold ph-trash', inc: () => this.setQty(l.id, 1), dec: () => this.setQty(l.id, -1) }; }).filter(Boolean);
+    const subtotal = lines.reduce((s, l) => s + l.total, 0);
+    const count = lines.reduce((s, l) => s + l.qty, 0);
+    const falta = Math.max(0, 149 - subtotal);
+    const tagWords = 'Metade cachorro, metade gato, 100% carinho. Tudo o que a rotina do seu pet pede, em um só carrinho.'.split(' ');
+    const emailInvalid = !!emailErr;
+    const SL = [
+      ['tapete-30', 'Mais vendido da loja', 'Tapete PetCharm com 30 unidades', 'Cinco camadas com gel que não vaza. Peça até as 16h e receba hoje.', 69.90, 84.90, '#EFE9FB', 'ph-squares-four', true],
+      ['cama-gg', 'Oferta da semana', 'Cama GG antiderrapante', 'Espuma firme e capa lavável para cães grandes dormirem bem a noite toda.', 129.90, 149.90, '#FFF8C7', 'ph-armchair', false],
+      ['balde-areia', 'Lançamento com desconto', 'Balde de areia Premium 12 kg', 'Torrões firmes e controle de odor por até 14 dias. Rende mais que areia comum.', 79.90, 92.90, '#E6EEFF', 'ph-cat', false],
+      ['kit-brinq-5', 'Combo para gastar energia', 'Kit com 5 brinquedos', 'Para o cachorro que passa o dia sozinho. Faça rodízio e cada um vira novidade.', 42.90, 49.90, '#F3EFFB', 'ph-tennis-ball', false]
+    ];
+    const cur = this.state.slide, paused = this.state.heroPaused;
+    const brl2 = v => 'R$ ' + v.toFixed(2).replace('.', ',');
+    const slides = SL.map(([id, eyebrow, titulo, sub, preco, de, tint, icon, hoje], i) => { const on = i === cur, dir = i < cur ? -1 : 1; return {
+      label: (i + 1) + ' de ' + SL.length + ': ' + titulo, eyebrow, titulo, sub, tint, icon, hoje, img: m ? (m.findItem(id) || {}).img || '' : '', href: 'PetCharm%20Produto.dc.html?p=' + id,
+      precoTxt: brl2(preco), deTxt: brl2(de), pixTxt: brl2(Math.round(preco * 90) / 100), offTxt: '-' + Math.round((1 - preco / de) * 100) + '%',
+      op: on ? 1 : 0, tf: on ? 'none' : 'translateX(' + (dir * 32) + 'px)', vis: on ? 'visible' : 'hidden', visDelay: on ? '0ms' : '900ms', pe: on ? 'auto' : 'none', hidden: !on, tab: on ? 0 : -1,
+      imgTf: on ? 'scale(1)' : 'scale(0.92)', tagTf: on ? 'rotate(-8deg) scale(1)' : 'rotate(-24deg) scale(0.6)' }; });
+    const dots = SL.map((x, i) => { const on = i === cur; return { on, label: 'Oferta ' + (i + 1), w: on ? '48px' : '8px', go: () => this.heroGo(i),
+      bg: on ? '#6834CC' : '#E3D9F8' }; });
+    const rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches, ps = paused ? 'paused' : 'running', h = React.createElement;
+    const anim = (v) => rm ? 'none' : v;
+    const fetchFill = h('span', { key: 'f' + cur, onAnimationEnd: () => this.heroGo(cur + 1), style: { position: 'absolute', inset: 0, borderRadius: 9999, background: '#6834CC', transformOrigin: 'left center', transform: rm ? 'scaleX(1)' : undefined, animation: anim('pcFill 6s linear forwards'), animationPlayState: ps } });
+    const fetchBall = h('span', { key: 'b' + cur, style: { position: 'absolute', top: -4, left: rm ? 'calc(100% - 16px)' : 0, width: 16, height: 16, animation: anim('pcRoll 6s linear forwards'), animationPlayState: ps } },
+      h('span', { style: { display: 'block', width: 16, height: 16, transformOrigin: 'center bottom', animation: anim('pcBounce 1s infinite'), animationPlayState: ps } },
+        h('span', { style: { display: 'block', width: 16, height: 16, borderRadius: 9999, background: 'radial-gradient(circle at 35% 30%, #EEFB7A, #B9D62F 70%)', boxShadow: 'inset -2px -2px 0 rgba(0,0,0,.08), 0 1px 2px rgba(30,23,48,.25)', backgroundImage: 'radial-gradient(circle at 35% 30%, #EEFB7A, #B9D62F 70%)', border: '1.5px solid #FFFFFF', borderLeftColor: 'transparent', borderRightColor: 'transparent', animation: anim('pcSpin .8s linear infinite'), animationPlayState: ps } })));
+    const fetchTutor = h('img', { key: 't' + cur, src: (window.__resources && window.__resources.tutor) || 'assets/tutor-arremesso.png', alt: '', style: { display: 'block', width: 50, height: 64, objectFit: 'contain', transformOrigin: '40% 100%', animation: anim('pcThrow 700ms cubic-bezier(0.32,0.72,0,1) both'), animationPlayState: ps } });
+    const fetchDog = h('img', { src: (window.__resources && window.__resources.dog) || 'assets/cachorro-correndo.gif', alt: '', style: { display: 'block', width: 84, height: 'auto', marginTop: -15, mixBlendMode: 'multiply' } });
+    return {
+      slides, dots, fetchFill, fetchBall, fetchTutor, fetchDog,
+      heroPrev: () => this.heroGo(cur - 1), heroNext: () => this.heroGo(cur + 1),
+      heroPause: () => this.setState({ heroPaused: true }), heroPlay: () => this.setState({ heroPaused: false }),
+      heroKey: e => { if (e.key === 'ArrowRight') this.heroGo(cur + 1); if (e.key === 'ArrowLeft') this.heroGo(cur - 1); },
+      heroTouchStart: e => { this.tx = e.touches[0].clientX; },
+      heroTouchEnd: e => { const dx = e.changedTouches[0].clientX - (this.tx || 0); if (Math.abs(dx) > 40) this.heroGo(cur + (dx < 0 ? 1 : -1)); },
+      categorias, produtos, filtros, kits, depoimentos, artigos, faq: faqItems, freqs, freqAtual: freq, tagWords, tagRef: this.tagRef,
+      loading: !m, skeletons: [1, 2, 3, 4, 5, 6, 7, 8],
+      cartCount: count, lines, cartEmpty: lines.length === 0, cartFull: lines.length > 0,
+      subtotalTxt: brl(subtotal), pixTotalTxt: brl(subtotal * 0.9), parcelaTotalTxt: brl(subtotal / 3),
+      freteMsg: falta > 0 ? `Faltam ${brl(falta)} para o frete grátis em SP` : 'Você ganhou frete grátis em SP',
+      fretePct: Math.min(100, subtotal / 149 * 100).toFixed(1) + '%',
+      drawerX: drawer ? 'translateX(0)' : 'translateX(calc(100% + 96px))', drawerVis: drawer ? 'visible' : 'hidden', drawerVisDelay: drawer ? '0ms' : '700ms', drawerHidden: !drawer, ovOpacity: drawer ? 1 : 0, ovPe: drawer ? 'auto' : 'none',
+      openCart: () => this.setState({ drawer: true }), closeCart: () => this.setState({ drawer: false }), addTapete: () => this.add('tapete-30'),
+      onSearch: e => { e.preventDefault(); const q = (e.target.querySelector('input').value || '').trim(); if (q) location.href = 'PetCharm%20Categoria.dc.html?q=' + encodeURIComponent(q); },
+      email, emailErr, emailInvalid, emailBd: emailInvalid ? '#B42318' : '#E7E3EF', newsOk, newsForm: !newsOk,
+      onEmail: e => this.setState({ email: e.target.value, emailErr: '' }),
+      onNews: e => {
+        e.preventDefault();
+        const v = email.trim();
+        if (!v) return this.setState({ emailErr: 'Informe seu email para receber as ofertas.' });
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) return this.setState({ emailErr: 'Este email parece incompleto. Confira se tem @ e domínio, como voce@email.com.br.' });
+        this.setState({ newsOk: true });
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

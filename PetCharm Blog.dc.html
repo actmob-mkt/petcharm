@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Blog PetCharm | Dicas de comportamento, higiene e cuidado</title>
+<meta name="description" content="Guias práticos sobre tapete higiênico, areia para gatos, filhotes e bem estar, escritos por veterinários e adestradores.">
+<link rel="icon" href="assets/simbolo-petcharm.png">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+<style>
+body{margin:0;font-family:Poppins,system-ui,sans-serif;color:#1E1730;background:#FFFFFF;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:#6834CC}
+a:hover{color:#4B21A0}
+button,input{font-family:inherit}
+nav::-webkit-scrollbar{display:none}
+</style>
+</helmet>
+<dc-import name="PC Header" ativo="blog" hint-size="100%,170px"></dc-import>
+<main id="conteudo" style="max-width:1280px;margin:0 auto;padding:48px 24px 96px">
+  <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:32px">
+    <h1 style="margin:0;max-width:680px;font-size:48px;line-height:1;font-weight:700;letter-spacing:-0.02em;background:linear-gradient(90deg,#000000,#666666);-webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:4px;text-wrap:balance">Dicas para a rotina<br>do seu pet</h1>
+    <p style="margin:0;max-width:680px;font-size:18px;line-height:28px;color:#5E5873;text-wrap:pretty">Guias curtos e práticos, revisados por veterinários e adestradores parceiros da PetCharm.</p>
+  </div>
+  <div role="tablist" aria-label="Filtrar por tema" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px">
+    <sc-for list="{{ temas }}" as="t" hint-placeholder-count="5"><button role="tab" aria-selected="{{ t.on }}" onClick="{{ t.set }}" style="padding:8px 16px;border-radius:9999px;border:1px solid {{ t.bd }};background:{{ t.bg }};color:{{ t.fg }};font-size:14px;line-height:20px;font-weight:500;cursor:pointer;transition:all 400ms cubic-bezier(0.32,0.72,0,1)" style-focus="outline:3px solid #6699FF;outline-offset:2px">{{ t.nome }}</button></sc-for>
+  </div>
+  <sc-if value="{{ temDestaque }}" hint-placeholder-val="{{ true }}">
+    <a href="{{ d.href }}" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:32px;align-items:center;padding:8px;border-radius:32px;background:#F8F6FC;color:#1E1730;text-decoration:none;margin-bottom:48px;transition:transform 600ms cubic-bezier(0.32,0.72,0,1)" style-hover="transform:translateY(-4px);color:#1E1730" style-focus="outline:3px solid #6699FF;outline-offset:2px">
+      <div style="position:relative;aspect-ratio:16/10;overflow:hidden;border-radius:24px;background:{{ d.tint }}"><sc-if value="{{ d.img }}" hint-placeholder-val="{{ false }}"><img src="{{ d.img }}" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block"></sc-if></div>
+      <div style="display:flex;flex-direction:column;gap:12px;padding:24px">
+        <span style="align-self:flex-start;padding:4px 12px;border-radius:9999px;background:#FFD43B;font-size:12px;line-height:16px;font-weight:600">Em destaque · {{ d.cat }}</span>
+        <h2 style="margin:0;font-size:30px;line-height:36px;font-weight:600;letter-spacing:-0.01em;text-wrap:balance">{{ d.titulo }}</h2>
+        <p style="margin:0;font-size:16px;line-height:24px;color:#3D3550;text-wrap:pretty">{{ d.resumo }}</p>
+        <span style="font-size:14px;line-height:20px;color:#5E5873">{{ d.autor }} · {{ d.data }} · {{ d.leitura }}</span>
+      </div>
+    </a>
+  </sc-if>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:16px">
+    <sc-for list="{{ lista }}" as="a" hint-placeholder-count="5">
+      <a href="{{ a.href }}" style="display:flex;flex-direction:column;gap:16px;padding:8px 8px 24px;border:1px solid #EEEAF4;border-radius:24px;color:#1E1730;text-decoration:none;transition:transform 600ms cubic-bezier(0.32,0.72,0,1)" style-hover="transform:translateY(-4px);color:#1E1730" style-focus="outline:3px solid #6699FF;outline-offset:2px">
+        <div style="position:relative;aspect-ratio:16/10;overflow:hidden;border-radius:16px;background:{{ a.tint }}"><sc-if value="{{ a.img }}" hint-placeholder-val="{{ false }}"><img src="{{ a.img }}" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block"></sc-if></div>
+        <div style="display:flex;flex-direction:column;gap:8px;padding:0 16px">
+          <span style="font-size:12px;line-height:16px;font-weight:600;color:#2F5FD0">{{ a.cat }} · {{ a.leitura }} de leitura</span>
+          <h3 style="margin:0;font-size:18px;line-height:28px;font-weight:600;text-wrap:balance">{{ a.titulo }}</h3>
+          <p style="margin:0;font-size:14px;line-height:20px;color:#5E5873;text-wrap:pretty">{{ a.resumo }}</p>
+          <span style="font-size:12px;line-height:16px;color:#5E5873">{{ a.data }}</span>
+        </div>
+      </a>
+    </sc-for>
+  </div>
+  <sc-if value="{{ vazio }}" hint-placeholder-val="{{ false }}">
+    <p style="margin:0;padding:48px;border-radius:24px;background:#F8F6FC;text-align:center;font-size:16px;line-height:24px;color:#5E5873">Ainda não publicamos artigos neste tema. <button onClick="{{ todos }}" style="border:0;background:transparent;color:#6834CC;font-size:16px;line-height:24px;font-weight:600;cursor:pointer;padding:0">Ver todos os artigos</button></p>
+  </sc-if>
+</main>
+<dc-import name="PC Footer" hint-size="100%,420px"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { m: null, tema: 'Todos' };
+  componentDidMount() { import((window.__resources && window.__resources.catalogo) || new URL('./catalogo.js', document.baseURI).href).then(m => this.setState({ m })); }
+  renderVals() {
+    const { m, tema } = this.state;
+    if (!m) return { temas: [], lista: [], d: {}, temDestaque: false, vazio: false };
+    const icons = { Comportamento: 'ph-dog', Gatos: 'ph-cat', Filhotes: 'ph-baby', 'Bem estar': 'ph-armchair' };
+    const tints = { Comportamento: '#EFE9FB', Gatos: '#FFF8C7', Filhotes: '#E6EEFF', 'Bem estar': '#EFE9FB' };
+    const all = m.artigos.map(a => ({ ...a, href: m.U.artigo(a.slug), icon: icons[a.cat] || 'ph-paw-print', tint: tints[a.cat] || '#EFE9FB' }));
+    const f = tema === 'Todos' ? all : all.filter(a => a.cat === tema);
+    const temas = ['Todos', ...new Set(all.map(a => a.cat))].map(n => { const on = n === tema; return { nome: n, on, bd: on ? '#1E1730' : '#E7E3EF', bg: on ? '#1E1730' : '#FFFFFF', fg: on ? '#FFFFFF' : '#1E1730', set: () => this.setState({ tema: n }) }; });
+    return { temas, d: f[0] || {}, temDestaque: f.length > 0, lista: f.slice(1), vazio: f.length === 0, todos: () => this.setState({ tema: 'Todos' }) };
+  }
+}
+</script>
+</body>
+</html>

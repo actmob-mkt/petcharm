@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Produto | PetCharm</title>
+<meta name="description" content="Receba hoje em SP para pedidos até 16h, 10% off no Pix e 3x sem juros.">
+<link rel="icon" href="assets/simbolo-petcharm.png">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+<style>
+body{margin:0;font-family:Poppins,system-ui,sans-serif;color:#1E1730;background:#FFFFFF;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:#6834CC}
+a:hover{color:#4B21A0}
+button,input{font-family:inherit}
+nav::-webkit-scrollbar{display:none}
+</style>
+</helmet>
+<dc-import name="PC Header" ativo="{{ ativo }}" hint-size="100%,170px"></dc-import>
+<main id="conteudo" style="max-width:1280px;margin:0 auto;padding:24px 24px 96px">
+  <nav aria-label="Você está em" style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:14px;line-height:20px;color:#5E5873;margin-bottom:24px">
+    <a href="PetCharm%20Home.dc.html" style="color:#5E5873;text-decoration:none" style-hover="color:#6834CC">Início</a>
+    <i class="ph ph-caret-right" style="font-size:12px"></i>
+    <a href="{{ catHref }}" style="color:#5E5873;text-decoration:none" style-hover="color:#6834CC">{{ catNome }}</a>
+    <i class="ph ph-caret-right" style="font-size:12px"></i>
+    <span aria-current="page" style="color:#1E1730;font-weight:500">{{ p.nome }}</span>
+  </nav>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:48px;align-items:start">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div style="position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;border-radius:24px;background:{{ p.tint }}">
+        <sc-if value="{{ fotoImg }}" hint-placeholder-val="{{ false }}"><img src="{{ fotoImg }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block"></sc-if>
+        <span style="position:absolute;left:16px;top:16px;display:flex;gap:8px">
+          <sc-if value="{{ p.selo }}" hint-placeholder-val="{{ false }}"><span style="padding:4px 12px;border-radius:8px;background:#FFD43B;color:#1E1730;font-size:12px;line-height:16px;font-weight:600">{{ p.selo }}</span></sc-if>
+          <sc-if value="{{ offTxt }}" hint-placeholder-val="{{ false }}"><span style="padding:4px 12px;border-radius:8px;background:#1E1730;color:#FFFFFF;font-size:12px;line-height:16px;font-weight:600">{{ offTxt }}</span></sc-if>
+        </span>
+      </div>
+      <div role="tablist" aria-label="Fotos do produto" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+        <sc-for list="{{ thumbs }}" as="t" hint-placeholder-count="4">
+          <button role="tab" aria-selected="{{ t.on }}" aria-label="{{ t.label }}" onClick="{{ t.set }}" style="position:relative;aspect-ratio:1/1;border-radius:16px;border:2px solid {{ t.bd }};background:{{ t.bg }};overflow:hidden;padding:0;cursor:pointer;transition:border-color 400ms cubic-bezier(0.32,0.72,0,1)" style-focus="outline:3px solid #6699FF;outline-offset:2px"><sc-if value="{{ t.img }}" hint-placeholder-val="{{ false }}"><img src="{{ t.img }}" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block"></sc-if></button>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:24px">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <sc-if value="{{ p.propria }}" hint-placeholder-val="{{ false }}"><span style="align-self:flex-start;display:flex;align-items:center;gap:8px;padding:4px 12px;border-radius:9999px;background:#EFE9FB;color:#4B21A0;font-size:12px;line-height:16px;font-weight:600"><i class="ph-fill ph-seal-check" style="font-size:16px"></i>Marca própria PetCharm</span></sc-if>
+        <h1 style="margin:0;font-size:30px;line-height:36px;font-weight:600;letter-spacing:-0.01em;text-wrap:balance">{{ p.nome }}</h1>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;font-size:14px;line-height:20px;color:#5E5873">
+          <a href="#avaliacoes" onClick="{{ verAval }}" style="display:flex;align-items:center;gap:4px;color:#1E1730;text-decoration:none"><span style="display:flex;gap:2px;color:#F2B705"><sc-for list="{{ stars }}" as="s" hint-placeholder-count="5"><i class="{{ s }}"></i></sc-for></span><strong style="font-weight:600">{{ notaTxt }}</strong><span style="color:#5E5873;text-decoration:underline">{{ avalTxt }} avaliações</span></a>
+          <span>Código {{ p.sku }}</span>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:4px;padding:24px;border-radius:24px;background:#F8F6FC">
+        <sc-if value="{{ deTxt }}" hint-placeholder-val="{{ false }}"><span style="font-size:14px;line-height:20px;color:#5E5873;text-decoration:line-through">{{ deTxt }}</span></sc-if>
+        <span style="font-size:36px;line-height:40px;font-weight:700">{{ precoTxt }}</span>
+        <span style="display:flex;align-items:center;gap:8px;font-size:18px;line-height:28px;font-weight:600;color:#6834CC"><i class="ph-fill ph-qr-code"></i>{{ pixTxt }} no Pix, 10% off</span>
+        <span style="font-size:14px;line-height:20px;color:#5E5873">ou 3x de {{ parcelaTxt }} sem juros no cartão</span>
+      </div>
+
+      <sc-if value="{{ temVariantes }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font-size:14px;line-height:20px;font-weight:600">Quantidade no pacote</span>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <sc-for list="{{ variantes }}" as="v" hint-placeholder-count="3"><a href="{{ v.href }}" aria-current="{{ v.cur }}" style="display:flex;flex-direction:column;padding:8px 16px;border-radius:12px;border:2px solid {{ v.bd }};background:{{ v.bg }};color:#1E1730;text-decoration:none;transition:border-color 400ms cubic-bezier(0.32,0.72,0,1)" style-hover="border-color:#6834CC;color:#1E1730"><strong style="font-size:14px;line-height:20px;font-weight:600">{{ v.nome }}</strong><span style="font-size:12px;line-height:16px;color:#5E5873">{{ v.unit }}</span></a></sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <div role="radiogroup" aria-label="Como comprar" style="display:flex;flex-direction:column;gap:8px">
+        <sc-for list="{{ modos }}" as="o" hint-placeholder-count="2">
+          <div role="radio" tabindex="0" aria-checked="{{ o.on }}" onClick="{{ o.set }}" style="display:flex;flex-direction:column;gap:12px;padding:16px;border-radius:16px;border:2px solid {{ o.bd }};background:{{ o.bg }};cursor:pointer;transition:all 400ms cubic-bezier(0.32,0.72,0,1)" style-focus="outline:3px solid #6699FF;outline-offset:2px">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+              <span style="display:flex;align-items:center;gap:12px">
+                <span style="width:20px;height:20px;flex-shrink:0;border-radius:9999px;border:2px solid {{ o.dot }};display:grid;place-items:center"><span style="width:10px;height:10px;border-radius:9999px;background:{{ o.fill }}"></span></span>
+                <span style="display:flex;flex-direction:column"><strong style="font-size:16px;line-height:24px;font-weight:600">{{ o.nome }}</strong><span style="font-size:12px;line-height:16px;color:#5E5873">{{ o.sub }}</span></span>
+              </span>
+              <strong style="font-size:16px;line-height:24px;font-weight:600">{{ o.preco }}</strong>
+            </div>
+            <sc-if value="{{ o.showFreq }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-wrap:wrap;gap:8px;padding-left:32px">
+                <sc-for list="{{ freqs }}" as="f" hint-placeholder-count="3"><button onClick="{{ f.set }}" aria-pressed="{{ f.on }}" style="padding:4px 12px;border-radius:9999px;border:1px solid {{ f.bd }};background:{{ f.bg }};color:{{ f.fg }};font-size:14px;line-height:20px;font-weight:500;cursor:pointer" style-focus="outline:3px solid #6699FF;outline-offset:2px">A cada {{ f.nome }}</button></sc-for>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:12px">
+        <div style="display:flex;align-items:center;height:48px;border:1px solid #E7E3EF;border-radius:9999px">
+          <button onClick="{{ menos }}" aria-label="Diminuir quantidade" style="width:48px;height:48px;display:grid;place-items:center;border:0;background:transparent;border-radius:9999px;cursor:pointer;color:#1E1730" style-hover="background:#F3EFFB" style-focus="outline:3px solid #6699FF"><i class="ph-bold ph-minus"></i></button>
+          <span aria-live="polite" style="min-width:32px;text-align:center;font-size:16px;line-height:24px;font-weight:600">{{ qty }}</span>
+          <button onClick="{{ mais }}" aria-label="Aumentar quantidade" style="width:48px;height:48px;display:grid;place-items:center;border:0;background:transparent;border-radius:9999px;cursor:pointer;color:#1E1730" style-hover="background:#F3EFFB" style-focus="outline:3px solid #6699FF"><i class="ph-bold ph-plus"></i></button>
+        </div>
+        <button onClick="{{ comprar }}" style="flex:1 1 240px;height:48px;display:flex;justify-content:center;align-items:center;gap:8px;padding:8px 24px;border:0;border-radius:9999px;background:#6834CC;color:#FFFFFF;font-size:16px;line-height:24px;font-weight:600;cursor:pointer;box-shadow:0 8px 24px rgba(104,52,204,.28);transition:transform 500ms cubic-bezier(0.32,0.72,0,1),background 500ms cubic-bezier(0.32,0.72,0,1)" style-hover="background:#4B21A0;transform:translateY(-2px)" style-active="transform:scale(0.98)" style-focus="outline:3px solid #6699FF;outline-offset:2px"><i class="ph-bold ph-shopping-bag"></i>{{ ctaTxt }}</button>
+      </div>
+      <sc-if value="{{ adicionado }}" hint-placeholder-val="{{ false }}">
+        <div role="status" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px;border-radius:16px;background:#E6EEFF">
+          <span style="display:flex;align-items:center;gap:8px;font-size:14px;line-height:20px;font-weight:500;color:#1E1730"><i class="ph-fill ph-check-circle" style="font-size:20px;color:#2F5FD0"></i>{{ adicionadoTxt }}</span>
+          <a href="PetCharm%20Carrinho.dc.html" style="display:flex;align-items:center;gap:4px;font-size:14px;line-height:20px;font-weight:600;color:#2F5FD0;text-decoration:none">Ver carrinho<i class="ph-bold ph-arrow-right"></i></a>
+        </div>
+      </sc-if>
+
+      <form onSubmit="{{ calcCep }}" novalidate="" style="display:flex;flex-direction:column;gap:8px;padding:16px;border-radius:16px;border:1px solid #EEEAF4">
+        <label for="cep" style="display:flex;align-items:center;gap:8px;font-size:14px;line-height:20px;font-weight:600"><i class="ph ph-truck" style="font-size:20px;color:#6834CC"></i>Calcule o prazo e o frete</label>
+        <div style="display:flex;gap:8px">
+          <input id="cep" inputmode="numeric" autocomplete="postal-code" value="{{ cep }}" onChange="{{ onCep }}" placeholder="00000-000" aria-invalid="{{ cepInvalid }}" aria-describedby="cep-msg" style="flex:1;min-width:0;height:40px;padding:0 16px;border-radius:9999px;border:2px solid {{ cepBd }};font-size:14px;line-height:20px;outline:none">
+          <button type="submit" style="height:40px;padding:8px 16px;border:0;border-radius:9999px;background:#1E1730;color:#FFFFFF;font-size:14px;line-height:20px;font-weight:600;cursor:pointer" style-active="transform:scale(0.98)" style-focus="outline:3px solid #6699FF;outline-offset:2px">Calcular</button>
+        </div>
+        <span id="cep-msg" role="alert" style="font-size:14px;line-height:20px;color:#B42318">{{ cepErr }}</span>
+        <sc-if value="{{ frete }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px;border-radius:8px;background:{{ frete.bg }}">
+            <span style="display:flex;flex-direction:column"><strong style="font-size:14px;line-height:20px;font-weight:600">{{ frete.prazo }} · {{ frete.cidade }}</strong><span style="font-size:12px;line-height:16px;color:#5E5873">{{ frete.obs }}</span></span>
+            <strong style="font-size:14px;line-height:20px;font-weight:700;color:{{ frete.cor }}">{{ frete.valorTxt }}</strong>
+          </div>
+        </sc-if>
+      </form>
+
+      <ul style="margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px">
+        <li style="display:flex;align-items:center;gap:8px;font-size:14px;line-height:20px;color:#3D3550"><i class="ph-duotone ph-arrows-clockwise" style="font-size:24px;color:#6834CC"></i>Troca grátis em 7 dias</li>
+        <li style="display:flex;align-items:center;gap:8px;font-size:14px;line-height:20px;color:#3D3550"><i class="ph-duotone ph-shield-check" style="font-size:24px;color:#6834CC"></i>Compra segura</li>
+        <li style="display:flex;align-items:center;gap:8px;font-size:14px;line-height:20px;color:#3D3550"><i class="ph-duotone ph-lightning" style="font-size:24px;color:#6834CC"></i>Receba hoje em SP</li>
+      </ul>
+    </div>
+  </div>
+
+  <section id="avaliacoes" style="margin-top:80px;max-width:880px">
+    <div role="tablist" aria-label="Informações do produto" style="display:flex;gap:4px;padding:4px;border-radius:9999px;background:#F3EFFB;width:max-content;max-width:100%;overflow-x:auto">
+      <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="3"><button role="tab" aria-selected="{{ t.on }}" onClick="{{ t.set }}" style="padding:8px 16px;border:0;border-radius:9999px;background:{{ t.bg }};color:{{ t.fg }};font-size:14px;line-height:20px;font-weight:600;cursor:pointer;white-space:nowrap;box-shadow:{{ t.sh }};transition:all 500ms cubic-bezier(0.32,0.72,0,1)" style-focus="outline:3px solid #6699FF;outline-offset:2px">{{ t.nome }}</button></sc-for>
+    </div>
+    <div role="tabpanel" style="padding-top:32px">
+      <sc-if value="{{ tabDesc }}" hint-placeholder-val="{{ true }}">
+        <p style="margin:0;font-size:16px;line-height:24px;color:#3D3550;text-wrap:pretty">{{ desc }}</p>
+      </sc-if>
+      <sc-if value="{{ tabSpec }}" hint-placeholder-val="{{ false }}">
+        <dl style="margin:0;display:grid;grid-template-columns:minmax(120px,240px) 1fr;border:1px solid #EEEAF4;border-radius:16px;overflow:hidden">
+          <sc-for list="{{ specs }}" as="s" hint-placeholder-count="5">
+            <dt style="padding:12px 16px;background:#F8F6FC;font-size:14px;line-height:20px;font-weight:600;border-bottom:1px solid #EEEAF4">{{ s.k }}</dt>
+            <dd style="margin:0;padding:12px 16px;font-size:14px;line-height:20px;color:#3D3550;border-bottom:1px solid #EEEAF4">{{ s.v }}</dd>
+          </sc-for>
+        </dl>
+      </sc-if>
+      <sc-if value="{{ tabAval }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <sc-for list="{{ avals }}" as="a" hint-placeholder-count="3">
+            <article style="display:flex;gap:16px;padding:24px;border-radius:24px;background:#F8F6FC">
+              <span style="width:40px;height:40px;flex-shrink:0;display:grid;place-items:center;border-radius:9999px;background:{{ a.cor }};font-size:14px;line-height:20px;font-weight:600">{{ a.ini }}</span>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px"><strong style="font-size:14px;line-height:20px;font-weight:600">{{ a.nome }}</strong><span style="display:flex;gap:2px;color:#F2B705;font-size:14px"><sc-for list="{{ a.stars }}" as="s" hint-placeholder-count="5"><i class="{{ s }}"></i></sc-for></span><span style="font-size:12px;line-height:16px;color:#5E5873">{{ a.data }} · Compra verificada</span></div>
+                <p style="margin:0;font-size:14px;line-height:20px;color:#3D3550">{{ a.texto }}</p>
+              </div>
+            </article>
+          </sc-for>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+
+  <section aria-labelledby="rel-titulo" style="margin-top:80px">
+    <h2 id="rel-titulo" style="margin:0 0 24px;font-size:30px;line-height:36px;font-weight:600;letter-spacing:-0.01em">Quem comprou também levou</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,220px),1fr));gap:16px">
+      <sc-for list="{{ relacionados }}" as="r" hint-placeholder-count="4"><dc-import name="PC Produto Card" pid="{{ r.id }}" hint-size="100%,440px"></dc-import></sc-for>
+    </div>
+  </section>
+</main>
+<dc-import name="PC Footer" hint-size="100%,420px"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { m: null, foto: 0, modo: 'unica', freq: '30 dias', qty: 1, cep: '', cepErr: '', frete: null, tab: 'desc', adicionado: false };
+  componentDidMount() { import((window.__resources && window.__resources.catalogo) || new URL('./catalogo.js', document.baseURI).href).then(m => this.setState({ m }, () => { const p = this.prod(); if (p) document.title = p.nome + ' | PetCharm'; })); }
+  prod() { const m = this.state.m; if (!m) return null; const id = new URLSearchParams(location.search).get('p') || 'tapete-30'; return m.produtos.find(x => x.id === id) || m.produtos[0]; }
+  renderVals() {
+    const { m, foto, modo, freq, qty, cep, cepErr, frete, tab, adicionado } = this.state;
+    const p0 = this.prod();
+    if (!p0) return { p: {}, stars: [], thumbs: [], modos: [], freqs: [], tabs: [], specs: [], avals: [], relacionados: [], variantes: [] };
+    const brl = m.brl, ass = modo === 'assinatura';
+    const unit = ass ? p0.preco * (1 - m.ASS_OFF) : p0.preco;
+    const p = { ...p0, tint: m.TINT[p0.cat], selo: p0.selo || '' };
+    const cat = m.categorias.find(c => c.slug === p0.cat);
+    const icon = m.ICON[p0.cat];
+    const thumbIcons = [icon, 'ph-ruler', 'ph-package', 'ph-hand-heart'];
+    const variantIds = ['tapete-10', 'tapete-20', 'tapete-30'];
+    const temVariantes = variantIds.includes(p0.id);
+    const subtotal = unit * qty;
+    const chip = on => ({ bd: on ? '#6834CC' : '#E7E3EF', bg: on ? '#6834CC' : '#FFFFFF', fg: on ? '#FFFFFF' : '#1E1730' });
+    let freteV = null;
+    if (frete) { const gratis = frete.uf === 'SP' && subtotal >= m.FRETE_GRATIS; freteV = { ...frete, valorTxt: gratis ? 'Grátis' : brl(frete.valor), cor: gratis ? '#2F5FD0' : '#1E1730', bg: frete.flex ? '#FFF8C7' : '#F8F6FC' }; }
+    const rel = m.produtos.filter(x => x.cat === p0.cat && x.id !== p0.id);
+    const relacionados = [...rel, ...m.produtos.filter(x => x.cat !== p0.cat && x.recebaHoje)].slice(0, 4);
+    return {
+      ativo: p0.cat, p, catNome: cat ? cat.nome : '', catHref: m.U.cat(p0.cat),
+      fotoIcon: thumbIcons[foto], fotoImg: m.galeria(p0)[foto], offTxt: p0.de ? '-' + Math.round((1 - p0.preco / p0.de) * 100) + '%' : '',
+      thumbs: thumbIcons.map((ic, i) => ({ icon: ic, img: m.galeria(p0)[i], label: 'Foto ' + (i + 1), on: foto === i, bd: foto === i ? '#6834CC' : 'transparent', bg: p.tint, set: () => this.setState({ foto: i }) })),
+      stars: [1, 2, 3, 4, 5].map(n => n <= Math.round(p0.nota) ? 'ph-fill ph-star' : 'ph ph-star'),
+      notaTxt: p0.nota.toFixed(1).replace('.', ','), avalTxt: p0.aval.toLocaleString('pt-BR'),
+      deTxt: p0.de ? brl(p0.de) : '', precoTxt: brl(unit), pixTxt: brl(unit * 0.9), parcelaTxt: brl(unit / 3),
+      temVariantes, variantes: variantIds.map(id => { const v = m.produtos.find(x => x.id === id); const n = parseInt(v.nome.match(/(\d+) unidades/)[1]); const on = id === p0.id; return { nome: n + ' unidades', unit: brl(v.preco / n) + ' cada', href: m.U.prod(id), cur: on ? 'page' : undefined, bd: on ? '#6834CC' : '#E7E3EF', bg: on ? '#EFE9FB' : '#FFFFFF' }; }),
+      modos: [
+        { k: 'unica', nome: 'Compra única', sub: 'Pague uma vez', preco: brl(p0.preco) },
+        { k: 'assinatura', nome: 'Assinatura com 7% off', sub: 'Pule ou cancele quando quiser', preco: brl(p0.preco * (1 - m.ASS_OFF)) }
+      ].map(o => { const on = modo === o.k; return { ...o, on, showFreq: on && o.k === 'assinatura', bd: on ? '#6834CC' : '#E7E3EF', bg: on ? '#F8F6FC' : '#FFFFFF', dot: on ? '#6834CC' : '#C9C2D8', fill: on ? '#6834CC' : 'transparent', set: () => this.setState({ modo: o.k }) }; }),
+      freqs: ['15 dias', '30 dias', '45 dias'].map(n => ({ nome: n, on: freq === n, ...chip(freq === n), set: e => { e.stopPropagation(); this.setState({ freq: n }); } })),
+      qty, menos: () => this.setState({ qty: Math.max(1, qty - 1) }), mais: () => this.setState({ qty: qty + 1 }),
+      ctaTxt: ass ? 'Assinar a cada ' + freq : 'Adicionar ao carrinho',
+      adicionado, adicionadoTxt: ass ? `Assinatura adicionada: ${qty} un a cada ${freq}` : `${qty} ${qty > 1 ? 'unidades adicionadas' : 'unidade adicionada'} ao carrinho`,
+      comprar: () => {
+        const c = m.getCart(); const key = ass ? p0.id + '|ass' : p0.id;
+        const f = c.find(i => (i.ass ? i.id + '|ass' : i.id) === key);
+        if (f) { f.qty += qty; if (ass) f.ass = freq; } else c.push(ass ? { id: p0.id, qty, ass: freq } : { id: p0.id, qty });
+        m.setCart(c); this.setState({ adicionado: true });
+      },
+      cep, cepErr, cepInvalid: !!cepErr, cepBd: cepErr ? '#B42318' : '#E7E3EF', frete: freteV,
+      onCep: e => { const d = e.target.value.replace(/\D/g, '').slice(0, 8); this.setState({ cep: d.length > 5 ? d.slice(0, 5) + '-' + d.slice(5) : d, cepErr: '' }); },
+      calcCep: e => { e.preventDefault(); const r = m.regiaoPorCep(cep); if (!r) return this.setState({ cepErr: 'Digite os 8 números do CEP.', frete: null }); this.setState({ frete: r, cepErr: '' }); },
+      tabs: [['desc', 'Descrição'], ['spec', 'Especificações'], ['aval', 'Avaliações (' + p0.aval.toLocaleString('pt-BR') + ')']].map(([k, nome]) => { const on = tab === k; return { nome, on, bg: on ? '#FFFFFF' : 'transparent', fg: on ? '#1E1730' : '#5E5873', sh: on ? '0 2px 8px rgba(30,23,48,.10)' : 'none', set: () => this.setState({ tab: k }) }; }),
+      tabDesc: tab === 'desc', tabSpec: tab === 'spec', tabAval: tab === 'aval',
+      verAval: () => this.setState({ tab: 'aval' }),
+      desc: m.descricao[p0.cat], specs: m.specs(p0).map(([k, v]) => ({ k, v })),
+      avals: m.avaliacoes.map(a => ({ ...a, ini: a.nome.split(' ').map(s => s[0]).join('').slice(0, 2), stars: [1, 2, 3, 4, 5].map(n => n <= a.nota ? 'ph-fill ph-star' : 'ph ph-star') })),
+      relacionados
+    };
+  }
+}
+</script>
+</body>
+</html>

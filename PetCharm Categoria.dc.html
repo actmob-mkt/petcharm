@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Tapete higiênico, areia e mais | PetCharm</title>
+<meta name="description" content="Compre por categoria na PetCharm. Receba hoje em SP, frete grátis acima de R$ 149,00 e 10% off no Pix.">
+<link rel="icon" href="assets/simbolo-petcharm.png">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+<style>
+body{margin:0;font-family:Poppins,system-ui,sans-serif;color:#1E1730;background:#FFFFFF;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:#6834CC}
+a:hover{color:#4B21A0}
+button,input,select{font-family:inherit}
+nav::-webkit-scrollbar{display:none}
+</style>
+</helmet>
+<dc-import name="PC Header" ativo="{{ ativo }}" hint-size="100%,170px"></dc-import>
+<main id="conteudo" style="max-width:1280px;margin:0 auto;padding:24px 24px 96px">
+  <nav aria-label="Você está em" style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:14px;line-height:20px;color:#5E5873;margin-bottom:24px">
+    <a href="PetCharm%20Home.dc.html" style="color:#5E5873;text-decoration:none" style-hover="color:#6834CC">Início</a>
+    <i class="ph ph-caret-right" style="font-size:12px"></i>
+    <span aria-current="page" style="color:#1E1730;font-weight:500">{{ titulo }}</span>
+  </nav>
+  <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:32px">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <h1 style="margin:0;font-size:36px;line-height:40px;font-weight:600;letter-spacing:-0.01em;text-wrap:balance">{{ titulo }}</h1>
+      <p style="margin:0;font-size:16px;line-height:24px;color:#5E5873">{{ resumo }}</p>
+    </div>
+    <label style="display:flex;align-items:center;gap:8px;font-size:14px;line-height:20px;color:#5E5873">Ordenar por
+      <select value="{{ ordem }}" onChange="{{ onOrdem }}" style="height:40px;padding:0 12px;border:1px solid #E7E3EF;border-radius:9999px;background:#FFFFFF;font-size:14px;line-height:20px;color:#1E1730;font-weight:500;cursor:pointer">
+        <option value="vendidos">Mais vendidos</option>
+        <option value="menor">Menor preço</option>
+        <option value="maior">Maior preço</option>
+        <option value="nota">Melhor avaliados</option>
+      </select>
+    </label>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start">
+    <aside aria-label="Filtros" style="flex:1 1 260px;max-width:320px;display:flex;flex-direction:column;gap:24px;padding:24px;border-radius:24px;background:#F8F6FC">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <strong style="font-size:16px;line-height:24px;font-weight:600">Filtros</strong>
+        <sc-if value="{{ temFiltro }}" hint-placeholder-val="{{ false }}"><button onClick="{{ limpar }}" style="border:0;background:transparent;padding:4px 8px;border-radius:8px;color:#6834CC;font-size:14px;line-height:20px;font-weight:600;cursor:pointer" style-hover="background:#EFE9FB">Limpar</button></sc-if>
+      </div>
+      <fieldset style="margin:0;padding:0;border:0;display:flex;flex-direction:column;gap:12px">
+        <legend style="padding:0;margin-bottom:12px;font-size:14px;line-height:20px;font-weight:600">Para quem</legend>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <sc-for list="{{ pets }}" as="o" hint-placeholder-count="3"><button aria-pressed="{{ o.on }}" onClick="{{ o.set }}" style="padding:8px 12px;border-radius:9999px;border:1px solid {{ o.bd }};background:{{ o.bg }};color:{{ o.fg }};font-size:14px;line-height:20px;font-weight:500;cursor:pointer;transition:all 400ms cubic-bezier(0.32,0.72,0,1)" style-focus="outline:3px solid #6699FF;outline-offset:2px">{{ o.nome }}</button></sc-for>
+        </div>
+      </fieldset>
+      <fieldset style="margin:0;padding:0;border:0;display:flex;flex-direction:column;gap:12px">
+        <legend style="padding:0;margin-bottom:12px;font-size:14px;line-height:20px;font-weight:600">Preço</legend>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <sc-for list="{{ precos }}" as="o" hint-placeholder-count="3"><button aria-pressed="{{ o.on }}" onClick="{{ o.set }}" style="padding:8px 12px;border-radius:9999px;border:1px solid {{ o.bd }};background:{{ o.bg }};color:{{ o.fg }};font-size:14px;line-height:20px;font-weight:500;cursor:pointer;transition:all 400ms cubic-bezier(0.32,0.72,0,1)" style-focus="outline:3px solid #6699FF;outline-offset:2px">{{ o.nome }}</button></sc-for>
+        </div>
+      </fieldset>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <sc-for list="{{ toggles }}" as="t" hint-placeholder-count="2">
+          <button role="switch" aria-checked="{{ t.on }}" onClick="{{ t.set }}" style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:0;border:0;background:transparent;cursor:pointer;text-align:left;font-size:14px;line-height:20px;color:#1E1730;font-weight:500" style-focus="outline:3px solid #6699FF;outline-offset:4px;border-radius:8px">
+            <span style="display:flex;align-items:center;gap:8px"><i class="{{ t.icon }}" style="font-size:20px;color:#6834CC"></i>{{ t.nome }}</span>
+            <span style="width:40px;height:24px;flex-shrink:0;padding:2px;border-radius:9999px;background:{{ t.trk }};transition:background 400ms cubic-bezier(0.32,0.72,0,1)"><span style="display:block;width:20px;height:20px;border-radius:9999px;background:#FFFFFF;transform:{{ t.x }};transition:transform 400ms cubic-bezier(0.32,0.72,0,1);box-shadow:0 1px 4px rgba(30,23,48,.2)"></span></span>
+          </button>
+        </sc-for>
+      </div>
+    </aside>
+    <section aria-label="Produtos" style="flex:999 1 560px;min-width:0;display:flex;flex-direction:column;gap:16px">
+      <span role="status" style="font-size:14px;line-height:20px;color:#5E5873">{{ contagem }}</span>
+      <sc-if value="{{ vazio }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:16px;padding:64px 24px;border:1px solid #EEEAF4;border-radius:24px;text-align:center">
+          <span style="width:80px;height:80px;display:grid;place-items:center;border-radius:9999px;background:#EFE9FB"><i class="ph-duotone ph-magnifying-glass" style="font-size:40px;color:#6834CC"></i></span>
+          <strong style="font-size:20px;line-height:28px;font-weight:600">Nenhum produto com esses filtros</strong>
+          <p style="margin:0;max-width:400px;font-size:14px;line-height:20px;color:#5E5873">Tente tirar um filtro ou buscar por outro termo. Os mais vendidos da loja estão a um clique.</p>
+          <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px">
+            <button onClick="{{ limpar }}" style="padding:8px 16px;border:0;border-radius:9999px;background:#6834CC;color:#FFFFFF;font-size:14px;line-height:20px;font-weight:600;cursor:pointer" style-hover="background:#4B21A0" style-focus="outline:3px solid #6699FF;outline-offset:2px">Limpar filtros</button>
+            <a href="PetCharm%20Home.dc.html#mais-vendidos" style="padding:8px 16px;border-radius:9999px;background:#EFE9FB;color:#4B21A0;font-size:14px;line-height:20px;font-weight:600;text-decoration:none">Ver mais vendidos</a>
+          </div>
+        </div>
+      </sc-if>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,220px),1fr));gap:16px">
+        <sc-for list="{{ produtos }}" as="p" hint-placeholder-count="6">
+          <dc-import name="PC Produto Card" pid="{{ p.id }}" hint-size="100%,440px"></dc-import>
+        </sc-for>
+      </div>
+    </section>
+  </div>
+  <section aria-labelledby="sobre-cat" style="margin-top:80px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:32px;padding:40px;border-radius:24px;background:#F8F6FC">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <h2 id="sobre-cat" style="margin:0;font-size:24px;line-height:32px;font-weight:600">Sobre {{ tituloMin }}</h2>
+      <p style="margin:0;font-size:14px;line-height:20px;color:#3D3550;text-wrap:pretty">{{ descricao }}</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <strong style="font-size:14px;line-height:20px;font-weight:600">Outras categorias</strong>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <sc-for list="{{ outras }}" as="c" hint-placeholder-count="6"><a href="{{ c.href }}" style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:9999px;background:#FFFFFF;color:#1E1730;font-size:14px;line-height:20px;font-weight:500;text-decoration:none;border:1px solid #EEEAF4" style-hover="border-color:#6834CC;color:#1E1730"><i class="ph-duotone {{ c.icon }}" style="color:#6834CC"></i>{{ c.nome }}</a></sc-for>
+      </div>
+    </div>
+  </section>
+</main>
+<dc-import name="PC Footer" hint-size="100%,420px"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { m: null, pet: '', preco: '', hoje: false, propria: false, ordem: 'vendidos' };
+  componentDidMount() { import((window.__resources && window.__resources.catalogo) || new URL('./catalogo.js', document.baseURI).href).then(m => this.setState({ m })); }
+  renderVals() {
+    const { m, pet, preco, hoje, propria, ordem } = this.state;
+    const qs = new URLSearchParams(location.search);
+    const q = (qs.get('q') || '').trim();
+    const slug = qs.get('c') || (q ? '' : 'tapete-higienico');
+    const norm = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    const cats = m ? m.categorias : [];
+    const cat = cats.find(c => c.slug === slug);
+    let lista = m ? m.produtos.filter(p => q ? norm(p.nome).includes(norm(q)) : p.cat === slug) : [];
+    if (pet) lista = lista.filter(p => p.pet === pet);
+    if (preco === 'a') lista = lista.filter(p => p.preco <= 30);
+    if (preco === 'b') lista = lista.filter(p => p.preco > 30 && p.preco <= 80);
+    if (preco === 'c') lista = lista.filter(p => p.preco > 80);
+    if (hoje) lista = lista.filter(p => p.recebaHoje);
+    if (propria) lista = lista.filter(p => p.propria);
+    const sorters = { vendidos: (a, b) => b.aval - a.aval, menor: (a, b) => a.preco - b.preco, maior: (a, b) => b.preco - a.preco, nota: (a, b) => b.nota - a.nota };
+    lista = [...lista].sort(sorters[ordem]);
+    const chip = (on, set) => ({ on, set, bd: on ? '#6834CC' : '#E7E3EF', bg: on ? '#6834CC' : '#FFFFFF', fg: on ? '#FFFFFF' : '#1E1730' });
+    const titulo = q ? `Resultados para “${q}”` : (cat ? cat.nome : 'Categoria');
+    return {
+      ativo: q ? '' : slug, titulo, tituloMin: q ? 'a busca' : titulo.toLowerCase(), ordem,
+      resumo: q ? 'Busca em todo o catálogo PetCharm.' : 'Entrega hoje em SP para pedidos até 16h e 10% off no Pix.',
+      produtos: lista, vazio: !!m && lista.length === 0,
+      contagem: !m ? 'Carregando produtos…' : lista.length === 1 ? '1 produto' : `${lista.length} produtos`,
+      pets: [['', 'Todos'], ['Cão', 'Cachorro'], ['Gato', 'Gato']].map(([v, nome]) => ({ nome, ...chip(pet === v, () => this.setState({ pet: v })) })),
+      precos: [['a', 'Até R$ 30'], ['b', 'R$ 30 a R$ 80'], ['c', 'Acima de R$ 80']].map(([v, nome]) => ({ nome, ...chip(preco === v, () => this.setState({ preco: preco === v ? '' : v })) })),
+      toggles: [['hoje', 'Receba hoje em SP', 'ph-fill ph-lightning', hoje], ['propria', 'Marca própria PetCharm', 'ph-fill ph-seal-check', propria]].map(([k, nome, icon, on]) => ({ nome, icon, on, trk: on ? '#6834CC' : '#D9D3E6', x: on ? 'translateX(16px)' : 'none', set: () => this.setState({ [k]: !on }) })),
+      temFiltro: !!(pet || preco || hoje || propria),
+      limpar: () => this.setState({ pet: '', preco: '', hoje: false, propria: false }),
+      onOrdem: e => this.setState({ ordem: e.target.value }),
+      descricao: m ? (m.descricao[slug] || 'Produtos selecionados pela equipe PetCharm, com entrega rápida em SP e troca grátis em 7 dias.') : '',
+      outras: cats.filter(c => c.slug !== slug).map(c => ({ ...c, href: m.U.cat(c.slug), icon: m.ICON[c.slug] }))
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<a href="#conteudo" style="position:absolute;left:16px;top:-64px;z-index:100;padding:8px 12px;background:#1E1730;color:#FFFFFF;border-radius:8px;font-size:14px;line-height:20px;font-weight:600;text-decoration:none" style-focus="top:16px">Pular para o conteúdo</a>
+<div style="background:#6834CC;color:#FFFFFF">
+  <div style="max-width:1280px;margin:0 auto;padding:8px 24px;display:flex;flex-wrap:wrap;justify-content:center;gap:8px 32px;font-size:12px;line-height:16px;font-weight:500">
+    <span style="display:flex;align-items:center;gap:8px"><i class="ph-fill ph-lightning" style="color:#FFD43B;font-size:16px"></i>Receba hoje em SP para pedidos até 16h</span>
+    <span style="display:flex;align-items:center;gap:8px"><i class="ph-fill ph-truck" style="color:#FFD43B;font-size:16px"></i>Frete grátis em SP acima de R$ 149,00</span>
+    <span style="display:flex;align-items:center;gap:8px"><i class="ph-fill ph-qr-code" style="color:#FFD43B;font-size:16px"></i>10% off no Pix ou 3x sem juros</span>
+  </div>
+</div>
+<header style="position:sticky;top:0;z-index:40;background:rgba(255,255,255,.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid #EEEAF4">
+  <div style="max-width:1280px;margin:0 auto;padding:12px 24px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px">
+    <a href="PetCharm%20Home.dc.html" aria-label="PetCharm, página inicial" style="display:flex;flex-shrink:0"><img src="assets/logo-petcharm.png" alt="PetCharm" style="height:32px;width:auto;display:block"></a>
+    <form role="search" onSubmit="{{ onSearch }}" style="order:3;flex:1 1 320px;display:flex;align-items:center;gap:8px;height:48px;padding:0 8px 0 16px;border:1px solid #E7E3EF;border-radius:9999px;background:#F8F6FC">
+      <i class="ph ph-magnifying-glass" style="font-size:20px;color:#5E5873"></i>
+      <input type="search" value="{{ q }}" onChange="{{ onQ }}" aria-label="Buscar produtos" placeholder="Buscar tapete, areia, petisco..." style="flex:1;min-width:0;border:0;background:transparent;font-size:14px;line-height:20px;color:#1E1730;outline:none">
+      <button type="submit" style="padding:8px 12px;border:0;border-radius:9999px;background:#6834CC;color:#FFFFFF;font-size:14px;line-height:20px;font-weight:600;cursor:pointer;transition:background 400ms cubic-bezier(0.32,0.72,0,1)" style-hover="background:#4B21A0" style-focus="outline:3px solid #6699FF;outline-offset:2px">Buscar</button>
+    </form>
+    <div style="order:2;margin-left:auto;display:flex;align-items:center;gap:8px">
+      <a href="{{ contaHref }}" style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:9999px;color:#1E1730;text-decoration:none;font-size:14px;line-height:20px;font-weight:500" style-hover="background:#F3EFFB;color:#1E1730"><i class="ph ph-user-circle" style="font-size:24px"></i><span>{{ contaTxt }}</span></a>
+      <a href="PetCharm%20Carrinho.dc.html" aria-label="Ver carrinho" style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:9999px;background:#EFE9FB;color:#4B21A0;font-size:14px;line-height:20px;font-weight:600;text-decoration:none;transition:transform 400ms cubic-bezier(0.32,0.72,0,1)" style-hover="background:#E3D9F8;color:#4B21A0" style-active="transform:scale(0.98)" style-focus="outline:3px solid #6699FF;outline-offset:2px">
+        <i class="ph-bold ph-shopping-bag" style="font-size:20px"></i><span>Carrinho</span>
+        <span style="min-width:24px;height:24px;padding:0 8px;display:grid;place-items:center;border-radius:9999px;background:#FFD43B;color:#1E1730;font-size:12px;line-height:16px;font-weight:700">{{ count }}</span>
+      </a>
+    </div>
+  </div>
+  <nav aria-label="Principal" style="max-width:1280px;margin:0 auto;padding:0 24px 8px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none">
+    <sc-for list="{{ links }}" as="l" hint-placeholder-count="10">
+      <a href="{{ l.href }}" aria-current="{{ l.cur }}" style="flex-shrink:0;padding:8px 12px;border-radius:9999px;background:{{ l.bg }};color:{{ l.fg }};font-size:14px;line-height:20px;font-weight:{{ l.fw }};text-decoration:none;transition:background 400ms cubic-bezier(0.32,0.72,0,1)" style-hover="background:{{ l.hbg }};color:{{ l.fg }}">{{ l.nome }}</a>
+    </sc-for>
+  </nav>
+</header>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;ativo&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;home&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { count: 0, q: new URLSearchParams(location.search).get('q') || '' };
+  componentDidMount() {
+    this.upd = () => { try { this.setState({ user: JSON.parse(localStorage.getItem('pc_user') || 'null'), count: JSON.parse(localStorage.getItem('pc_cart') || '[]').reduce((s, i) => s + i.qty, 0) }); } catch (e) {} };
+    this.upd();
+    window.addEventListener('pc_cart', this.upd); window.addEventListener('storage', this.upd); window.addEventListener('pc_user', this.upd);
+  }
+  componentWillUnmount() { window.removeEventListener('pc_cart', this.upd); window.removeEventListener('storage', this.upd); }
+  renderVals() {
+    const ativo = this.props.ativo ?? 'home';
+    const base = [['home', 'Início', 'PetCharm%20Home.dc.html'], ['tapete-higienico', 'Tapete higiênico'], ['areia-e-sanitarios', 'Areia e sanitários'], ['petiscos', 'Petiscos'], ['brinquedos', 'Brinquedos'], ['moveis', 'Caminhas e arranhadores'], ['higiene', 'Higiene'], ['acessorios', 'Acessórios'], ['kits', 'Kits', 'PetCharm%20Home.dc.html#kits'], ['blog', 'Blog', 'PetCharm%20Blog.dc.html']];
+    const links = base.map(([k, nome, href]) => { const on = k === ativo; return { nome, href: href || 'PetCharm%20Categoria.dc.html?c=' + k, cur: on ? 'page' : undefined, bg: on ? '#1E1730' : 'transparent', hbg: on ? '#1E1730' : '#F3EFFB', fg: on ? '#FFFFFF' : '#3D3550', fw: on ? 600 : 500 }; });
+    return {
+      count: this.state.count, links, contaHref: this.state.user ? 'PetCharm%20Conta.dc.html' : 'PetCharm%20Login.dc.html', contaTxt: this.state.user ? 'Olá, ' + this.state.user.nome.split(' ')[0] : 'Entrar', q: this.state.q,
+      onQ: e => this.setState({ q: e.target.value }),
+      onSearch: e => { e.preventDefault(); const q = this.state.q.trim(); if (q) location.href = 'PetCharm%20Categoria.dc.html?q=' + encodeURIComponent(q); }
+    };
+  }
+}
+</script>
+</body>
+</html>

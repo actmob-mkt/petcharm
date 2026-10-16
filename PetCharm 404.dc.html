@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Página não encontrada | PetCharm</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/simbolo-petcharm.png">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+<style>
+body{margin:0;font-family:Poppins,system-ui,sans-serif;color:#1E1730;background:#FFFFFF;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:#6834CC}
+a:hover{color:#4B21A0}
+button,input{font-family:inherit}
+nav::-webkit-scrollbar{display:none}
+</style>
+</helmet>
+<dc-import name="PC Header" ativo="" hint-size="100%,170px"></dc-import>
+<main id="conteudo" style="max-width:1120px;margin:0 auto;padding:64px 24px 96px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:48px;align-items:center">
+  <div style="display:flex;flex-direction:column;gap:24px">
+    <span style="font-size:14px;line-height:20px;font-weight:600;color:#6834CC">Erro 404</span>
+    <h1 style="margin:0;max-width:680px;font-size:48px;line-height:1;font-weight:700;letter-spacing:-0.02em;background:linear-gradient(90deg,#000000,#666666);-webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:4px">O Charmozão farejou,<br>mas não achou esta página</h1>
+    <p style="margin:0;max-width:520px;font-size:18px;line-height:28px;color:#5E5873;text-wrap:pretty">O endereço pode ter mudado ou o produto saiu de linha. Volte para a loja ou vá direto aos mais vendidos.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:12px">
+      <a href="PetCharm%20Home.dc.html" style="padding:12px 24px;border-radius:9999px;background:#6834CC;color:#FFFFFF;font-size:16px;line-height:24px;font-weight:600;text-decoration:none" style-hover="background:#4B21A0;color:#FFFFFF">Voltar para a loja</a>
+      <a href="PetCharm%20Categoria.dc.html?c=tapete-higienico" style="padding:12px 24px;border-radius:9999px;background:#EFE9FB;color:#4B21A0;font-size:16px;line-height:24px;font-weight:600;text-decoration:none">Ver tapete higiênico</a>
+    </div>
+  </div>
+  <div style="border-radius:32px;overflow:hidden;border:1px solid #EEEAF4;aspect-ratio:1/1"><img src="assets/charmozao.jpg" alt="Charmozão, mascote da PetCharm" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+</main>
+<dc-import name="PC Footer" hint-size="100%,420px"></dc-import>
+</x-dc>
+</body>
+</html>
